@@ -1,16 +1,15 @@
 import React from 'react';
 
-const Filter = ({ label, options, onClick }) => {
+const Filter = ({ label, options, onChange }) => {
     return (
         <div className="filter-row">
-            <h3>{label}</h3>
-            <div className="filter-buttons">
+            {label}:
+            <select onChange={(e) => onChange(e.target.value)}>
+                <option value="">Select {label}</option>
                 {options.map(option => (
-                    <button key={option} onClick={() => onClick(option)}>
-                        {option}
-                    </button>
+                    <option key={option} value={option}>{option}</option>
                 ))}
-            </div>
+            </select>
         </div>
     );
 };
