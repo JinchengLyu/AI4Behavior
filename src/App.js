@@ -4,7 +4,6 @@ import "./App.css";
 import { DataContext } from "./DataContext";
 import Filter from "./Filter";
 import VideoDisplay from "./VideoDisplay";
-import { colors } from "@mui/material";
 
 const App = () => {
   const data = useContext(DataContext);
@@ -81,9 +80,9 @@ const App = () => {
             <p>Your filter conbination have no match, try something else.</p>
             <p>
               this page developed by JL from
-              <span style={{ color: "red" }}> 4</span>
-              <span style={{ color: "green" }}>0</span>
-              <span style={{ color: "blue" }}>4</span>
+              <span style={{ color: "#FF0000" }}> 4</span>
+              <span style={{ color: "#00FF00" }}>0</span>
+              <span style={{ color: "#0000FF" }}>4</span>
               <span>Nfound </span>
               with help of AI
             </p>
