@@ -1,0 +1,12 @@
+name: react-env-AI4Beh
+channels:
+  - defaults
+dependencies:
+  - ca-certificates=2024.9.24=hecd8cb5_0
+  - icu=73.1=hcec6c5f_0
+  - libcxx=14.0.6=h9765a3e_0
+  - libuv=1.48.0=h46256e1_0
+  - nodejs=20.17.0=h406526a_0
+  - openssl=3.0.15=h46256e1_0
+  - zlib=1.2.13=h4b97444_1
+prefix: /opt/anaconda3/envs/react-env-AI4Beh
