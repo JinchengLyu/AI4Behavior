@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Select from 'react-select'
 import './Filter.css';
 
 const Filter = ({ label, options, onChange }) => {
