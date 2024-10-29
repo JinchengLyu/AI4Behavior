@@ -79,6 +79,7 @@ const App = () => {
           label={label}
           options={cleanOptions(label)}
           onChange={handleFilterChange(i)}
+          currOption={filters[i]}
         />
       )
     );

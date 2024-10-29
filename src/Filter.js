@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import './Filter.css';
 
-const Filter = ({ label, options, onChange }) => {
-    const [currFilter,setFilter] = useState(null);
+const Filter = ({ label, options, onChange, currOption }) => {
     return (
         <div className="filter-row">
             {label}:
-            <select
-                value={currFilter}
-                onChange={(e) => {
-                    console.log(`Filter changed: ${label} = ${e.target.value}`);  // Debug print
-                    setFilter(e.target.value);
-                    onChange(e.target.value);
-                }}
-            >
-                <option value={null}>Select {label}</option>
+            <select onChange={(e) => {
+                    const value = e.target.value==""?null:e.target.value;
+                    onChange(value)
+            }} value={currOption}>
+                <option value="">Select {label}</option>
                 {options.map(option => (
                     <option key={option} value={option}>{option}</option>
                 ))}
