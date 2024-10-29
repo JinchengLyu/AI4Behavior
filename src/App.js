@@ -1,45 +1,49 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
 import "./App.css";
+import "./filter_result_table.css";
 import { DataContext } from "./DataContext";
 import Filter from "./Filter";
 import VideoDisplay from "./VideoDisplay";
 
 const App = () => {
   const data = useContext(DataContext);
-  console.log("data", data);
+  // console.debug("data", data); // Debug print
   const [videoData, setVideoData] = useState([]);
-  const [filter1, setFilter1] = useState(null);
-  const [filter2, setFilter2] = useState(null);
-  const [filter1Label, setFilter1Label] = useState("Fidelity Label");
-  const [filter2Label, setFilter2Label] = useState("Parent Strategy");
+  const [filters, setFilters] = useState([null, null]);
+  const filterLabels = ["Fidelity Label", "Parent Strategy"];
+  const filterInit = [null, null];
 
   const cleanOptions = (col) => {
     const cleaned = new Set();
     for (let i = 0; i < data.length; i++) {
       cleaned.add(data[i][col]);
     }
-    console.log("cleaned options for", col, cleaned); // Debug print
+    // console.debug("cleaned options for", col, cleaned); // Debug print
     return Array.from(cleaned);
   };
 
-  const filterData = (filter1, filter2) => {
-    console.log("Filtering data with:", filter1, filter2); // Debug print
-    if ( filter1===null && filter2===null){
+  const filterData = (filters) => {
+    console.debug("Filtering data with:", filters); // Debug print
+
+    const isFiltersInitial = filters.every(
+      (filter, index) => filter === filterInit[index]
+    );
+    if (isFiltersInitial) {
       return [null];
     }
+
     let filteredData = data;
-    if (filter1) {
-      filteredData = filteredData.filter(
-        (item) => item[filter1Label] == filter1
-      );
+    for (let i = 0; i < filters.length; i++) {
+      if (filters[i]) {
+        console.debug(`Filtering on ${filterLabels[i]} with value ${filters[i]}`); // Debug print
+        filteredData = filteredData.filter(
+          (item) => item[filterLabels[i]] == filters[i]
+        );
+        console.debug("Intermediate filtered data:", filteredData); // Debug print
+      }
     }
-    if (filter2) {
-      filteredData = filteredData.filter(
-        (item) => item[filter2Label] === filter2
-      );
-    }
-    console.log("filteredData:", filteredData); // Debug print
+    console.debug("Final filteredData:", filteredData); // Debug print
     return filteredData.map((item) => ({
       src: `./videos/${item["Video"]}`,
       description: item["Transcript"],
@@ -47,35 +51,68 @@ const App = () => {
   };
 
   useEffect(() => {
-    const updatedVideoData = filterData(filter1, filter2);
+    const updatedVideoData = filterData(filters);
     setVideoData(updatedVideoData);
-    console.log("updatedVideoData:", updatedVideoData); // Debug print
-  }, [filter1, filter2, data]);
+    // console.debug("updatedVideoData:", updatedVideoData); // Debug print
+  }, [filters, data]);
 
-  const handleFilter1Change = (option) => {
-    setFilter1(option);
+  const handleFilterChange = (filterIndex) => {
+    return (option) => {
+      setFilters((prevFilters) => {
+        const newFilters = [...prevFilters];
+        newFilters[filterIndex] = option;
+        console.debug("newFilters", newFilters); // Debug print
+        return newFilters;
+      })
+      return filters[filterIndex];
+    };
   };
 
-  const handleFilter2Change = (option) => {
-    setFilter2(option);
+  const DisplayFilters = () => {
+    return filterLabels.map(
+      (
+        label,
+        i // Assuming filterLabels is an array
+      ) => (
+        <Filter
+          key={label}
+          label={label}
+          options={cleanOptions(label)}
+          onChange={handleFilterChange(i)}
+        />
+      )
+    );
+  };
+
+  const showVideo = () => {
+    return (
+      <table className="video-table">
+        <thead>
+          <tr>
+            <th>Video</th>
+            <th>Script</th>
+          </tr>
+        </thead>
+        <tbody>
+          {videoData.map((video, index) => (
+            <VideoDisplay
+              key={index}
+              src={video.src}
+              description={video.description}
+            />
+          ))}
+        </tbody>
+      </table>
+    );
   };
 
   return (
     <div>
-      <h1 className="header">Filter Page</h1>
-      <Filter
-        label={filter1Label}
-        options={cleanOptions(filter1Label)}
-        onChange={handleFilter1Change}
-      />
-      <Filter
-        label={filter2Label}
-        options={cleanOptions(filter2Label)}
-        onChange={handleFilter2Change}
-      />
+      <h1 className="header">AI4Behavior</h1>
+      <DisplayFilters />
       <div className="results">
         <h2 className="header">Results</h2>
-        {videoData.length === 0 && (
+        {videoData.length === 0 && ( //message when dismatch
           <>
             <p>Your filter conbination have no match, try something else.</p>
             <p>
@@ -88,19 +125,15 @@ const App = () => {
             </p>
           </>
         )}
-        {videoData[0] === null && (
+        {videoData[0] === null && ( //message before any selection
           <>
-            <p>Yselect from drop down menu above to see result</p>
+            <p>Select from drop down menu above to see result</p>
           </>
         )}
-        {videoData.length > 0 && videoData[0]!=null &&
-          videoData.map((video, index) => (
-            <VideoDisplay
-              key={index}
-              src={video.src}
-              description={video.description}
-            />
-          ))}
+        {
+          /*when a valid selection made*/
+          videoData.length > 0 && videoData[0] != null && showVideo()
+        }
       </div>
     </div>
   );
