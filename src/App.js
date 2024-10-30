@@ -5,12 +5,15 @@ import "./filter_result_table.css";
 import { DataContext } from "./DataContext";
 import Filter from "./Filter";
 import VideoDisplay from "./VideoDisplay";
+import SearchBox from "./searchBox";
 
 const App = () => {
   const data = useContext(DataContext);
   // console.debug("data", data); // Debug print
   const [videoData, setVideoData] = useState([]);
   const [filters, setFilters] = useState([null, null]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchLabel = "Transcript";
   const filterLabels = ["Fidelity Label", "Parent Strategy"];
   const filterInit = [null, null];
 
@@ -23,26 +26,35 @@ const App = () => {
     return Array.from(cleaned);
   };
 
-  const filterData = (filters) => {
+  const filterData = (filters, searchQuery) => {
     console.debug("Filtering data with:", filters); // Debug print
 
     const isFiltersInitial = filters.every(
       (filter, index) => filter === filterInit[index]
     );
-    if (isFiltersInitial) {
+    if (isFiltersInitial && searchQuery === "") {
+      console.log("filtering with specal case");
       return [null];
     }
 
     let filteredData = data;
+
     for (let i = 0; i < filters.length; i++) {
       if (filters[i]) {
-        console.debug(`Filtering on ${filterLabels[i]} with value ${filters[i]}`); // Debug print
+        console.debug(
+          `Filtering on ${filterLabels[i]} with value ${filters[i]}`
+        ); // Debug print
         filteredData = filteredData.filter(
           (item) => item[filterLabels[i]] == filters[i]
         );
         console.debug("Intermediate filtered data:", filteredData); // Debug print
       }
     }
+
+    console.debug(`Filtering on ${searchLabel} with value ${searchQuery}`); // Debug print
+    filteredData = filteredData.filter((item) =>
+      item["Transcript"].toLowerCase().includes(searchQuery.toLowerCase())
+    );
     console.debug("Final filteredData:", filteredData); // Debug print
     return filteredData.map((item) => ({
       src: `./videos/${item["Video"]}`,
@@ -51,10 +63,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    const updatedVideoData = filterData(filters);
+    const updatedVideoData = filterData(filters, searchQuery);
     setVideoData(updatedVideoData);
     // console.debug("updatedVideoData:", updatedVideoData); // Debug print
-  }, [filters, data]);
+  }, [filters, searchQuery, data]);
 
   const handleFilterChange = (filterIndex) => {
     return (option) => {
@@ -63,25 +75,35 @@ const App = () => {
         newFilters[filterIndex] = option;
         console.debug("newFilters", newFilters); // Debug print
         return newFilters;
-      })
+      });
       return filters[filterIndex];
     };
   };
 
+  const handleSubmit = (query) => {
+    console.debug(`query ${query}`);
+    setSearchQuery(query);
+  };
+
   const DisplayFilters = () => {
-    return filterLabels.map(
-      (
-        label,
-        i // Assuming filterLabels is an array
-      ) => (
-        <Filter
-          key={label}
-          label={label}
-          options={cleanOptions(label)}
-          onChange={handleFilterChange(i)}
-          currOption={filters[i]}
-        />
-      )
+    return (
+      <>
+        {filterLabels.map(
+          (
+            label,
+            i // Assuming filterLabels is an array
+          ) => (
+            <Filter
+              key={label}
+              label={label}
+              options={cleanOptions(label)}
+              onChange={handleFilterChange(i)}
+              currOption={filters[i]}
+            />
+          )
+        )}
+        <SearchBox onSearch={handleSubmit} initSearchVal={searchQuery}/>
+      </>
     );
   };
 
