@@ -1,0 +1,10 @@
+Id,Parent Strategy,Transcript,Video,Fidelity Label
+HB_Baseline_1_0_45,Mand-Model,Where's the mouse?,clip_0_h_b_10_19_20_baseline_1_mov.mp4,2
+HB_Baseline_1_0_46,Mand-Model,Where's the mouse right there? Yeah.,clip_1_h_b_10_19_20_baseline_1_mov.mp4,2
+HB_Baseline_1_0_56,Time Delay,"And a quiet old lady who was whispering. Oh, shhh.",clip_2_h_b_10_19_20_baseline_1_mov.mp4,2
+HB_Baseline_1_1_44,Mand-Model,Where's the clock?,clip_3_h_b_10_19_20_baseline_1_mov.mp4,2
+HB_Baseline_1_2_07,Mand-Model,Where's the mouse?,clip_4_h_b_10_19_20_baseline_1_mov.mp4,4
+HB_Baseline_1_2_09,Mand-Model,"Yeah, what does he say?",clip_5_h_b_10_19_20_baseline_1_mov.mp4,3
+HB_Baseline_1_2_12,Mand-Model,"What does the mouse say? Can you do it? Can you go squeaks, squeaks, squeaks.",clip_6_h_b_10_19_20_baseline_1_mov.mp4,3
+HB_Baseline_2_0_37,Mand-Model,Where's the elephant?,clip_7_h_b_10_20_20_baseline_2_mov.mp4,2
+TestCase,test-case,"The sun dipped below the horizon, casting a warm orange glow across the quiet village. The streets, once bustling with activity, now lay still under the evening sky. Birds chirped their final melodies of the day as the first stars began to twinkle above. In the distance, the faint sound of waves lapping against the shore could be heard, a soothing reminder of the ocean's presence. The air was cool and carried the scent of blooming jasmine, enveloping the village in a serene ambiance that promised a peaceful night ahead.",clip_7_h_b_10_20_20_baseline_2_mov.mp4,-1
