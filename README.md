@@ -1,3 +1,15 @@
+# How to start this project
+
+Open one terminal, run:
+
+`npm start`
+
+Open another terminal then run:
+
+> cd ./backend
+
+> node server.js
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
