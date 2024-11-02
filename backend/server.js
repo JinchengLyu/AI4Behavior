@@ -26,19 +26,24 @@ app.get("/api/wholeDB", (req, res) => {
   });
 });
 
-app.post("/api/video", (req, res) => {
+//filter as provided feild:value provided
+app.post("/api/filter", (req, res) => {
   const filters = req.body;
   if (!Object.keys(filters).length) {
     return res.status(400).json({ error: "No filter provided" });
   }
 
-  const filterKeys = Object.keys(filters);
+  const filterKeys = Object.keys(filters).filter(
+    (key) =>
+      filters[key] !== null && filters[key] !== undefined && filters[key] !== ""
+  ); //ignore feilds with meaningless values
   const filterValues = filterKeys.map((key) => {
     if (key === "Transcript") {
       return `%${filters[key]}%`; // Use wildcards for partial match
     }
     return filters[key];
   });
+  console.log("filters", filterKeys, filterValues);
 
   const query = `SELECT * FROM videos WHERE ${filterKeys
     .map((key) => (key === "Transcript" ? `${key} LIKE ?` : `"${key}" = ?`))
@@ -53,6 +58,31 @@ app.post("/api/video", (req, res) => {
       return res.status(404).json({ error: "No matching videos found" });
     }
     res.json({ videos: rows });
+  });
+});
+
+// New endpoint to get distinct values for a column
+app.get("/api/distinct/:column", (req, res) => {
+  const column = req.params.column;
+  console.log(
+    `Received request to fetch distinct values for column: ${column}`
+  ); // Debug print
+  if (!column) {
+    console.error("No column specified"); // Debug print
+    return res.status(400).json({ error: "No column specified" });
+  }
+
+  const query = `SELECT DISTINCT "${column}" FROM videos`;
+  console.log(`Executing query: ${query}`); // Debug print
+
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      console.error(`Error executing query: ${err.message}`); // Debug print
+      return res.status(400).json({ error: err.message });
+    }
+    const distinctValues = rows.map((row) => row[column]);
+    console.log(`Fetched distinct values: ${distinctValues}`); // Debug print
+    res.json({ distinctValues });
   });
 });
 

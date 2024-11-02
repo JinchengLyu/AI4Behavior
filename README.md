@@ -1,14 +1,17 @@
 # How to start this project
 
-Open one terminal, run:
+## Frontend
+Open one terminal, run:`npm start`
 
-`npm start`
+then you can run frontend on http://localhost:3000
 
+## backend
 Open another terminal then run:
 
-> cd ./backend
-
+> cd ./backend\
 > node server.js
+
+then you can use endpoints indecated in `./backend/server.js` on http://locahost:4004
 
 # Getting Started with Create React App
 

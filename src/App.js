@@ -2,71 +2,82 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import "./App.css";
 import "./filter_result_table.css";
-import { DataContext } from "./DataContext";
 import Filter from "./Filter";
 import VideoDisplay from "./VideoDisplay";
 import SearchBox from "./searchBox";
+import './consts';
+import { BACKEND } from "./consts";
 
 const App = () => {
-  const data = useContext(DataContext);
   // console.debug("data", data); // Debug print
   const [videoData, setVideoData] = useState([]);
   const [filters, setFilters] = useState([null, null]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [filterOptions, setFilterOptions] = useState({});
   const searchLabel = "Transcript";
   const filterLabels = ["Fidelity Label", "Parent Strategy"];
   const filterInit = [null, null];
 
-  const cleanOptions = (col) => {
-    const cleaned = new Set();
-    for (let i = 0; i < data.length; i++) {
-      cleaned.add(data[i][col]);
-    }
-    // console.debug("cleaned options for", col, cleaned); // Debug print
-    return Array.from(cleaned);
-  };
 
-  const filterData = (filters, searchQuery) => {
-    console.debug("Filtering data with:", filters); // Debug print
+  useEffect(() => {
+    const fetchFilterOptions = async () => {
+        try {
+            const options = {};
+            for (const label of filterLabels) {
+                const response = await fetch(`${BACKEND}/api/distinct/${label}`);
+                const data = await response.json();
+                options[label] = data.distinctValues;
+            }
+            setFilterOptions(options);
+        } catch (error) {
+            console.error('Error fetching filter options:', error);
+        }
+    };
 
-    const isFiltersInitial = filters.every(
-      (filter, index) => filter === filterInit[index]
-    );
-    if (isFiltersInitial && searchQuery === "") {
-      console.log("filtering with specal case");
-      return [null];
-    }
+    fetchFilterOptions();
+}, []);
 
-    let filteredData = data;
-
-    for (let i = 0; i < filters.length; i++) {
-      if (filters[i]) {
-        console.debug(
-          `Filtering on ${filterLabels[i]} with value ${filters[i]}`
-        ); // Debug print
-        filteredData = filteredData.filter(
-          (item) => item[filterLabels[i]] == filters[i]
-        );
-        console.debug("Intermediate filtered data:", filteredData); // Debug print
+  const fetchFilteredData  = async (filters, searchQuery) => {
+    try {
+      const isFiltersInitial = filters.every(
+        (filter, index) => filter === filterInit[index]
+      );
+      if (isFiltersInitial && searchQuery === "") {
+        console.log("filtering with specal case");
+        setVideoData([null]);
+        return;
       }
+      const response = await fetch(`${BACKEND}/api/filter`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "Fidelity Label": filters[0],
+          "Parent Strategy": filters[1],
+          "Transcript": searchQuery,
+        }),
+      });
+      const data = await response.json();
+      if (data.videos) {
+        setVideoData(
+          data.videos.map((item) => ({
+            src: `${BACKEND}/videos/${item["Video"]}`,
+            description: item["Transcript"],
+          }))
+        );
+      } else {
+        setVideoData([]);
+      }
+    } catch (error) {
+      console.error("Error fetching filtered data:", error);
     }
-
-    console.debug(`Filtering on ${searchLabel} with value ${searchQuery}`); // Debug print
-    filteredData = filteredData.filter((item) =>
-      item["Transcript"].toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    console.debug("Final filteredData:", filteredData); // Debug print
-    return filteredData.map((item) => ({
-      src: `./videos/${item["Video"]}`,
-      description: item["Transcript"],
-    }));
   };
 
   useEffect(() => {
-    const updatedVideoData = filterData(filters, searchQuery);
-    setVideoData(updatedVideoData);
+    fetchFilteredData (filters, searchQuery);
     // console.debug("updatedVideoData:", updatedVideoData); // Debug print
-  }, [filters, searchQuery, data]);
+  }, [filters, searchQuery]);
 
   const handleFilterChange = (filterIndex) => {
     return (option) => {
@@ -96,13 +107,13 @@ const App = () => {
             <Filter
               key={label}
               label={label}
-              options={cleanOptions(label)}
+              options={filterOptions[label] || [null]}
               onChange={handleFilterChange(i)}
               currOption={filters[i]}
             />
           )
         )}
-        <SearchBox onSearch={handleSubmit} initSearchVal={searchQuery}/>
+        <SearchBox onSearch={handleSubmit} initSearchVal={searchQuery} />
       </>
     );
   };
@@ -150,7 +161,7 @@ const App = () => {
         )}
         {videoData[0] === null && ( //message before any selection
           <>
-            <p>Select from drop down menu above to see result</p>
+            <p>Select from drop down menu or search from searchbox above to see result</p>
           </>
         )}
         {

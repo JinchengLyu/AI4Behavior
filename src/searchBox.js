@@ -20,7 +20,7 @@ const SearchBox = ({ onSearch, initSearchVal }) => {
         <div className="search-box">
             <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Transcript"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyUp={handleKeyPress}

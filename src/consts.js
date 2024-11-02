@@ -1,0 +1,1 @@
+exports.BACKEND="http://localhost:4004"
