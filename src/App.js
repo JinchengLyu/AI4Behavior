@@ -5,7 +5,7 @@ import DBFilter from "./Filter/DBFilterPage"; // This is your filter page compon
 import NavBar from "./NavBar"; // Import NavBar
 import People from "./People";
 import About from "./About";
-import "./app.css";
+import "./App.css";
 
 const App = () => {
   return (
