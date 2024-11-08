@@ -1,0 +1,21 @@
+/* SearchBox.css */
+
+.search-box {
+    display: flex;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;      /* Centers vertically */
+    margin-top: 20px;         /* Adds some margin at the top for spacing */
+}
+
+.search-box input {
+    padding: 5px;            /* Adds padding inside the input box */
+    font-size: 16px;          /* Adjusts the font size */
+    width: 100%;              /* Adjusts the input width as needed */
+    max-width: 300px;         /* Sets a maximum width for the input box */
+    border: 1px solid #ccc;   /* Adds a light border */
+    border-radius: 4px;       /* Rounds the corners */
+}
+
+.search-box button{
+    padding: 5px;
+}
