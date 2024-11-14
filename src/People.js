@@ -82,7 +82,7 @@ const People = () => {
       />
       <div className="collapsible-container">
         <button onClick={toggleContent} className="collapsible-button">
-          {isOpen ? "Collapse" : "Expand"}
+          {isOpen ? "Hide people list" : "Show people list"}
         </button>
         {isOpen && peopleList()}
       </div>

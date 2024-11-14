@@ -1,8 +1,43 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { BACKEND } from "./consts";
 import "./NavBar.css";
 
 const NavBar = () => {
+  const [expandDB, setExpand] = useState(false);
+  const datasetCollapseRef = useRef(null);
+
+  const toggleContent = () => {
+    setExpand(!expandDB);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      datasetCollapseRef.current &&
+      !datasetCollapseRef.current.contains(event.target)
+    ) {
+      setExpand(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const collapseContent = () => {
+    return (
+      <div className="collapseContent">
+        <a href={BACKEND + "/api/wholeDB"} target="_blank" rel="noreferrer">
+          Raw data
+        </a>
+        <Link to="/dataset">Explore</Link>
+      </div>
+    );
+  };
+
   return (
     <nav>
       <div className="nav-title">
@@ -36,8 +71,11 @@ const NavBar = () => {
         <li>
           <Link to="/about">About us</Link>
         </li>
-        <li>
-          <Link to="/dataset">Dataset</Link>
+        <li className="dataset" ref={datasetCollapseRef}>
+          <button onClick={toggleContent} className="dataset">
+            Dataset
+          </button>
+          {expandDB && collapseContent()}
         </li>
       </ul>
     </nav>
