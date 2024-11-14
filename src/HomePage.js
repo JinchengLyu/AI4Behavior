@@ -2,11 +2,9 @@ import React from "react";
 
 const HomePage = () => {
   return (
-    <div>
+    <>
       <div id="who_we_are">
-        <h2>
-          Who We Are
-        </h2>
+        <h2>Who We Are</h2>
         <div>
           <p>
             The <b>National AI Institute for Exceptional Education</b>&nbsp;is a{" "}
@@ -18,10 +16,7 @@ const HomePage = () => {
                 rel="noreferrer"
               >
                 National Artificial Intelligence (AI) Research Institute
-                <i
-                  class="linkhint-icon linkhint-icon-external"
-                  title="This link opens a page in a new window or tab."
-                ></i>
+                <i title="This link opens a page in a new window or tab."></i>
               </a>
             </b>
             &nbsp;led by the&nbsp;
@@ -33,10 +28,7 @@ const HomePage = () => {
                 rel="noreferrer"
               >
                 University at Buffalo
-                <i
-                  class="linkhint-icon linkhint-icon-external"
-                  title="This link opens a page in a new window or tab."
-                ></i>
+                <i title="This link opens a page in a new window or tab."></i>
               </a>
             </b>{" "}
             and funded by the{" "}
@@ -48,10 +40,7 @@ const HomePage = () => {
                 rel="noreferrer"
               >
                 National Science Foundation
-                <i
-                  class="linkhint-icon linkhint-icon-external"
-                  title="This link opens a page in a new window or tab."
-                ></i>
+                <i title="This link opens a page in a new window or tab."></i>
               </a>
             </b>{" "}
             and the{" "}
@@ -63,10 +52,7 @@ const HomePage = () => {
                 rel="noreferrer"
               >
                 Institute of Education Sciences
-                <i
-                  class="linkhint-icon linkhint-icon-external"
-                  title="This link opens a page in a new window or tab."
-                ></i>
+                <i title="This link opens a page in a new window or tab."></i>
               </a>
             </b>{" "}
             of the <b>US Department of Education</b>.
@@ -202,8 +188,39 @@ const HomePage = () => {
             </span>
           </p>
         </div>
+        <img
+          alt="how this works"
+          src="https://www.buffalo.edu/content/www/ai4exceptionaled/jcr:content/bottom/image_copy_copy_copy.img.926.auto.png/1688587716479.png"
+        />
+        <div>
+          <p>
+            The <b>AI Screener</b> is an edge-based solution that will be
+            initially deployed in early childhood classrooms. It will analyze
+            video and audio streams of children's classroom interactions, derive
+            conventional speech and language measures used by SLPs, and assess
+            novel and hard to obtain automaticity measures.&nbsp; The{" "}
+            <b>AI Orchestrator</b> is a superset of the AI Screener with its
+            main application in the public-school classrooms. It will help SLPs
+            to administer a wide range of evidence-based interventions and
+            assess their effects on meeting children's individual IEP learning
+            targets.&nbsp; At the core of the Orchestrator is a robust
+            multi-agent reinforcement learning framework that can evaluate the
+            potential benefits of different intervention practices and recommend
+            those most appropriate for each child.&nbsp; Both solutions will
+            push significant advances in self-supervised learning to address
+            sparse and noisy data issues, multimodality perception, learning
+            material rewriting and enrichment, and edge AI for real-time
+            processing. The Institute will develop human-centered AI design
+            methodologies to embody the solutions in a form appropriate for
+            children's learning. Most importantly, Learning Science will not
+            only inform the initial prototyping and validation, but also
+            continually derive unique insights from the field deployed
+            solutions.
+            <br />
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
