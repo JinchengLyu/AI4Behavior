@@ -53,10 +53,9 @@ const NavBar = () => {
           </div>
         </div>
         <div>
-          <h1>National AI Institute for Exceptional Education</h1>
+          <h1>AI4Behavior</h1>
           <h2>
-            An NSF & IES AI Institute for Transforming Education for Children
-            with Speech and Language Processing Challenges
+            National AI Institute for Exceptional Education
           </h2>
         </div>
       </div>

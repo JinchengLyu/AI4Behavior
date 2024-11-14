@@ -1,226 +1,33 @@
 import React from "react";
+import LoremIpsum from "react-lorem-ipsum";
+import "./Home.css"
 
 const HomePage = () => {
   return (
-    <>
-      <div id="who_we_are">
-        <h2>Who We Are</h2>
+    <div className="home-content">
+      <div id="news">
+        <h2>news</h2>
+        <LoremIpsum p={4} avgSentencesPerParagraph={2} />
+      </div>
+      <div id="sponser-and-goal">
         <div>
-          <p>
-            The <b>National AI Institute for Exceptional Education</b>&nbsp;is a{" "}
-            <b>
-              <a
-                title="National Artificial Intelligence Research Institutes"
-                href="https://beta.nsf.gov/funding/opportunities/national-artificial-intelligence-research"
-                target="_blank"
-                rel="noreferrer"
-              >
-                National Artificial Intelligence (AI) Research Institute
-                <i title="This link opens a page in a new window or tab."></i>
-              </a>
-            </b>
-            &nbsp;led by the&nbsp;
-            <b>
-              <a
-                title="University at Buffalo"
-                href="https://www.buffalo.edu/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                University at Buffalo
-                <i title="This link opens a page in a new window or tab."></i>
-              </a>
-            </b>{" "}
-            and funded by the{" "}
-            <b>
-              <a
-                href="https://nsf.gov"
-                target="_blank"
-                title="This link opens a page in a new window or tab."
-                rel="noreferrer"
-              >
-                National Science Foundation
-                <i title="This link opens a page in a new window or tab."></i>
-              </a>
-            </b>{" "}
-            and the{" "}
-            <b>
-              <a
-                href="https://ies.ed.gov"
-                target="_blank"
-                title="This link opens a page in a new window or tab."
-                rel="noreferrer"
-              >
-                Institute of Education Sciences
-                <i title="This link opens a page in a new window or tab."></i>
-              </a>
-            </b>{" "}
-            of the <b>US Department of Education</b>.
-          </p>
+          <h2>content1</h2>
+          <LoremIpsum p={4} avgWordsPerSentence={4} avgSentencesPerParagraph={2} />
         </div>
         <div>
-          <p>
-            The Institute is a partnership of multidisciplinary faculty from 8
-            other institutions viz.,&nbsp;
-            <b>
-              <a title="Cornell University" href="https://www.cornell.edu/">
-                Cornell University
-              </a>
-            </b>
-            ,
-            <b>
-              &nbsp;
-              <a title="Penn State" href="https://www.psu.edu/">
-                Penn State
-              </a>
-            </b>
-            ,
-            <b>
-              &nbsp;
-              <a title="Stanford University" href="https://www.stanford.edu/">
-                Stanford University
-              </a>
-            </b>
-            ,&nbsp;
-            <b>
-              <a
-                title="University of Illinois Urbana-Champaign"
-                href="https://illinois.edu/"
-              >
-                University of Illinois Urbana-Champaign
-              </a>
-            </b>
-            ,&nbsp;
-            <b>
-              <a title="University of Nevada, Reno" href="https://www.unr.edu/">
-                University of Nevada, Reno
-              </a>
-            </b>
-            ,{" "}
-            <b>
-              <a
-                title="Georgia Institute of Technology"
-                href="https://www.gatech.edu/"
-              >
-                Georgia Institute of Technology
-              </a>
-            </b>
-            ,{" "}
-            <b>
-              <a
-                title="University of Texas at El Paso"
-                href="https://www.utep.edu/"
-              >
-                University of Texas at El Paso
-              </a>
-            </b>
-            , and&nbsp;
-            <b>
-              <a
-                title="University of Washington"
-                href="https://www.washington.edu/"
-              >
-                University of Washington
-              </a>
-            </b>
-            .
-          </p>
+          <h2>content2</h2>
+          <LoremIpsum p={4} avgWordsPerSentence={4} avgSentencesPerParagraph={2} />
+        </div>
+        <div>
+          <h2>content3</h2>
+          <LoremIpsum p={4} avgWordsPerSentence={4} avgSentencesPerParagraph={2} />
         </div>
       </div>
-
-      <div id="overview">
-        <h2>
-          <span> Overview of the Institute </span>
-        </h2>
-        <div>
-          <p>
-            Nearly 3.4 million children require speech and language services
-            under the{" "}
-            <a
-              title="Individuals with Disabilities Education Act "
-              href="https://sites.ed.gov/idea/"
-            >
-              <b>Individuals with Disabilities Education Act (IDEA)</b>
-            </a>{" "}
-            and are at risk of falling behind in their academic and
-            social-emotional development without timely intervention by Speech
-            and Language Pathologists (SLPs). Unfortunately, there is a
-            significant shortage of SLPs and the COVID pandemic has further
-            exacerbated this gap, making it almost impossible for SLPs to
-            provide individualized services for children.
-            <br />
-          </p>
-          <p>
-            <b>
-              The NSF and IES AI Institute for Transforming Education for
-              Children with Speech and Language Processing Challenges
-            </b>
-            &nbsp;(<b>or National AI Institute for Exceptional Education,</b> in
-            short) aims to close this gap by developing advanced AI technologies
-            to scale SLPs' availability and services such that no child in need
-            of speech and language services is left behind. Towards this end,
-            the Institute proposes to develop two novel AI solutions: (1)
-            the&nbsp;<b>AI Screener</b> to enable universal early screening for
-            all children, and (2) the
-            <b>
-              <i>&nbsp;</i>AI Orchestrator
-            </b>{" "}
-            to work with SLPs and teachers to provide individualized
-            interventions for children with their formal Individualized
-            Education Program (IEP).&nbsp; In developing these solutions, the
-            Institute will advance foundational AI technologies, enhance our
-            understanding of children's speech and language development, serve
-            as a nexus point for all special education stakeholders, and
-            represent a fundamental paradigm shift in how SLPs serve children in
-            need of ability-based speech and language services.
-          </p>
-          <p>
-            The Institute's research will lead to advancements in AI, human-AI
-            interaction, and learning science to improve educational outcomes
-            for children with speech and language related challenges. These
-            advancements and solutions can&nbsp;also benefit children without
-            disabilities extending the reach of ability-based learning
-            interventions.&nbsp;&nbsp;The Institute will engage participants
-            across the Institute and related stakeholders to advance&nbsp;
-            <span>
-              opportunities to meet their unique educational and workforce
-              development needs.
-            </span>
-          </p>
+      <div id="image-container">
+        <p className="image">IMG1</p>
+        <p className="image">IMG2</p>
         </div>
-        <img
-          alt="how this works"
-          src="https://www.buffalo.edu/content/www/ai4exceptionaled/jcr:content/bottom/image_copy_copy_copy.img.926.auto.png/1688587716479.png"
-        />
-        <div>
-          <p>
-            The <b>AI Screener</b> is an edge-based solution that will be
-            initially deployed in early childhood classrooms. It will analyze
-            video and audio streams of children's classroom interactions, derive
-            conventional speech and language measures used by SLPs, and assess
-            novel and hard to obtain automaticity measures.&nbsp; The{" "}
-            <b>AI Orchestrator</b> is a superset of the AI Screener with its
-            main application in the public-school classrooms. It will help SLPs
-            to administer a wide range of evidence-based interventions and
-            assess their effects on meeting children's individual IEP learning
-            targets.&nbsp; At the core of the Orchestrator is a robust
-            multi-agent reinforcement learning framework that can evaluate the
-            potential benefits of different intervention practices and recommend
-            those most appropriate for each child.&nbsp; Both solutions will
-            push significant advances in self-supervised learning to address
-            sparse and noisy data issues, multimodality perception, learning
-            material rewriting and enrichment, and edge AI for real-time
-            processing. The Institute will develop human-centered AI design
-            methodologies to embody the solutions in a form appropriate for
-            children's learning. Most importantly, Learning Science will not
-            only inform the initial prototyping and validation, but also
-            continually derive unique insights from the field deployed
-            solutions.
-            <br />
-          </p>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
