@@ -4,7 +4,7 @@ import HomePage from "./HomePage"; // Assume this is your homepage component
 import DBFilter from "./Filter/DBFilterPage"; // This is your filter page component
 import NavBar from "./NavBar"; // Import NavBar
 import People from "./People";
-import About from "./About";
+import JL from "./Jincheng";
 import "./App.css";
 
 const App = () => {
@@ -17,8 +17,8 @@ const App = () => {
             <Routes>
               <Route path="/" exact element={<HomePage />} />
               <Route path="/people" element={<People />} />
-              <Route path="/about" element={<About />} />
               <Route path="/dataset" element={<DBFilter />} />
+              <Route path="/Jincheng" element={<JL />} />
             </Routes>
           </div>
         </div>

@@ -67,9 +67,6 @@ const NavBar = () => {
         <li>
           <Link to="/people">People</Link>
         </li>
-        <li>
-          <Link to="/about">About us</Link>
-        </li>
         <li className="dataset" ref={datasetCollapseRef}>
           <button onClick={toggleContent} className="dataset">
             Dataset
