@@ -1,0 +1,30 @@
+div.NotFound{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.middle{
+    display: flex;
+    gap:5em;
+}
+
+div.NotFound h1.title{
+    display: flex;
+    gap:10px;
+    font-size: 2em;
+}
+
+h1.vertical{
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+}
+
+div.NotFound div.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 0;
+}

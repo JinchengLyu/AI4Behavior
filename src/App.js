@@ -5,6 +5,7 @@ import DBFilter from "./Filter/DBFilterPage"; // This is your filter page compon
 import NavBar from "./NavBar"; // Import NavBar
 import People from "./People";
 import JL from "./Jincheng";
+import NotFound from "./404";
 import "./App.css";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
               <Route path="/people" element={<People />} />
               <Route path="/dataset" element={<DBFilter />} />
               <Route path="/Jincheng" element={<JL />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </div>
