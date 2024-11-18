@@ -1,7 +1,7 @@
 /* Add some padding to the top of the main content to avoid overlap with the fixed nav */
 .content {
   padding-top: 5em; /* Adjust based on the nav height */
-  max-width: 60%;
+  max-width: 80%;
 }
 
 .content-wrapper{

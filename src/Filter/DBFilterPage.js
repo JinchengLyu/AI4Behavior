@@ -1,12 +1,16 @@
 import React from "react";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./DBFilter.css";
-import "./filter_result_table.css";
 import Filter from "./Filter";
-import VideoDisplay from "./VideoDisplay";
 import SearchBox from "./searchBox";
 import "../consts";
 import { BACKEND } from "../consts";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const DBFilter = () => {
   // console.debug("data", data); // Debug print
@@ -14,7 +18,8 @@ const DBFilter = () => {
   const [filters, setFilters] = useState([null, null]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterOptions, setFilterOptions] = useState({});
-  const searchLabel = "Transcript";
+    const [annotation, setAnnotation] = useState("");
+    const searchLabel = "Transcript";
   const filterLabels = ["Fidelity Label", "Parent Strategy"];
   const filterInit = [null, null];
 
@@ -97,7 +102,8 @@ const DBFilter = () => {
 
   const DisplayFilters = () => {
     return (
-      <>
+      //layout it differently
+      <div className="filter">
         {filterLabels.map(
           (
             label,
@@ -113,65 +119,80 @@ const DBFilter = () => {
           )
         )}
         <SearchBox onSearch={handleSubmit} initSearchVal={searchQuery} />
-      </>
+      </div>
     );
   };
 
-  const showVideo = () => {
+  const displayContent = () => {
+
+    const handleSubmitAnnotation = () => {
+      return;
+    };
+
     return (
-      <table className="video-table">
-        <thead>
-          <tr>
-            <th>Video</th>
-            <th>Script</th>
-          </tr>
-        </thead>
-        <tbody>
-          {videoData.map((video, index) => (
-            <VideoDisplay
-              key={index}
-              src={video.src}
-              description={video.description}
-            />
-          ))}
-        </tbody>
-      </table>
+      <Swiper
+        spaceBetween={50}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        modules={[Navigation, Pagination]}
+      >
+        {videoData.map((video, index) => (
+          <SwiperSlide key={index}>
+            <div className="grid-container">
+              <div className="left">
+                <video controls>
+                  <source src={video.src} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div className="right-top">{video.description}</div>
+              <div className="right-bottom">
+                <textarea
+                className="annotation"
+                  type="text"
+                  placeholder="Annotation"
+                  value={annotation}
+                  onChange={(e) => setAnnotation(e.target.value)}
+                />
+                <button className="annotation" onClick={handleSubmitAnnotation}>Submit</button>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     );
   };
 
   return (
-    <div>
-      <h1 className="header">AI4Behavior</h1>
-      <DisplayFilters />
-      <div className="results">
-        <h2 className="header">Results</h2>
-        {videoData.length === 0 && ( //message when dismatch
-          <>
-            <p>Your filter conbination have no match, try something else.</p>
-            <p>
-              this page developed by JL from
-              <span style={{ color: "#FF0000" }}> 4</span>
-              <span style={{ color: "#00FF00" }}>0</span>
-              <span style={{ color: "#0000FF" }}>4</span>
-              <span>Nfound </span>
-              with help of AI
-            </p>
-          </>
-        )}
-        {videoData[0] === null && ( //message before any selection
-          <>
-            <p>
-              Select from drop down menu or search from searchbox above to see
-              result
-            </p>
-          </>
-        )}
-        {
-          /*when a valid selection made*/
-          videoData.length > 0 && videoData[0] != null && showVideo()
-        }
-      </div>
-    </div>
+    <>
+      {DisplayFilters()}
+      {videoData.length === 0 && ( //message when dismatch
+        <div style={{ textAlign: "center" }}>
+          <p>Your filter conbination have no match, try something else.</p>
+          <p>
+            this page developed by JL from
+            <span style={{ color: "#FF0000" }}> 4</span>
+            <span style={{ color: "#00FF00" }}>0</span>
+            <span style={{ color: "#0000FF" }}>4</span>
+            <span>Nfound </span>
+            with help of AI
+          </p>
+        </div>
+      )}
+      {videoData[0] === null && ( //message before any selection
+        <>
+          <p style={{ textAlign: "center" }}>
+            Select from drop down menu or search from searchbox above to see
+            result
+          </p>
+        </>
+      )}
+      {
+        /*when a valid selection made*/
+        videoData.length > 0 && videoData[0] != null && displayContent()
+      }
+    </>
   );
 };
 

@@ -4,7 +4,6 @@
     display: flex;
     justify-content: center;  /* Centers horizontally */
     align-items: center;      /* Centers vertically */
-    margin-top: 20px;         /* Adds some margin at the top for spacing */
 }
 
 .search-box input {

@@ -1,56 +1,51 @@
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App {
-  text-align: center;
-  padding: 20px;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.filter{
   display: flex;
-  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* App.css */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns of equal width */
+  grid-template-rows: repeat(5, 1fr); /* Five rows of equal height */
+  gap: 10px; /* Optional gap between items */
+  padding: 30px 50px;
+}
+
+.left {
+  grid-column: 1 / 2; /* Span the first column */
+  grid-row: 1 / 6; /* Span all five rows */
+}
+
+.right-top {
+  grid-column: 2 / 3;
+  grid-row: 1 / 5;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border: 2px solid #000;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-hr {
-  margin-top: 2ex;
-  margin-bottom: 2ex;
-}
-
-body,
-html {
+.right-bottom {
+  grid-column: 2 / 3; /* Span the second column */
+  grid-row: 5 / 6; /* Span the fifth row */
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 0;
+  justify-content: center;
+  border: 2px solid #000;
 }
 
-.App {
-  max-width: 800px; /* Adjust width as needed */
+video{
   width: 100%;
+}
+
+textarea.annotation{
+  resize: none;
+  height: 3em;
+  width: 20em;
+}
+
+button.annotation{
+  height: 3em;
 }
