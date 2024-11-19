@@ -11,6 +11,10 @@ const People = () => {
 
   return (
     <div className="people-container">
+      <a className="people-container" href="/Jincheng">
+        <ImageFiller width={200} height={200} />
+        Dr. Jinjun Xiong
+      </a>
       <a className="people-container" href="https://qingxiaozheng.com">
         <ImageFiller width={200} height={200} />
         QingXiao Zheng
@@ -18,6 +22,10 @@ const People = () => {
       <a className="people-container" href="http://zhaohuilee.com/">
         <ImageFiller width={200} height={200} />
         Zhaohui Li
+      </a>
+      <a className="people-container" href="/Jincheng">
+        <ImageFiller width={200} height={200} />
+        Yusuf Akemoglu
       </a>
       <a className="people-container" href="/Jincheng">
         <ImageFiller width={200} height={200} />

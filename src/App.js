@@ -4,7 +4,7 @@ import HomePage from "./HomePage"; // Assume this is your homepage component
 import DBFilter from "./Filter/DBFilterPage"; // This is your filter page component
 import NavBar from "./NavBar"; // Import NavBar
 import People from "./People";
-import JL from "./Jincheng";
+import JL from "./People/Jincheng";
 import NotFound from "./404";
 import "./App.css";
 
