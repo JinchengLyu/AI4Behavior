@@ -13,7 +13,7 @@ const People = () => {
     <div className="people-container">
       <a className="people-container" href="/Jincheng">
         <ImageFiller width={200} height={200} />
-        Dr. Jinjun Xiong
+        Jinjun Xiong
       </a>
       <a className="people-container" href="https://qingxiaozheng.com">
         <ImageFiller width={200} height={200} />

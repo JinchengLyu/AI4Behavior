@@ -53,7 +53,7 @@ const NavBar = () => {
           </div>
         </div>
         <div>
-          <h1>AI4Behavior</h1>
+          <h1>AI4Behavior Dataset</h1>
           <h2>
             National AI Institute for Exceptional Education
           </h2>
