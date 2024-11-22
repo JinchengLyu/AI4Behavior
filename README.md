@@ -1,18 +1,48 @@
-# How to start using this project
+# How to Start Using This Project
 
-## install dependency
-After pull from GitHub, you need to install all dependencies with following command:
+## Installation
 
->npm i \
->cd ./backend \
->npm i
+1. **Clone the repository** from GitHub:
 
-## Frontend
-Open one terminal, make sure your current working directory is root of this project, run: `npm start`
+   ```bash
+   git clone <your-repository-url>
+   cd <your-repository-directory>
+   ```
 
-then you can see frontend on http://localhost:3000
+2. **Install dependencies:**
 
-at same time you can use endpoints indecated in `./backend/server.js` on http://locahost:4004
+   Navigate to the root directory and install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+   Navigate to the `backend` directory and install backend dependencies:
+
+   ```bash
+   cd backend
+   npm install
+   ```
+
+## Running the Project
+
+### **Start the service:**
+
+Open a terminal and ensure your current working directory is the root of the project.
+
+Run the following command to start the frontend:
+
+```
+npm start
+```
+
+1. **Frontend:**
+
+   The frontend will be available at http://localhost:3000.
+
+2. **Backend:**
+
+   The backend will be available at http://localhost:4004
 
 # Getting Started with Create React App
 
