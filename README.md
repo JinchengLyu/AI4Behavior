@@ -5,8 +5,8 @@
 1. **Clone the repository** from GitHub:
 
    ```bash
-   git clone <your-repository-url>
-   cd <your-repository-directory>
+   git clone https://github.com/JinchengLyu/AI4Behavior.git
+   cd ./AI4Behavior
    ```
 
 2. **Install dependencies:**
