@@ -96,6 +96,7 @@ app.post("/api/update-transcript", (req, res) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
+    console.log(`updated ${id} transcript to "${annotation}"`)
     res.json({
       message: "Transcript updated successfully",
       changes: this.changes,

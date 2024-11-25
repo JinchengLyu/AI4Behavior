@@ -5,12 +5,7 @@ import Filter from "./Filter";
 import SearchBox from "./searchBox";
 import "../consts";
 import { BACKEND } from "../consts";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import DisplayContent from "./DisplayContent";
 
 const DBFilter = () => {
   // console.debug("data", data); // Debug print
@@ -18,8 +13,8 @@ const DBFilter = () => {
   const [filters, setFilters] = useState([null, null]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterOptions, setFilterOptions] = useState({});
-    const [annotation, setAnnotation] = useState("");
-    const searchLabel = "Transcript";
+  const [dataChanged,setDataChange]=useState(false);
+  const searchLabel = "Transcript";
   const filterLabels = ["Fidelity Label", "Parent Strategy"];
   const filterInit = [null, null];
 
@@ -66,6 +61,7 @@ const DBFilter = () => {
       if (data.videos) {
         setVideoData(
           data.videos.map((item) => ({
+            id: item["id"],
             src: `${BACKEND}/videos/${item["Video"]}`,
             description: item["Transcript"],
           }))
@@ -81,7 +77,7 @@ const DBFilter = () => {
   useEffect(() => {
     fetchFilteredData(filters, searchQuery);
     // console.debug("updatedVideoData:", updatedVideoData); // Debug print
-  }, [filters, searchQuery]);
+  }, [filters, searchQuery, dataChanged]);
 
   const handleFilterChange = (filterIndex) => {
     return (option) => {
@@ -123,47 +119,6 @@ const DBFilter = () => {
     );
   };
 
-  const displayContent = () => {
-
-    const handleSubmitAnnotation = () => {
-      return;
-    };
-
-    return (
-      <Swiper
-        spaceBetween={50}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-        modules={[Navigation, Pagination]}
-      >
-        {videoData.map((video, index) => (
-          <SwiperSlide key={index}>
-            <div className="grid-container">
-              <div className="left">
-                <video controls>
-                  <source src={video.src} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-              <div className="right-top">{video.description}</div>
-              <div className="right-bottom">
-                <textarea
-                className="annotation"
-                  type="text"
-                  placeholder="Annotation"
-                  value={annotation}
-                  onChange={(e) => setAnnotation(e.target.value)}
-                />
-                <button className="annotation" onClick={handleSubmitAnnotation}>Submit</button>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    );
-  };
-
   return (
     <>
       {DisplayFilters()}
@@ -190,7 +145,9 @@ const DBFilter = () => {
       )}
       {
         /*when a valid selection made*/
-        videoData.length > 0 && videoData[0] != null && displayContent()
+        videoData.length > 0 && videoData[0] != null && (
+          <DisplayContent videoData={videoData} dataChanged={dataChanged} setDataChange={setDataChange}/>
+        )
       }
     </>
   );
