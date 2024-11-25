@@ -86,6 +86,23 @@ app.get("/api/distinct/:column", (req, res) => {
   });
 });
 
+// Endpoint to update transcript
+app.post("/api/update-transcript", (req, res) => {
+  const { annotation, id } = req.body;
+
+  // Update the transcript field in the database
+  const query = `UPDATE videos SET transcript = ? WHERE id=?`;
+  db.run(query, [annotation,id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({
+      message: "Transcript updated successfully",
+      changes: this.changes,
+    });
+  });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
