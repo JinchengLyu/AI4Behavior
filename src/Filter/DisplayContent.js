@@ -35,6 +35,7 @@ const DisplayContent = ({ videoData, dataChanged, setDataChange }) => {
   const handleSlideChange = () => {
     const swiper = swiperRef.current;
     setCurrIndex(swiper.activeIndex);
+    setAnnotation("");
   };
 
   return (
@@ -59,6 +60,7 @@ const DisplayContent = ({ videoData, dataChanged, setDataChange }) => {
             <div className="right-top">{video.description}</div>
             <div className="right-bottom">
               <textarea
+                key={index}
                 className="annotation"
                 type="text"
                 placeholder="Annotation"
