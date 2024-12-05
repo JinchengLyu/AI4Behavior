@@ -16,7 +16,7 @@ const App = () => {
         <div className="content-wrapper">
           <div className="content">
             <Routes>
-              <Route path="/" exact element={<HomePage />} />
+              <Route path="/" exact element={<DBFilter />} />
               <Route path="/people" element={<People />} />
               <Route path="/dataset" element={<DBFilter />} />
               <Route path="/Jincheng" element={<JL />} />

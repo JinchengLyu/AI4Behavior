@@ -54,14 +54,21 @@ const NavBar = () => {
         </div>
         <div>
           <h1>AI4Behavior Dataset</h1>
-          <h2>
-            National AI Institute for Exceptional Education
-          </h2>
+          <h2>National AI Institute for Exceptional Education</h2>
         </div>
       </div>
 
       <ul>
         <li>
+          {" "}
+          <a href={BACKEND + "/api/wholeDB"} target="_blank" rel="noreferrer">
+            Raw data
+          </a>
+        </li>
+        <li>
+          <Link to="/dataset">Explore</Link>
+        </li>
+        {/* <li>
           <Link to="/">Home</Link>
         </li>
         <li>
@@ -72,7 +79,7 @@ const NavBar = () => {
             Dataset
           </button>
           {expandDB && collapseContent()}
-        </li>
+        </li> */}
       </ul>
     </nav>
   );
