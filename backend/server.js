@@ -11,9 +11,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static video files
-app.use("/videos", express.static(path.join(__dirname, "videos")));
+app.use("/videos", express.static(path.join(__dirname, "video_clips")));
 
-const db = new sqlite3.Database("./database.sqlite");
+const db = new sqlite3.Database("./first_round_data_50.sqlite");
 
 // Endpoint to get all videos
 app.get("/api/wholeDB", (req, res) => {
@@ -38,7 +38,7 @@ app.post("/api/filter", (req, res) => {
       filters[key] !== null && filters[key] !== undefined && filters[key] !== ""
   ); //ignore feilds with meaningless values
   const filterValues = filterKeys.map((key) => {
-    if (key === "Transcript") {
+    if (key === "matched_transcript") {
       return `%${filters[key]}%`; // Use wildcards for partial match
     }
     return filters[key];
@@ -46,7 +46,7 @@ app.post("/api/filter", (req, res) => {
   console.log("filters", filterKeys, filterValues);
 
   const query = `SELECT * FROM videos WHERE ${filterKeys
-    .map((key) => (key === "Transcript" ? `${key} LIKE ?` : `"${key}" = ?`))
+    .map((key) => (key === "matched_transcript" ? `${key} LIKE ?` : `"${key}" = ?`))
     .join(" AND ")}`;
 
   db.all(query, filterValues, (err, rows) => {
@@ -62,6 +62,7 @@ app.post("/api/filter", (req, res) => {
 });
 
 // New endpoint to get distinct values for a column
+//can have a global var to store, so only go over whole DB once on lunch
 app.get("/api/distinct/:column", (req, res) => {
   const column = req.params.column;
   console.log(
@@ -91,7 +92,7 @@ app.post("/api/update-transcript", (req, res) => {
   const { annotation, id } = req.body;
 
   // Update the transcript field in the database
-  const query = `UPDATE videos SET transcript = ? WHERE id=?`;
+  const query = `UPDATE videos SET matched_transcript = ? WHERE Id=?`;
   db.run(query, [annotation,id], function (err) {
     if (err) {
       return res.status(500).json({ error: err.message });

@@ -14,8 +14,8 @@ const DBFilter = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterOptions, setFilterOptions] = useState({});
   const [dataChanged,setDataChange]=useState(false);
-  const searchLabel = "Transcript";
-  const filterLabels = ["Fidelity Label", "Parent Strategy"];
+  const searchLabel = "matched_transcript";
+  const filterLabels = ["Fidelity", "Parent_Strategy"];
   const filterInit = [null, null];
 
   useEffect(() => {
@@ -52,18 +52,18 @@ const DBFilter = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "Fidelity Label": filters[0],
-          "Parent Strategy": filters[1],
-          Transcript: searchQuery,
+          "Fidelity": filters[0], //if DB format change check here (CHECK)
+          "Parent_Strategy": filters[1], //if DB format change check here (CHECK)
+          "matched_transcript": searchQuery,
         }),
       });
       const data = await response.json();
       if (data.videos) {
         setVideoData(
           data.videos.map((item) => ({
-            id: item["id"],
-            src: `${BACKEND}/videos/${item["Video"]}`,
-            description: item["Transcript"],
+            id: item["Id"],
+            src: `${BACKEND}/videos/${item["Clip_Name"]}`,
+            description: item["matched_transcript"],
           }))
         );
       } else {

@@ -49,10 +49,10 @@ const DisplayContent = ({ videoData, dataChanged, setDataChange }) => {
       onSwiper={(swiper) => (swiperRef.current = swiper)}
     >
       {videoData.map((video, index) => (
-        <SwiperSlide key={index}>
+        <SwiperSlide key={index+video.src}>
           <div className="grid-container">
             <div className="left">
-              <video controls>
+              <video controls muted>
                 <source src={video.src} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
