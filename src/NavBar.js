@@ -59,7 +59,7 @@ const NavBar = () => {
       </div>
 
       <ul>
-        <li>
+        {/* <li>
           {" "}
           <a href={BACKEND + "/api/wholeDB"} target="_blank" rel="noreferrer">
             Raw data
@@ -67,8 +67,8 @@ const NavBar = () => {
         </li>
         <li>
           <Link to="/dataset">Explore</Link>
-        </li>
-        {/* <li>
+        </li> */}
+        <li>
           <Link to="/">Home</Link>
         </li>
         <li>
@@ -79,7 +79,7 @@ const NavBar = () => {
             Dataset
           </button>
           {expandDB && collapseContent()}
-        </li> */}
+        </li>
       </ul>
     </nav>
   );
