@@ -4,8 +4,9 @@
     gap:2em;
 }
 
-#sponser-and-goal{
+.tasksContent{
     display: flex;
+    gap:30px;
 }
 
 #image-container {

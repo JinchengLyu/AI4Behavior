@@ -11,7 +11,7 @@ const People = () => {
 
   return (
     <div className="people-container">
-      <a className="people-container" href="/Jincheng">
+      <a className="people-container" href="https://www.xlab-ub.com/home">
         <ImageFiller width={200} height={200} />
         Jinjun Xiong
       </a>
