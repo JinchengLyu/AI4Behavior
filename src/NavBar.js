@@ -30,7 +30,7 @@ const NavBar = () => {
   const collapseContent = () => {
     return (
       <div className="collapseContent">
-        <a href={BACKEND + "/api/wholeDB"} target="_blank" rel="noreferrer">
+        <a href={BACKEND + "/api/wholeDB.json"} download>
           Raw data
         </a>
         <Link to="/dataset">Explore</Link>

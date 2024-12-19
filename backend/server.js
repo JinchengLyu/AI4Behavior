@@ -26,6 +26,18 @@ app.get("/api/wholeDB", (req, res) => {
   });
 });
 
+app.get("/api/wholeDB.json", (req, res) => {
+  db.all("SELECT * FROM videos", [], (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.setHeader("Content-Disposition", "attachment; filename=DB.json");
+    res.setHeader("Content-Type", "application/json");
+    res.send(JSON.stringify({ videos: rows }, null, 2));
+  });
+});
+
 //filter as provided feild:value provided
 app.post("/api/filter", (req, res) => {
   const filters = req.body;
@@ -46,7 +58,9 @@ app.post("/api/filter", (req, res) => {
   console.log("filters", filterKeys, filterValues);
 
   const query = `SELECT * FROM videos WHERE ${filterKeys
-    .map((key) => (key === "matched_transcript" ? `${key} LIKE ?` : `"${key}" = ?`))
+    .map((key) =>
+      key === "matched_transcript" ? `${key} LIKE ?` : `"${key}" = ?`
+    )
     .join(" AND ")}`;
 
   db.all(query, filterValues, (err, rows) => {
@@ -93,11 +107,11 @@ app.post("/api/update-transcript", (req, res) => {
 
   // Update the transcript field in the database
   const query = `UPDATE videos SET matched_transcript = ? WHERE Id=?`;
-  db.run(query, [annotation,id], function (err) {
+  db.run(query, [annotation, id], function (err) {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    console.log(`updated ${id} transcript to "${annotation}"`)
+    console.log(`updated ${id} transcript to "${annotation}"`);
     res.json({
       message: "Transcript updated successfully",
       changes: this.changes,
