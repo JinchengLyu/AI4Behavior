@@ -6,12 +6,13 @@ import NavBar from "./NavBar"; // Import NavBar
 import People from "./People/People";
 import JL from "./People/Jincheng";
 import NotFound from "./404";
+import Footer from "./Footer";
 import "./App.css";
 
 const App = () => {
   return (
     <Router basename="/">
-      <div>
+      <div className="root">
         <NavBar /> {/* Use NavBar component */}
         <div className="content-wrapper">
           <div className="content">
@@ -24,6 +25,7 @@ const App = () => {
             </Routes>
           </div>
         </div>
+        <Footer/>
       </div>
     </Router>
   );

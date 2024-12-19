@@ -45,7 +45,7 @@ const NavBar = () => {
           <img
             className="logo"
             alt="lab logo"
-            src="https://www.buffalo.edu/v-a8eb473c44158ac0369a10810b39aba8/etc.clientlibs/wci/components/block/header/clientlibs/resources/ub-logo-white-stacked-group.svg"
+            src="/ub-logo-square.svg"
           />
           <div class="logo-subtitle">
             <p>The State University</p>

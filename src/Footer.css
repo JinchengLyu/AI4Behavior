@@ -1,0 +1,47 @@
+/* src/Footer.css */
+.footer {
+  position: relative;
+  background-color: #005bbb;
+  padding: 20px;
+  text-align: center;
+  bottom: 0;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.footer p {
+  margin: 5px 0;
+}
+
+.footer a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer .lab-logo{
+  height: 100px;
+}
+
+.footer .lab-info{
+  display: flex;
+  font-size: small;
+  width: 40%;
+}
+
+.footer .lab-info a{
+  color:cadetblue;
+}
+
+.copyright{
+  position: absolute;
+  right:10px;
+  bottom: 3px;
+  font-size: xx-small;
+  color:rgb(63, 0, 83);
+}
