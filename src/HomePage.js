@@ -5,6 +5,12 @@ import "./Home.css";
 const HomePage = () => {
   return (
     <div className="home-content">
+      <div id="news">
+        <h2>news</h2>
+        <p>
+          <LoremIpsum p="2" />
+        </p>
+      </div>
       <div id="intro">
         <h2>Introduction</h2>
         Ai4Behavior Dadaset is used for research poporse by{" "}
@@ -14,7 +20,7 @@ const HomePage = () => {
         led by <a href="https://www.buffalo.edu/">University at Buffalo</a>
       </div>
       <div id="tasks">
-        <h2>Tasks</h2>
+        <h2>What is Ai4Behavior</h2>
         <div className="tasksContent">
           <div>
             <p>

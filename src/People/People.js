@@ -11,7 +11,7 @@ const People = () => {
   };
 
   const memberTable = () => {
-    const teamMembers = [
+    const teamMembers = [//fill up content to replace place holder
       {
         photo: "",
         name: "Jinjun Xiong",

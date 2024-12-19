@@ -30,10 +30,12 @@ const NavBar = () => {
   const collapseContent = () => {
     return (
       <div className="collapseContent">
-        <a href={BACKEND + "/api/wholeDB.json"} download>
-          Raw data
-        </a>
+        <Link to="/overview">Overview</Link>
         <Link to="/dataset">Explore</Link>
+        <Link to="/tasks">Tasks</Link>
+        <a href={BACKEND + "/api/wholeDB.json"} download>
+          Download Raw
+        </a>
       </div>
     );
   };
@@ -42,11 +44,7 @@ const NavBar = () => {
     <nav>
       <div className="nav-title">
         <div>
-          <img
-            className="logo"
-            alt="lab logo"
-            src="/ub-logo-square.svg"
-          />
+          <img className="logo" alt="lab logo" src="/ub-logo-square.svg" />
           <div class="logo-subtitle">
             <p>The State University</p>
             <p>of New York</p>
