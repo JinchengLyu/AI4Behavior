@@ -64,7 +64,7 @@ const DisplayContent = ({ videoData, dataChanged, setDataChange }) => {
       spaceBetween={50}
       slidesPerView={1}
       navigation
-      pagination={{ clickable: true }}
+      pagination={{ clickable: true, type: "fraction" }}
       modules={[Navigation, Pagination]}
       onSlideChange={handleSlideChange}
       onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -79,9 +79,12 @@ const DisplayContent = ({ videoData, dataChanged, setDataChange }) => {
                 muted
               />
             </div>
-            <div className="right-top">{video.description}</div>
+            <div className="right-top">
+              <p className="transcript-label">transcript:</p>
+              <p>{video.description}</p>
+            </div>
             <div className="right-bottom">
-              <textarea
+              {/* <textarea
                 key={index}
                 className="annotation"
                 type="text"
@@ -91,7 +94,9 @@ const DisplayContent = ({ videoData, dataChanged, setDataChange }) => {
               />
               <button className="annotation" onClick={handleSubmitAnnotation}>
                 Submit
-              </button>
+              </button> */}
+              <p>Fidelity: {video.fidelity}</p>
+              <p>Parent Stratagy: {video.stratagy}</p>
             </div>
           </div>
         </SwiperSlide>

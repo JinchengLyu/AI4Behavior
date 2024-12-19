@@ -13,7 +13,7 @@ const DBFilter = () => {
   const [filters, setFilters] = useState([null, null]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterOptions, setFilterOptions] = useState({});
-  const [dataChanged,setDataChange]=useState(false);
+  const [dataChanged, setDataChange] = useState(false);
   const searchLabel = "matched_transcript";
   const filterLabels = ["Fidelity", "Parent_Strategy"];
   const filterInit = [null, null];
@@ -52,9 +52,9 @@ const DBFilter = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "Fidelity": filters[0], //if DB format change check here (CHECK)
-          "Parent_Strategy": filters[1], //if DB format change check here (CHECK)
-          "matched_transcript": searchQuery,
+          Fidelity: filters[0], //if DB format change check here (CHECK)
+          Parent_Strategy: filters[1], //if DB format change check here (CHECK)
+          matched_transcript: searchQuery,
         }),
       });
       const data = await response.json();
@@ -64,6 +64,8 @@ const DBFilter = () => {
             id: item["Id"],
             src: `${BACKEND}/videos/${item["Clip_Name"]}`,
             description: item["matched_transcript"],
+            fidelity: item["Fidelity"],
+            stratagy: item["Parent_Strategy"],
           }))
         );
       } else {
@@ -146,7 +148,11 @@ const DBFilter = () => {
       {
         /*when a valid selection made*/
         videoData.length > 0 && videoData[0] != null && (
-          <DisplayContent videoData={videoData} dataChanged={dataChanged} setDataChange={setDataChange}/>
+          <DisplayContent
+            videoData={videoData}
+            dataChanged={dataChanged}
+            setDataChange={setDataChange}
+          />
         )
       }
     </>

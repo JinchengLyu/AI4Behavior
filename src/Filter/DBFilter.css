@@ -1,4 +1,4 @@
-.filter{
+.filter {
   display: flex;
   gap: 20px;
   justify-content: center;
@@ -25,6 +25,13 @@
   align-items: center;
   justify-content: center;
   border: 2px solid #000;
+  position: relative;
+}
+
+.right-top .transcript-label {
+  position: absolute;
+  top: 0;
+  left: 5px;
 }
 
 .right-bottom {
@@ -34,18 +41,19 @@
   align-items: center;
   justify-content: center;
   border: 2px solid #000;
+  gap: 10px;
 }
 
-video{
+video {
   width: 100%;
 }
 
-textarea.annotation{
+textarea.annotation {
   resize: none;
   height: 3em;
   width: 20em;
 }
 
-button.annotation{
+button.annotation {
   height: 3em;
 }
