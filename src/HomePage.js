@@ -1,48 +1,96 @@
 import React from "react";
+import ReadingTogetherImage from './Pictures/reading-together-dinosaur-book.jpg';
 import LoremIpsum from "react-lorem-ipsum";
 import "./Home.css";
 
 const HomePage = () => {
   return (
-    <div className="home-content">
-      <div id="news">
-        <h2>news</h2>
-        <p>
-          <LoremIpsum p="2" />
-        </p>
-      </div>
-      <div id="intro">
-        <h2>Introduction</h2>
-        Ai4Behavior Dadaset is used for research poporse by{" "}
-        <a href="https://new.nsf.gov/funding/opportunities/national-artificial-intelligence-research-institutes">
-          National Artificial Intelligence (AI) Research Institute
-        </a>{" "}
-        led by <a href="https://www.buffalo.edu/">University at Buffalo</a>
-      </div>
-      <div id="tasks">
-        <h2>What is Ai4Behavior</h2>
-        <div className="tasksContent">
-          <div>
-            <p>
-              A multi-modality Children's Behavior data classification. To
-              support specialists and parents, the purpose of this task is to
-              evaluate a video clips of a parent-kids interaction. Specifically,
-              given a video clip, the job is to classify the parent strategy it
-              uses in the video and what is the score of it.
-            </p>
-          </div>
-          <div>
-            <p>
-              Feedback generation, by leveraging generative AI, this tasks is to
-              generate the feedback to the parents to tell them where is the
-              problem in this session and how to improve it. This is aiming to
-              provide prompting feedback to facilitate the parents and kids
-              interactions.
-            </p>
+      <div className="home-content">
+        <div id="news" style={{marginBottom: '0rem', marginTop:'0.5rem'}}>
+          <h2>News</h2>
+          <ul style={{listStyleType: 'none', padding: 0}}>
+            <li style={{marginBottom: '1rem'}}>
+              <strong>Announcement:</strong> We have recently updated our dataset with two different tasks. Stay tuned
+              for more details!
+            </li>
+            <li style={{marginBottom: '1rem'}}>
+              <strong>2024-12-10:</strong> We published the first version of our dataset.
+            </li>
+            <li style={{marginBottom: '1rem'}}>
+              <strong>2024-11-05:</strong> We officially launched the Ai4Behavior project.
+            </li>
+          </ul>
+        </div>
+
+        <div id="intro" style={{marginBottom: '0rem', marginTop:'0rem'}}>
+          <h2>Introduction</h2>
+          <p>
+            <strong>Ai4Behavior</strong> is an innovative project designed to enhance the understanding of
+            autism-related behaviors and provide actionable interaction strategies for parents. This cutting-edge AI
+            research initiative is developed for advancing research and applications in special education and behavioral
+            science. It is supported by the{' '}
+            <a
+                href="https://new.nsf.gov/funding/opportunities/national-artificial-intelligence-research-institutes"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+              National Artificial Intelligence (AI) Research Institute
+            </a>, led by the{' '}
+            <a
+                href="https://www.buffalo.edu/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+              University at Buffalo
+            </a>.
+          </p>
+          <p>
+            The project collects real-world multi-modal data, including video recordings, from user study sessions
+            involving children with autism and their parents. This data is meticulously annotated with high reliability
+            to ensure accurate analysis and application. By bridging the gap between advanced AI techniques and the
+            expertise of Speech-Language Pathologists (SLPs), Ai4Behavior aims to facilitate research in AI-driven
+            solutions for special education and improve outcomes for children with autism and their families.
+          </p>
+        </div>
+        <div id="tasks" style={{marginBottom: '2rem', marginTop:'0rem'}}>
+          <h2>What is Ai4Behavior?</h2>
+          <div className="tasksContent" style={{display: 'flex', gap: '2rem'}}>
+            <div style={{flex: '1'}}>
+              <p>
+                <strong>Ai4Behavior</strong> is a multi-modal dataset designed to
+                capture and classify the nuances of parent-child interactions.
+                Leveraging video, audio, and contextual data, researchers and
+                practitioners can identify parenting strategies, measure
+                their effectiveness, and gain insights into the behavioral
+                dynamics between parents and their children.
+              </p>
+              <p>
+                By annotating and categorizing these interactions into distinct
+                strategies and providing quality scores, Ai4Behavior
+                supports experts, caregivers, and AI developers in
+                understanding what approaches work best for fostering
+                healthy, positive parent-child relationships.
+
+                Another core component of Ai4Behavior involves feedback generation
+                using generative AI. By analyzing the interaction data, the system
+                can produce tailored recommendations for parents. These suggestions
+                highlight strengths, pinpoint areas needing improvement, and
+                provide actionable guidance. This personalized feedback loop
+                aims to empower parents to refine their approaches, ultimately
+                promoting better developmental outcomes for children.
+              </p>
+            </div>
+
+            <div style={{flex: '1'}}>
+              <img
+                  src={ReadingTogetherImage}
+                  alt="Parent and child reading together"
+                  style={{width: '95%', marginTop: '1rem', borderRadius: '8px'}}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
