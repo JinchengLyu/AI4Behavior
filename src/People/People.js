@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TeamMember from "./TeamMember";
+import TeamMember from "./TeamMemberTable";
 import "./People.css";
 import LoremIpsum from "react-lorem-ipsum";
 
@@ -11,24 +11,74 @@ const People = () => {
   };
 
   const memberTable = () => {
-    const teamMembers = [//fill up content to replace place holder
+    const teamMembers = [
+      //fill up content to replace place holder
       {
-        photo: "",
+        photo: "/people/JinjunXiong.jpg",
         name: "Jinjun Xiong",
-        introduction: "",
+        introduction: (
+          <>
+            <p>
+              An Empire Innovation Professor with the Department of Computer
+              Science & Engineering, University at Buffalo (UB).
+            </p>
+            Now focus on
+            <ul>
+              <li>
+                Innovative AI applications, in particular on education and
+                sustainability
+              </li>
+              <li>
+                Novel AI algorithms, in particular on computer vision and
+                natural language processing,
+              </li>
+              <li>
+                Productivity tooling for AI development, in particular on
+                software engineering, compilers, and operating systems, and
+              </li>
+              <li>
+                AI accelerators and computer architectures for edge computing
+                and hybrid clouds, such as GPUs, and FPGAs.{" "}
+              </li>
+            </ul>
+          </>
+        ),
         link: "https://www.xlab-ub.com/home",
       },
       {
-        photo: "",
+        photo: "/people/Qingxiao.png",
         name: "QingXiao Zheng",
-        introduction: "",
+        introduction: (
+          <>
+            <p>
+              PhD in Information Sciences at UIUC. Postdoctoral Associate
+              Department of CS & Engineering University at Buffalo.
+            </p>
+            Now focus on
+            <ul>
+              <li>
+                Human-AI interaction for service, education, and social
+                connectivity
+              </li>
+              <li>UX design and evaluation of AI systems</li>
+              <li>Multimodal AI analytics</li>
+              <li>Ethical and responsible AI</li>
+            </ul>
+          </>
+        ),
         link: "https://qingxiaozheng.com",
       },
       {
-        photo: "",
+        photo: "/people/Zhaohui.jpeg",
         name: "Zhaohui Li",
-        introduction: "",
-        link: "https://qingxiaozheng.com",
+        introduction: (
+          <>
+            Recent Phd graguate from Pennsyvania State University (PSU). Now
+            post Doctor in University at Buffalo (UB). Bachelor degree obtained
+            in Nankai University (Tianjin, China).
+          </>
+        ),
+        link: "http://zhaohuilee.com/",
       },
       {
         photo: "",
@@ -37,9 +87,15 @@ const People = () => {
         link: "",
       },
       {
-        photo: "",
+        photo: "/people/Jincheng.jpg",
         name: "Jincheng Lyu",
-        introduction: "",
+        introduction: (
+          <>
+            Undergraduate Student in Computer Science at Pennsyvania State
+            University. Now interested in Natual Language Processing and web
+            developing.
+          </>
+        ),
         link: "/404",
       },
     ];
