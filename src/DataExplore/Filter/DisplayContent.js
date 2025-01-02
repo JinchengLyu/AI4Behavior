@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { BACKEND } from "../consts";
+import { BACKEND } from "../../consts";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

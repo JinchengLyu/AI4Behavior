@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import "./DBFilter.css";
 import Filter from "./Filter";
 import SearchBox from "./searchBox";
-import "../consts";
-import { BACKEND } from "../consts";
+import { BACKEND } from "../../consts.js";
 import DisplayContent from "./DisplayContent";
 
 const DBFilter = () => {

@@ -30,7 +30,7 @@ const NotFound = () => {
           </p>
           <p>
             This entire website is developed by 404Nfound, 2 young men get
-            together and wish to do something big. Our current bussiness if
+            together and wish to do something big. Our current business if
             focused on developing website at fair price rate for start up
             companies or organizations or anyone who need a website.
           </p>

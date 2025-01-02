@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./HomePage"; // Assume this is your homepage component
-import DBFilter from "./Filter/DBFilterPage"; // This is your filter page component
+import DBFilter from "./DataExplore/Filter/DBFilterPage"; // This is your filter page component
 import NavBar from "./NavBar"; // Import NavBar
 import People from "./People/People";
 import JL from "./People/Jincheng";
@@ -9,7 +9,7 @@ import NotFound from "./404";
 import Footer from "./Footer";
 import "./App.css";
 import Tasks from "./Tasks";
-import Overview from "./Overview";
+import Overview from "./DataExplore/Overview";
 
 const App = () => {
   return (
