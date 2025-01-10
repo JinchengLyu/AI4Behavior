@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./DBFilter.css";
 import Filter from "./Filter";
 import SearchBox from "./searchBox";
-import { BACKEND } from "../../consts.js";
+import { BACKEND, searchLabel, filterLabels } from "../../consts.js";
 import DisplayContent from "./DisplayContent";
 
 const DBFilter = () => {
@@ -13,8 +13,6 @@ const DBFilter = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterOptions, setFilterOptions] = useState({});
   const [dataChanged, setDataChange] = useState(false);
-  const searchLabel = "matched_transcript";
-  const filterLabels = ["Fidelity", "Parent_Strategy"];
   const filterInit = [null, null];
 
   useEffect(() => {

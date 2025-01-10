@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BACKEND } from "../consts";
 import { Gallery } from "react-grid-gallery";
+import StatTable from "./StatTable";
 
 const Overview = () => {
   const imgs = [
@@ -55,6 +56,7 @@ const Overview = () => {
         <h1>Overview</h1>
         <p>A brief description of the dataset and its purpose.</p>
       </header>
+      <StatTable />
       <Gallery images={imgs} enableImageSelection={false} />
       <section className="section">
         <h2>
