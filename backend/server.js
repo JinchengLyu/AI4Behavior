@@ -119,6 +119,36 @@ app.post("/api/update-transcript", (req, res) => {
   });
 });
 
+//count how many value exist in feild
+app.post("/count", (req, res) => {
+  const { field1, value1, field2, value2 } = req.body;
+  let query = `SELECT COUNT(*) AS count FROM videos`;
+    let params = [];
+    if (value1 !== "") {
+    query += ` WHERE ${field1} = ?`;
+    params.push(value1);
+    if (value2 !== "") {
+      query += ` AND ${field2} = ?`;
+      params.push(value2);
+    }
+  }
+  else{
+    if (value2 !== "") {
+      query += ` WHERE ${field2} = ?`;
+      params.push(value2);
+    }
+  }
+
+  db.get(query, params, (err, row) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).send("Error executing query");
+      return;
+    }
+    res.json({ count: row.count });
+  });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
