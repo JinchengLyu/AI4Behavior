@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { BACKEND,filterLabels } from '../consts';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { BACKEND, filterLabels } from "../consts";
+import axios from "axios";
+import "./StatTable.css";
 
 const StatTable = () => {
   const [field1Values, setField1Values] = useState([]);
@@ -9,13 +10,15 @@ const StatTable = () => {
 
   useEffect(() => {
     // Fetch distinct values for field1
-    axios.get(`${BACKEND}/api/distinct/${filterLabels[0]}`).then(response => {
+    axios.get(`${BACKEND}/api/distinct/${filterLabels[0]}`).then((response) => {
       setField1Values(response.data.distinctValues);
+      setField1Values((prev) => [...prev, ""]);
     });
 
     // Fetch distinct values for field2
-    axios.get(`${BACKEND}/api/distinct/${filterLabels[1]}`).then(response => {
+    axios.get(`${BACKEND}/api/distinct/${filterLabels[1]}`).then((response) => {
       setField2Values(response.data.distinctValues);
+      setField2Values((prev) => [...prev, ""]);
     });
   }, []);
 
@@ -43,20 +46,23 @@ const StatTable = () => {
   }, [field1Values, field2Values]);
 
   return (
-    <table>
+    <table border="1">
       <thead>
         <tr>
-          <th>Field 1</th>
-          {field2Values.map(value => (
-            <th key={value}>{value}</th>
+          <th rowSpan="2">{filterLabels[0]}</th>
+          <th colSpan={field2Values.length}>{filterLabels[1]}</th>
+        </tr>
+        <tr>
+          {field2Values.map((value) => (
+            <th key={value}>{value === "" ? "summary" : value}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {field1Values.map(value1 => (
+        {field1Values.map((value1) => (
           <tr key={value1}>
-            <td>{value1}</td>
-            {field2Values.map(value2 => (
+            <th>{value1 === "" ? "summary" : value1}</th>
+            {field2Values.map((value2) => (
               <td key={value2}>{stats[value1] && stats[value1][value2]}</td>
             ))}
           </tr>
