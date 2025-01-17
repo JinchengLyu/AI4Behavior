@@ -1,7 +1,42 @@
-th{
-  text-align: center;
+/*th{*/
+/*  text-align: center;*/
+/*}*/
+
+/*table{*/
+/*  margin: 20px 0;*/
+/*}*/
+
+table {
+  border-collapse: collapse;            /* Remove extra space between cells */
+  width: 100%;                          /* Make table take full width of container */
+  font-family: Arial, sans-serif;       /* Use a clean, modern font */
+  font-size: 0.9em;                     /* Slightly smaller font size */
 }
 
-table{
-  margin: 20px 0;
+th,
+td {
+  padding: 4px 8px;                     /* Smaller padding for compact cells */
+  text-align: center;                   /* Center-align text for clarity */
+  border: 1px solid #ddd;               /* Light border for clear separation */
 }
+
+thead th {
+  background-color: #f2f2f2;            /* Light background for header */
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fafafa;            /* Zebra striping for rows */
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;            /* Highlight row on hover */
+}
+
+/* Optional: Smaller font and bold for summary rows/columns */
+th.summary,
+td.summary {
+  font-weight: bold;
+  background-color: #e6f7ff;            /* Subtle highlight for summary cells */
+}
+

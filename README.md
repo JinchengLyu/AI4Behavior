@@ -36,6 +36,8 @@ Run the following command to start the frontend:
 npm start
 
 nohup npm start > server.log 2>&1 &
+
+vist 
 ```
 
 1. **Frontend:**

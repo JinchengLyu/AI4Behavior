@@ -14,6 +14,12 @@ const HomePage = () => {
               for more details!
             </li>
             <li style={{marginBottom: '1rem'}}>
+              <strong>2025-1-15:</strong> We launched the strategy finding task for the longer video section.
+            </li>
+            <li style={{marginBottom: '1rem'}}>
+              <strong>2025-1-10:</strong> We launched the fidelity classification task of the video clips.
+            </li>
+            <li style={{marginBottom: '1rem'}}>
               <strong>2024-12-10:</strong> We published the first version of our dataset.
             </li>
             <li style={{marginBottom: '1rem'}}>
@@ -22,7 +28,7 @@ const HomePage = () => {
           </ul>
         </div>
 
-        <div id="intro" style={{marginBottom: '0rem', marginTop:'0rem'}}>
+        <div id="intro" style={{marginBottom: '0rem', marginTop: '0rem'}}>
           <h2>Introduction</h2>
           <p>
             <strong>Ai4Behavior</strong> is an innovative project designed to enhance the understanding of
