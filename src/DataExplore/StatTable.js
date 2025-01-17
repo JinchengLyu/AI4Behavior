@@ -10,16 +10,26 @@ const StatTable = () => {
 
   useEffect(() => {
     // Fetch distinct values for field1
-    axios.get(`${BACKEND}/api/distinct/${filterLabels[0]}`).then((response) => {
-      setField1Values(response.data.distinctValues);
-      setField1Values((prev) => [...prev, ""]);
-    });
+    fetch(`${BACKEND}/api/distinct/${filterLabels[0]}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setField1Values(data.distinctValues);
+        setField1Values((prev) => [...prev, ""]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
 
     // Fetch distinct values for field2
-    axios.get(`${BACKEND}/api/distinct/${filterLabels[1]}`).then((response) => {
-      setField2Values(response.data.distinctValues);
-      setField2Values((prev) => [...prev, ""]);
-    });
+    fetch(`${BACKEND}/api/distinct/${filterLabels[1]}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setField2Values(data.distinctValues);
+        setField2Values((prev) => [...prev, ""]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, []);
 
   useEffect(() => {
@@ -29,20 +39,37 @@ const StatTable = () => {
       for (const value1 of field1Values) {
         tempStats[value1] = {};
         for (const value2 of field2Values) {
-          const response = await axios.post(`${BACKEND}/count`, {
-            field1: filterLabels[0],
-            value1,
-            field2: filterLabels[1],
-            value2,
-          });
-          tempStats[value1][value2] = response.data.count;
+          try {
+            const response = await fetch(`${BACKEND}/count`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                field1: filterLabels[0],
+                value1,
+                field2: filterLabels[1],
+                value2,
+              }),
+            });
+    
+            if (response.ok) {
+              const data = await response.json();
+              tempStats[value1][value2] = data.count;
+            } else {
+              console.error('Error fetching data:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Network error:', error);
+          }
         }
       }
       setStats(tempStats);
     };
+    
     if (field1Values.length && field2Values.length) {
       fetchData();
-    }
+    }    
   }, [field1Values, field2Values]);
 
   return (
