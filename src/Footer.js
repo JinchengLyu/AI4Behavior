@@ -6,8 +6,8 @@ const Footer = () => {
   return (
     <footer className="footer">
       <img
-        class="ub-logo"
-        src="/UB_logo_long.png"
+        className="ub-logo"
+        src="/labLogo.png"
         alt="University at Buffalo (UB), The State University of New York"
         width="241"
         height="32"
