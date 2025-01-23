@@ -44,11 +44,7 @@ const NavBar = () => {
     <nav>
       <div className="nav-title">
         <div>
-          <img className="logo" alt="lab logo" src="/ub-logo-square.svg" />
-          <div class="logo-subtitle">
-            <p>The State University</p>
-            <p>of New York</p>
-          </div>
+          <img className="logo" alt="lab logo" src="/labLogo_square.png" />
         </div>
         <div>
           <h1>AI4Behavior Dataset</h1>
