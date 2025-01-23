@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BACKEND, filterLabels } from "../consts";
-import axios from "axios";
 import "./StatTable.css";
 
 const StatTable = () => {
