@@ -48,8 +48,7 @@ const Overview = () => {
           <div className="section-content">
             <p>
               We provide a dataset with 3 classes of parent strategies and 4 classes of fidelity scores distributed over
-              478
-              video clips.
+              478 video clips.
               The dataset intends to provide a comprehensive benchmark for parent and child interaction recognition in
               realistic and challenging settings.
               The dataset is composed of video clips from 3 families.
@@ -72,7 +71,7 @@ const Overview = () => {
           </header>
           <p>
             In this project, there are two main tasks.</p>
-          <p><strong> Video Segmentation</strong>: involves dividing the entire reading session into smaller segments,
+          <p><strong> Strategy Finding</strong>: involves dividing the entire reading session video into smaller segments,
             each segment highlighting a particular reading strategy used by the parent. </p>
           <p><strong> Fidelity Assessment</strong>: requires you to evaluate each strategy segment, assign a score based
             on how well the strategy was implemented, and provide constructive feedback to help the parent improve. </p>
