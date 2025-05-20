@@ -1,9 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./DBFilter.css";
 import Filter from "./Filter";
 import SearchBox from "./searchBox";
-import { BACKEND, searchLabel, filterLabels } from "../../consts.js";
+import { BACKEND, filterLabels } from "../../consts.js";
 import DisplayContent from "./DisplayContent";
 
 const DBFilter = () => {
@@ -13,7 +13,6 @@ const DBFilter = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterOptions, setFilterOptions] = useState({});
   const [dataChanged, setDataChange] = useState(false);
-  const filterInit = [null, null];
 
   useEffect(() => {
     const fetchFilterOptions = async () => {
@@ -33,7 +32,8 @@ const DBFilter = () => {
     fetchFilterOptions();
   }, []);
 
-  const fetchFilteredData = async (filters, searchQuery) => {
+  const fetchFilteredData = useCallback(async (filters, searchQuery) => {
+    const filterInit = [null, null];
     try {
       const isFiltersInitial = filters.every(
         (filter, index) => filter === filterInit[index]
@@ -71,12 +71,12 @@ const DBFilter = () => {
     } catch (error) {
       console.error("Error fetching filtered data:", error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchFilteredData(filters, searchQuery);
     // console.debug("updatedVideoData:", updatedVideoData); // Debug print
-  }, [filters, searchQuery, dataChanged]);
+  }, [fetchFilteredData, dataChanged, filters, searchQuery]);
 
   const handleFilterChange = (filterIndex) => {
     return (option) => {
