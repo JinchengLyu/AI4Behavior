@@ -6,7 +6,7 @@ import ImageFiller from "react-image-filler";
 const TeamMember = ({ photo, name, introduction, link }) => {
   const renderImg = () => {
     if (photo) {
-      return <img src={photo} width={200} />;
+      return <img src={photo} width={200} alt={name} />;
     } else {
       return <ImageFiller width={200} height={200} />;
     }
@@ -30,7 +30,7 @@ const TeamMember = ({ photo, name, introduction, link }) => {
     <tr>
       <td>{renderImg()}</td>
       <td>
-        <a target="_blank" href={link == "" ? "/404" : link}>
+        <a target="_blank" rel="noreferrer" href={link === "" ? "/404" : link}>
           {name}
         </a>
       </td>

@@ -1,6 +1,5 @@
 import React from "react";
 import ReadingTogetherImage from './Pictures/reading-together-dinosaur-book.jpg';
-import LoremIpsum from "react-lorem-ipsum";
 import "./Home.css";
 
 const HomePage = () => {
