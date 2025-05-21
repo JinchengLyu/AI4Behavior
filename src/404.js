@@ -1,7 +1,6 @@
 // src/components/NotFound.js
 import React from "react";
 import "./404.css";
-import LoremIpsum from "react-lorem-ipsum";
 
 const NotFound = () => {
   const generateSequence = (length) => {

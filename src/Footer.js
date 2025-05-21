@@ -13,7 +13,7 @@ const Footer = () => {
         height="32"
       ></img>
       <div className="lab-info">
-        <img className="lab-logo" src="/NSF-logo.png" />
+        <img className="lab-logo" src="/NSF-logo.png" alt="NSF-logo" />
         <div>
           <h2>National AI Institute for Exceptional Education</h2>
           <p>
@@ -28,7 +28,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="lab-info">
-        <img className="lab-logo" src="/IES-logo.png" />
+        <img className="lab-logo" src="/IES-logo.png" alt="IES-logo" />
         <div>
           <p>
             The research reported here was supported by the Institute of
@@ -40,7 +40,10 @@ const Footer = () => {
           </p>
         </div>
       </div>
-      <p className="copyright">© 2024 National AI Research Institutes. All rights reserved. 404Nfound developed</p>
+      <p className="copyright">
+        © 2024 National AI Research Institutes. All rights reserved. 404Nfound
+        developed
+      </p>
     </footer>
   );
 };

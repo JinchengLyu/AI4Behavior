@@ -6,7 +6,7 @@ const Filter = ({ label, options, onChange, currOption }) => {
       {label}:
       <select
         onChange={(e) => {
-          const value = e.target.value == "" ? null : e.target.value;
+          const value = e.target.value === "" ? null : e.target.value;
           onChange(value);
         }}
         value={currOption}
