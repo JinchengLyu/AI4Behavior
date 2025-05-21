@@ -2,7 +2,7 @@
   "name": "kickoff",
   "version": "0.1.0",
   "private": true,
-  "start": "next start -H 0.0.0.0 -p 3000",
+  "start": "next start -H 0.0.0.0 -p 3210",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "start": "concurrently \"PORT=3100 react-scripts start\" \"cd backend && node server.js\"",
+    "start": "concurrently \"PORT=3210 react-scripts start\" \"cd backend && node server.js\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

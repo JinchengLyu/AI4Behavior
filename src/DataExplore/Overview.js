@@ -24,15 +24,15 @@ const Overview = () => {
           <h1>Overview</h1>
         </header>
         <p>
-          AI4Behavior is a multi-modal dataset designed to capture and classify the nuances of parent-child
+          ASD-HI (Autism Spectrum Disorder - Home Intervention) is a multi-modal dataset designed to capture and classify the nuances of parent-child
           interactions. Leveraging video, audio, and contextual data, researchers and practitioners can identify
           parenting strategies, measure their effectiveness, and gain insights into the behavioral dynamics between
           parents and their children.
         </p>
         <p>
           By annotating and categorizing these interactions into distinct strategies and providing quality scores,
-          AI4Behavior supports experts, caregivers, and AI developers in understanding what approaches work best for
-          fostering healthy, positive parent-child relationships. Another core component of AI4Behavior involves
+          ASD-HI supports experts, caregivers, and AI developers in understanding what approaches work best for
+          fostering healthy, positive parent-child relationships. Another core component of ASD-HI involves
           feedback generation using generative AI. By analyzing the interaction data, the system can produce tailored
           recommendations for parents. These suggestions highlight strengths, pinpoint areas needing improvement, and
           provide actionable guidance. This personalized feedback loop aims to empower parents to refine their
@@ -71,7 +71,8 @@ const Overview = () => {
           </header>
           <p>
             In this project, there are two main tasks.</p>
-          <p><strong> Strategy Finding</strong>: involves dividing the entire reading session video into smaller segments,
+          <p><strong> Strategy Detection</strong>: involves dividing the entire reading session video into smaller
+            segments,
             each segment highlighting a particular reading strategy used by the parent. </p>
           <p><strong> Fidelity Assessment</strong>: requires you to evaluate each strategy segment, assign a score based
             on how well the strategy was implemented, and provide constructive feedback to help the parent improve. </p>

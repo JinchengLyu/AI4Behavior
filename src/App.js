@@ -10,6 +10,7 @@ import Footer from "./Footer";
 import "./App.css";
 import Tasks from "./Tasks";
 import Overview from "./DataExplore/Overview";
+import StrategyDetection from "./Tasks/StrategyDetection";
 
 const App = () => {
   return (
@@ -23,8 +24,8 @@ const App = () => {
               <Route path="/people" element={<People />} />
               <Route path="/dataset" element={<DBFilter />} />
               <Route path="/Jincheng" element={<JL />} />
-              <Route path="/tasks" element={<Tasks />} />
               <Route path="/overview" element={<Overview/>}/>
+              <Route path="/tasks" element={<StrategyDetection/>}/>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

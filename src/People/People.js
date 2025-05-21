@@ -19,7 +19,7 @@ const People = () => {
         introduction: (
           <>
             <p>
-              Dr. Xiong is a world-renowned AI expert. His research focuses on use-inspired end-to-end AI systems research and productive AI tooling.
+              Dr. Xiong is a world-re nowned AI expert. His research focuses on use-inspired end-to-end AI systems research and productive AI tooling.
                 His research has resulted in nine best-paper awards and ten nominations for best-paper awards in top-tier conferences.
                 Many of his research results have been integrated into IBM’s commercial products with significant industrial impacts.
                 He is an IEEE Fellow, and an experienced leader of multidisciplinary research teams. Xiong currently serves as the Scientific Director of the NSF/IES-funded National AI Institute for Exceptional Education, where he champions developing AI for education innovations.
@@ -28,7 +28,18 @@ const People = () => {
           </>
         ),
         link: "https://www.xlab-ub.com/home",
-      }, {
+      },
+        {
+        photo: "/people/yusuf.jpg",
+        name: "Yusuf Akemoglu",
+        introduction: "Dr. Akemoğlu is an Associate Professor of Special Education at Düzce\n" +
+            "University in Turkey and a visiting scholar at AI4ExceptionalEd, will serve as a\n" +
+            "co-organizer for this workshop. He specializes in early intervention for children\n" +
+            "with autism spectrum disorder (ASD), parent-implemented interventions, and\n" +
+            "telepractice methodologies.",
+        link: "https://scholar.google.com/citations?user=o-19cEkAAAAJ&hl=en",
+      },
+        {
         photo: "/people/ZhaohuiLi.jpeg",
         name: "Zhaohui Li",
         introduction: (
@@ -42,36 +53,20 @@ const People = () => {
         link: "http://zhaohuilee.com/",
       },
       {
-        photo: "/people/Qingxiao.png",
+        photo: "/people/qingxiao.jpg",
         name: "QingXiao Zheng",
         introduction: (
-          <>
-            <p>
-              PhD in Information Sciences at UIUC. Postdoctoral Associate
-              Department of CS & Engineering University at Buffalo.
-            </p>
-            Now focus on
-            <ul>
-              <li>
-                Human-AI interaction for service, education, and social
-                connectivity
-              </li>
-              <li>UX design and evaluation of AI systems</li>
-              <li>Multimodal AI analytics</li>
-              <li>Ethical and responsible AI</li>
-            </ul>
-          </>
+          "Dr. Zheng is a Postdoctoral Research Fellow at AI4ExceptionalEd, will\n" +
+          "serve as a co-organizer for this workshop. Her works focus on designing human-\n" +
+          "centered AI systems and conducting user experience (UX) research to enhance\n" +
+          "education and social connectivity. Her research, published in top-tier HCI venues\n" +
+          "such as ACM CHI and CSCW, informs the development of AI-driven education\n" +
+          "tools. "
         ),
         link: "https://qingxiaozheng.com",
       },
       {
-        photo: "",
-        name: "Yusuf Akemoglu",
-        introduction: "",
-        link: "",
-      },
-      {
-        photo: "/people/Jincheng.jpg",
+        photo: "/people/jincheng.jpg",
         name: "Jincheng Lyu",
         introduction: (
           <>

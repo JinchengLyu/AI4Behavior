@@ -80,14 +80,14 @@ const StatTable = () => {
         </tr>
         <tr>
           {field2Values.map((value) => (
-            <th key={value}>{value === "" ? "summary" : value}</th>
+            <th key={value}>{value === "" ? "Summary" : value}</th>
           ))}
         </tr>
       </thead>
       <tbody>
         {field1Values.map((value1) => (
           <tr key={value1}>
-            <th>{value1 === "" ? "summary" : value1}</th>
+            <th>{value1 === "" ? "Summary" : value1}</th>
             {field2Values.map((value2) => (
               <td key={value2}>{stats[value1] && stats[value1][value2]}</td>
             ))}

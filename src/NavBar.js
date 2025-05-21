@@ -47,7 +47,7 @@ const NavBar = () => {
           <img className="logo" alt="lab logo" src="/labLogo_square.png" />
         </div>
         <div>
-          <h1>AI4Behavior Dataset</h1>
+          <h1>ASD-HI Dataset</h1>
           <h2>National AI Institute for Exceptional Education</h2>
         </div>
       </div>
@@ -68,6 +68,9 @@ const NavBar = () => {
         <li>
           <Link to="/people">People</Link>
         </li>
+        {/*<li>*/}
+        {/*  <Link to="/Tasks/StrategyDetection">Tasks</Link>*/}
+        {/*</li>*/}
         <li className="dataset" ref={datasetCollapseRef}>
           <button onClick={toggleContent} className="dataset">
             Dataset
