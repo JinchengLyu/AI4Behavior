@@ -5,10 +5,15 @@ import "./NavBar.css";
 
 const NavBar = () => {
   const [expandDB, setExpand] = useState(false);
+  const [expandTasks, setTasks] = useState(false);
   const datasetCollapseRef = useRef(null);
 
-  const toggleContent = () => {
+  const toggleDB = () => {
     setExpand(!expandDB);
+  };
+
+  const toggleTasks = () => {
+    setTasks(!expandTasks);
   };
 
   const handleClickOutside = (event) => {
@@ -17,6 +22,7 @@ const NavBar = () => {
       !datasetCollapseRef.current.contains(event.target)
     ) {
       setExpand(false);
+      setTasks(false);
     }
   };
 
@@ -27,16 +33,30 @@ const NavBar = () => {
     };
   }, []);
 
-  const collapseContent = () => {
+  const taskCollapse = () => {
     return (
-      <div className="collapseContent">
-        <Link to="/overview">Overview</Link>
-        <Link to="/dataset">Explore</Link>
-        <Link to="/tasks">Tasks</Link>
-        <a href={BACKEND + "/api/wholeDB.json"} download>
-          Download Raw
-        </a>
+      <div className="TasksCollapse collapseContent">
+        <Link to="/tasks/StrategyDetection">Strategy Detection</Link>
+        <Link to="/tasks/FidelityAssessment">Fidelity Assessment</Link>
       </div>
+    );
+  };
+
+  const databaseCollapse = () => {
+    return (
+      <>
+        <div className="collapseContent DBcollapse">
+          <Link to="/overview">Overview</Link>
+          <Link to="/dataset">Explore</Link>
+          <button onClick={toggleTasks} className="dataset">
+            Tasks
+          </button>
+          {expandTasks && taskCollapse()}
+          <a href={BACKEND + "/api/wholeDB.json"} download>
+            Download Raw
+          </a>
+        </div>
+      </>
     );
   };
 
@@ -72,10 +92,10 @@ const NavBar = () => {
         {/*  <Link to="/Tasks/StrategyDetection">Tasks</Link>*/}
         {/*</li>*/}
         <li className="dataset" ref={datasetCollapseRef}>
-          <button onClick={toggleContent} className="dataset">
+          <button onClick={toggleDB} className="dataset">
             Dataset
           </button>
-          {expandDB && collapseContent()}
+          {expandDB && databaseCollapse()}
         </li>
       </ul>
     </nav>

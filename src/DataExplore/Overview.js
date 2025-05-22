@@ -66,15 +66,15 @@ const Overview = () => {
         <section className="section-layout">
           <header className="section-header">
             <h2>
-              <Link to="/tasks">Tasks</Link>
+              Tasks
             </h2>
           </header>
           <p>
             In this project, there are two main tasks.</p>
-          <p><strong> Strategy Detection</strong>: involves dividing the entire reading session video into smaller
+          <p><strong> <Link to="/tasks/StrategyDetection">Strategy Detection</Link></strong>: involves dividing the entire reading session video into smaller
             segments,
             each segment highlighting a particular reading strategy used by the parent. </p>
-          <p><strong> Fidelity Assessment</strong>: requires you to evaluate each strategy segment, assign a score based
+          <p><strong> <Link to="/tasks/FidelityAssessment">Fidelity Assessment</Link></strong>: requires you to evaluate each strategy segment, assign a score based
             on how well the strategy was implemented, and provide constructive feedback to help the parent improve. </p>
 
         </section>
