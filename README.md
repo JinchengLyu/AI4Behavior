@@ -11,6 +11,14 @@
 
 2. **Install dependencies:**
 
+   Run
+   ```bash
+   npm run prereq
+   ```
+   to check prerequsite
+
+   OR
+
    Navigate to the root directory and install dependencies:
 
    ```bash
@@ -42,11 +50,11 @@ vist
 
 1. **Frontend:**
 
-   The frontend will be available at http://localhost:3000.
+   The frontend will be available at http://localhost:3210.
 
 2. **Backend:**
 
-   The backend will be available at http://localhost:3210
+   The backend will be available at http://localhost:4005
 
 # Getting Started with Create React App
 
