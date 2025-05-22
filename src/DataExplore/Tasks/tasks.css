@@ -1,0 +1,28 @@
+.evaluation-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid #eee;
+}
+
+.metric-title {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-top: 1rem;
+}
+
+.metric-description {
+  margin-left: 1.5rem;
+  color: #7f8c8d;
+}
+
+.metric-implication {
+  font-style: italic;
+  color: #3498db;
+}
+
+.evaluation-note {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-left: 4px solid #3498db;
+}

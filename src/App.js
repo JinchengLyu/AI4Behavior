@@ -8,9 +8,8 @@ import JL from "./People/Jincheng";
 import NotFound from "./404";
 import Footer from "./Footer";
 import "./App.css";
-import Tasks from "./Tasks";
 import Overview from "./DataExplore/Overview";
-import StrategyDetection from "./Tasks/StrategyDetection";
+import * as Tasks from "./DataExplore/Tasks";
 
 const App = () => {
   return (
@@ -25,7 +24,9 @@ const App = () => {
               <Route path="/dataset" element={<DBFilter />} />
               <Route path="/Jincheng" element={<JL />} />
               <Route path="/overview" element={<Overview/>}/>
-              <Route path="/tasks" element={<StrategyDetection/>}/>
+              <Route path="/tasks" element={<Tasks.default/>}/>
+              <Route path="/tasks/StrategyDetection" element={<Tasks.StrategyDetection/>}/>
+              <Route path="/tasks/FidelityAssessment" element={<Tasks.FidelityAssessment/>}/>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
