@@ -1,14 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import TeamMember from "./TeamMemberTable";
 import "./People.css";
-import LoremIpsum from "react-lorem-ipsum";
 
 const People = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleContent = () => {
-    setIsOpen(!isOpen);
-  };
 
   const memberTable = () => {
     const teamMembers = [
