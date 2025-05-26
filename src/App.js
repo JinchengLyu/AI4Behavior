@@ -10,6 +10,7 @@ import Footer from "./Footer";
 import "./App.css";
 import Overview from "./DataExplore/Overview";
 import * as Tasks from "./DataExplore/Tasks";
+import SimpleFileTree from "./DataExplore/FileTree"
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
               <Route path="/dataset" element={<DBFilter />} />
               <Route path="/Jincheng" element={<JL />} />
               <Route path="/overview" element={<Overview/>}/>
+              <Route path="/files" element={<SimpleFileTree/>}/>
               <Route path="/tasks/StrategyDetection" element={<Tasks.StrategyDetection/>}/>
               <Route path="/tasks/FidelityAssessment" element={<Tasks.FidelityAssessment/>}/>
               <Route path="*" element={<NotFound />} />

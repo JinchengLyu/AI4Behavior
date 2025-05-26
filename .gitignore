@@ -12,6 +12,9 @@
 # production
 /build
 
+# vedio files
+/backend/files
+
 # misc
 .DS_Store
 .env.local

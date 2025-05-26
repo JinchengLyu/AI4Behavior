@@ -3,12 +3,23 @@ const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const fs = require('fs');
 
 const app = express();
 const port = 4005;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// 安全路径检查函数
+const safePath = (userPath) => {
+  const root = path.join(__dirname, 'files');
+  const requestedPath = path.join(root, userPath);
+  if (!requestedPath.startsWith(root)) {
+    throw new Error('illegal');
+  }
+  return requestedPath;
+}
 
 // Serve static video files
 app.use("/videos", express.static(path.join(__dirname, "video_clips")));
@@ -147,6 +158,34 @@ app.post("/count", (req, res) => {
     }
     res.json({ count: row.count });
   });
+});
+
+// 获取目录结构
+app.get('/files', (req, res) => {
+  const dirPath = safePath(req.query.path);
+  const items = fs.readdirSync(dirPath, { withFileTypes: true });
+
+  res.json(items.map(dirent => ({
+    name: dirent.name,
+    isFolder: dirent.isDirectory(),
+    children: [] // 前端不再需要预加载
+  })));
+});
+
+// 文件下载
+app.get('/download', (req, res) => {
+  try {
+    const filePath = safePath(req.query.path);
+    const filename = path.basename(filePath);
+    
+    res.setHeader('Content-Type', 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+    
+    const readStream = fs.createReadStream(filePath);
+    readStream.pipe(res);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 // Start server
