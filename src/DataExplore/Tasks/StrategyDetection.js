@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const StrategyDetection = () => {
   return (
@@ -43,7 +44,8 @@ const StrategyDetection = () => {
       {/* Downloads */}
       <section>
         <h2 className="text-2xl font-semibold mb-2">Downloads</h2>
-        <p>Coming soon — datasets and annotation files will be available for download here.</p>
+        {/* <p>Coming soon — datasets and annotation files will be available for download here.</p> */}
+        <Link to="/files">download</Link>
         {/* <ul className="list-disc list-inside ml-4 mt-2">
           <li><a href="/downloads/strategy_dataset.zip" className="text-blue-600 underline">Strategy Dataset (zip)</a></li>
           <li><a href="/downloads/strategy_labels.json" className="text-blue-600 underline">Annotation File (JSON)</a></li>

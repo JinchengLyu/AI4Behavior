@@ -1,10 +1,10 @@
 // src/components/FileTree.js
 import React, { useState, useEffect } from 'react';
 import Tree from 'rc-tree';
-import 'rc-tree/assets/index.css'; // 引入默认样式
-import { Button } from 'antd'; // 使用 antd 的 Button 组件（可选）
+import 'rc-tree/assets/index.css';
+import { Button } from 'antd'; // 可选，如果不使用 antd，可以用原生 button
 import axios from 'axios';
-import { BACKEND } from '../consts';
+import {BACKEND} from "../consts"
 
 const FileTree = () => {
   const [treeData, setTreeData] = useState([]);
@@ -14,7 +14,6 @@ const FileTree = () => {
     const fetchTreeData = async () => {
       try {
         const response = await axios.get(BACKEND+'/api/files');
-        // 将后端数据转换为 rc-tree 所需的格式
         const formattedData = formatTreeData(response.data);
         setTreeData(formattedData);
       } catch (error) {
@@ -34,40 +33,38 @@ const FileTree = () => {
             {node.type === 'folder' ? '📁' : '📄'}
           </span>
           <span>{node.name}</span>
-          {node.type === 'file' && (
-            <Button
-              type="primary"
-              size="small"
-              style={{ marginLeft: 16 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDownload(node.path);
-              }}
-            >
-              Download
-            </Button>
-          )}
+          <Button
+            type="primary"
+            size="small"
+            style={{ marginLeft: 16 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDownload(node.path);
+            }}
+          >
+            下载
+          </Button>
         </div>
       ),
       children: node.children ? formatTreeData(node.children) : [],
     }));
   };
 
-  // 处理文件下载
-  const handleDownload = async (filePath) => {
+  // 处理文件或文件夹下载
+  const handleDownload = async (itemPath) => {
     try {
-      const response = await axios.get(BACKEND+`/api/download?path=${filePath}`, {
+      const response = await axios.get(`${BACKEND}/api/download?path=${itemPath}`, {
         responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', filePath.split('/').pop());
+      link.setAttribute('download', itemPath.split('/').pop() + (itemPath.includes('.') ? '' : '.zip'));
       document.body.appendChild(link);
       link.click();
       link.remove();
     } catch (error) {
-      console.error('下载文件失败:', error);
+      console.error('下载失败:', error);
     }
   };
 

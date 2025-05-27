@@ -3,6 +3,7 @@ const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const archiver = require('archiver');
 const fs = require("fs").promises;
 
 const app = express();
@@ -199,20 +200,31 @@ app.get("/api/files", async (req, res) => {
   }
 });
 
-// API: 下载文件
-app.get("/api/download", async (req, res) => {
+// API: 下载文件或文件夹
+app.get('/api/download', async (req, res) => {
   try {
-    const filePath = path.join(__dirname, "files", req.query.path);
-    const stat = await fs.stat(filePath);
+    const itemPath = path.join(__dirname, 'files', req.query.path);
+    const stat = await fs.stat(itemPath);
 
-    if (!stat.isFile()) {
-      return res.status(400).json({ error: "不是文件" });
+    if (stat.isFile()) {
+      // 如果是文件，直接下载
+      res.download(itemPath);
+    } else if (stat.isDirectory()) {
+      // 如果是文件夹，打包成 ZIP 文件
+      const archive = archiver('zip', { zlib: { level: 9 } });
+      const zipName = `${path.basename(itemPath)}.zip`;
+      res.setHeader('Content-Disposition', `attachment; filename="${zipName}"`);
+      res.setHeader('Content-Type', 'application/zip');
+
+      archive.pipe(res);
+      archive.directory(itemPath, path.basename(itemPath));
+      archive.finalize();
+    } else {
+      res.status(400).json({ error: '无效的路径' });
     }
-
-    res.download(filePath);
   } catch (error) {
-    console.error("下载文件失败:", error);
-    res.status(500).json({ error: "无法下载文件" });
+    console.error('下载失败:', error);
+    res.status(500).json({ error: '无法下载' });
   }
 });
 
