@@ -32,6 +32,11 @@
    npm install
    ```
 
+   Put any file need to be downloaded under 
+   ```text
+   backend/files
+   ```
+
 ## Running the Project
 
 ### **Start the service:**

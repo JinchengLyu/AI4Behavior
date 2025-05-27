@@ -3,23 +3,24 @@ const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
-const fs = require('fs');
+const fs = require("fs").promises;
 
 const app = express();
 const port = 4005;
+const BASE_DIR = path.join(__dirname, "files");
 
 app.use(cors());
 app.use(bodyParser.json());
 
 // 安全路径检查函数
 const safePath = (userPath) => {
-  const root = path.join(__dirname, 'files');
+  const root = path.join(__dirname, "files");
   const requestedPath = path.join(root, userPath);
   if (!requestedPath.startsWith(root)) {
-    throw new Error('illegal');
+    throw new Error("illegal");
   }
   return requestedPath;
-}
+};
 
 // Serve static video files
 app.use("/videos", express.static(path.join(__dirname, "video_clips")));
@@ -134,16 +135,15 @@ app.post("/api/update-transcript", (req, res) => {
 app.post("/count", (req, res) => {
   const { field1, value1, field2, value2 } = req.body;
   let query = `SELECT COUNT(*) AS count FROM videos`;
-    let params = [];
-    if (value1 !== "") {
+  let params = [];
+  if (value1 !== "") {
     query += ` WHERE ${field1} = ?`;
     params.push(value1);
     if (value2 !== "") {
       query += ` AND ${field2} = ?`;
       params.push(value2);
     }
-  }
-  else{
+  } else {
     if (value2 !== "") {
       query += ` WHERE ${field2} = ?`;
       params.push(value2);
@@ -160,31 +160,59 @@ app.post("/count", (req, res) => {
   });
 });
 
-// 获取目录结构
-app.get('/files', (req, res) => {
-  const dirPath = safePath(req.query.path);
-  const items = fs.readdirSync(dirPath, { withFileTypes: true });
+// 递归构建文件树
+const buildFileTree = async (dirPath, basePath = dirPath) => {
+  const entries = await fs.readdir(dirPath, { withFileTypes: true });
+  const tree = [];
 
-  res.json(items.map(dirent => ({
-    name: dirent.name,
-    isFolder: dirent.isDirectory(),
-    children: [] // 前端不再需要预加载
-  })));
+  for (const entry of entries) {
+    const fullPath = path.join(dirPath, entry.name);
+    const relativePath = path.relative(basePath, fullPath);
+
+    if (entry.isDirectory()) {
+      tree.push({
+        name: entry.name,
+        type: "folder",
+        path: relativePath,
+        children: await buildFileTree(fullPath, basePath),
+      });
+    } else {
+      tree.push({
+        name: entry.name,
+        type: "file",
+        path: relativePath,
+      });
+    }
+  }
+  return tree;
+};
+
+// API: 获取文件树
+app.get("/api/files", async (req, res) => {
+  try {
+    const rootPath = path.join(__dirname, "files");
+    const tree = await buildFileTree(rootPath);
+    res.json(tree);
+  } catch (error) {
+    console.error("构建文件树失败:", error);
+    res.status(500).json({ error: "无法获取文件树" });
+  }
 });
 
-// 文件下载
-app.get('/download', (req, res) => {
+// API: 下载文件
+app.get("/api/download", async (req, res) => {
   try {
-    const filePath = safePath(req.query.path);
-    const filename = path.basename(filePath);
-    
-    res.setHeader('Content-Type', 'application/octet-stream');
-    res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
-    
-    const readStream = fs.createReadStream(filePath);
-    readStream.pipe(res);
-  } catch (err) {
-    res.status(500).send(err.message);
+    const filePath = path.join(__dirname, "files", req.query.path);
+    const stat = await fs.stat(filePath);
+
+    if (!stat.isFile()) {
+      return res.status(400).json({ error: "不是文件" });
+    }
+
+    res.download(filePath);
+  } catch (error) {
+    console.error("下载文件失败:", error);
+    res.status(500).json({ error: "无法下载文件" });
   }
 });
 
