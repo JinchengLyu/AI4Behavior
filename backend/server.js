@@ -3,7 +3,7 @@ const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
-const archiver = require('archiver');
+const archiver = require("archiver");
 const fs = require("fs").promises;
 
 const app = express();
@@ -75,6 +75,47 @@ app.post("/api/filter", (req, res) => {
       key === "matched_transcript" ? `${key} LIKE ?` : `"${key}" = ?`
     )
     .join(" AND ")}`;
+
+  db.all(query, filterValues, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    if (!rows.length) {
+      return res.status(404).json({ error: "No matching videos found" });
+    }
+    res.json({ videos: rows });
+  });
+});
+
+app.post("/api/filter/deduplicate", (req, res) => {
+  const filters = req.body;
+  if (!Object.keys(filters).length) {
+    return res.status(400).json({ error: "No filter provided" });
+  }
+
+  const filterKeys = Object.keys(filters).filter(
+    (key) =>
+      filters[key] !== null &&
+      filters[key] !== undefined &&
+      filters[key] !== "" &&
+      key !== "GroupBy"
+  ); //ignore feilds with meaningless values
+  const filterValues = filterKeys.map((key) => {
+    if (key === "matched_transcript") {
+      return `%${filters[key]}%`; // Use wildcards for partial match
+    }
+    return filters[key];
+  });
+  console.log("filters", filterKeys, filterValues);
+
+  const query = `SELECT * FROM videos WHERE ${filterKeys
+    .map((key) =>
+      key === "matched_transcript" ? `${key} LIKE ?` : `"${key}" = ?`
+    )
+    .join(" AND ")} GROUP BY ${filters["GroupBy"]}`;
+
+  console.log(query);
 
   db.all(query, filterValues, (err, rows) => {
     if (err) {
@@ -188,22 +229,10 @@ const buildFileTree = async (dirPath, basePath = dirPath) => {
   return tree;
 };
 
-// API: 获取文件树
-app.get("/api/files", async (req, res) => {
-  try {
-    const rootPath = path.join(__dirname, "files");
-    const tree = await buildFileTree(rootPath);
-    res.json(tree);
-  } catch (error) {
-    console.error("构建文件树失败:", error);
-    res.status(500).json({ error: "无法获取文件树" });
-  }
-});
-
 // API: 下载文件或文件夹
-app.get('/api/download', async (req, res) => {
+app.get("/api/download", async (req, res) => {
   try {
-    const itemPath = path.join(__dirname, 'files', req.query.path);
+    const itemPath = path.join(__dirname, "files", req.query.path);
     const stat = await fs.stat(itemPath);
 
     if (stat.isFile()) {
@@ -211,20 +240,20 @@ app.get('/api/download', async (req, res) => {
       res.download(itemPath);
     } else if (stat.isDirectory()) {
       // 如果是文件夹，打包成 ZIP 文件
-      const archive = archiver('zip', { zlib: { level: 9 } });
+      const archive = archiver("zip", { zlib: { level: 9 } });
       const zipName = `${path.basename(itemPath)}.zip`;
-      res.setHeader('Content-Disposition', `attachment; filename="${zipName}"`);
-      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader("Content-Disposition", `attachment; filename="${zipName}"`);
+      res.setHeader("Content-Type", "application/zip");
 
       archive.pipe(res);
       archive.directory(itemPath, path.basename(itemPath));
       archive.finalize();
     } else {
-      res.status(400).json({ error: '无效的路径' });
+      res.status(400).json({ error: "无效的路径" });
     }
   } catch (error) {
-    console.error('下载失败:', error);
-    res.status(500).json({ error: '无法下载' });
+    console.error("下载失败:", error);
+    res.status(500).json({ error: "无法下载" });
   }
 });
 

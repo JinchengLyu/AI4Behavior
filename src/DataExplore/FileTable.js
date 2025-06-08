@@ -65,7 +65,7 @@ const FileTable = () => {
             id: item["Id"],
           }))
         );
-      }
+      }half
     });
   }, [currOption]);
 
