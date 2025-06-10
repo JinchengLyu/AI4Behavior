@@ -1,16 +1,20 @@
 import { React, useEffect, useState } from "react";
 import Filter from "./Filter/Filter";
 import { BACKEND } from "../consts";
+import { Table } from "antd";
+import { Content } from "antd/es/layout/layout";
 
 const FileTable = () => {
   const [filterOptions, setFilterOptions] = useState([]);
   const [types, setTypes] = useState([]);
   const [currOption, setCurrOption] = useState("");
   const [videoData, setVideoData] = useState([]);
+  const [tableColunms, setTableColunms] = useState(new Set());
 
   useEffect(() => {
     const fetchFilterOptions = async () => {
       try {
+        //fetch filter options
         let options = [];
         const response = await fetch(`${BACKEND}/api/distinct/Family`);
         const data = await response.json();
@@ -20,14 +24,9 @@ const FileTable = () => {
       } catch (error) {
         console.error("Error fetching filter options:", error);
       }
-    };
 
-    fetchFilterOptions();
-  }, []);
-
-  useEffect(() => {
-    const fetchFilterOptions = async () => {
       try {
+        //fetch types
         let options = [];
         const response = await fetch(`${BACKEND}/api/distinct/Type`);
         const data = await response.json();
@@ -43,30 +42,79 @@ const FileTable = () => {
   }, []);
 
   const handleFilterChange = (option) => {
+    console.debug(option);
     setCurrOption(option);
   };
 
   useEffect(() => {
-    types.map(async (type) => {
-      const response = await fetch(`${BACKEND}/api/filter`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          Family: currOption,
-          Type: type,
-        }),
+    const updateTable = async () => {
+      setVideoData([]);
+      setTableColunms(new Set());
+      types.map(async (type) => {
+        const response = await fetch(`${BACKEND}/api/filter/deduplicate`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            Family: currOption,
+            Type: type,
+            GroupBy: "Session",
+          }),
+        });
+        const data = await response.json();
+        if (data.videos) {
+          const row = {};
+          data.videos.map((item) => {
+            setTableColunms((oldValue) => {
+              const newSet = new Set(oldValue);
+              const addContent = {
+                title: `Session ${item["Session"]}`,
+                dataIndex: item["Session"],
+                key: item["Session"],
+              };
+              const exists = Array.from(newSet).some(
+                (item) => item.key === addContent.key
+              );
+              !exists && newSet.add(addContent);
+              return newSet;
+            });
+            row[item["Session"]] = [
+              <span key={type+item["Session"]}>
+                <a
+                  key="spreadsheet"
+                  href={`${BACKEND}/api/download?path=${encodeURIComponent(
+                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${item["Session"]}.xlsx`
+                  )}`}
+                >
+                  Spreasheet
+                </a>
+                <br />
+                <a
+                  key="video"
+                  href={`${BACKEND}/api/download?path=${encodeURIComponent(
+                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${item["Session"]}.MOV`
+                  )}`}
+                >
+                  Video
+                </a>
+              </span>,
+            ];
+          });
+          row[0] = type;
+          setVideoData((oldValue) => [...oldValue, row]);
+        }
       });
-      const data = await response.json();
-      if (data.videos) {
-        setVideoData(
-          data.videos.map((item) => ({
-            id: item["Id"],
-          }))
-        );
-      }half
+    };
+
+    updateTable();
+    setTableColunms((oldvalue) => {
+      const newSet = new Set(oldvalue);
+      newSet.add({ title: "Type", key: 0, dataIndex: 0 });
+      return newSet;
     });
+    console.debug("table colunm:", tableColunms);
+    console.debug("video data:", videoData);
   }, [currOption]);
 
   return (
@@ -77,6 +125,19 @@ const FileTable = () => {
         onChange={handleFilterChange}
         currOption={currOption}
       />
+      {!currOption && ( //message before any selection
+        <>
+          <p style={{ textAlign: "center" }}>
+            Select from drop down menu to see
+            result
+          </p>
+        </>
+      )}
+      {//if have select and option
+      currOption && <Table
+        columns={Array.from(tableColunms).sort((a, b) => a.key - b.key)}
+        dataSource={videoData}
+      />}
     </>
   );
 };
