@@ -1,0 +1,108 @@
+files
+ ┗ human_annotation
+ ┃ ┣ AL_Baseline
+ ┃ ┃ ┣ Section1.MOV
+ ┃ ┃ ┣ Section1.xlsx
+ ┃ ┃ ┣ Section2.MOV
+ ┃ ┃ ┣ Section2.xlsx
+ ┃ ┃ ┣ Section3.MOV
+ ┃ ┃ ┣ Section3.xlsx
+ ┃ ┃ ┣ Section4.MOV
+ ┃ ┃ ┗ Section4.xlsx
+ ┃ ┣ AL_MM
+ ┃ ┃ ┣ Section1.MOV
+ ┃ ┃ ┣ Section1.xlsx
+ ┃ ┃ ┣ Section2.MOV
+ ┃ ┃ ┣ Section2.xlsx
+ ┃ ┃ ┣ Section3.MOV
+ ┃ ┃ ┣ Section3.xlsx
+ ┃ ┃ ┣ Section4.MOV
+ ┃ ┃ ┗ Section4.xlsx
+ ┃ ┣ AL_RP
+ ┃ ┃ ┣ Section1.MOV
+ ┃ ┃ ┣ Section1.xlsx
+ ┃ ┃ ┣ Section2.MOV
+ ┃ ┃ ┣ Section2.xlsx
+ ┃ ┃ ┣ Section3.MOV
+ ┃ ┃ ┣ Section3.xlsx
+ ┃ ┃ ┣ Section4.MOV
+ ┃ ┃ ┗ Section4.xlsx
+ ┃ ┣ AL_TD
+ ┃ ┃ ┣ Section1.MOV
+ ┃ ┃ ┣ Section1.xlsx
+ ┃ ┃ ┣ Section2.MOV
+ ┃ ┃ ┣ Section2.xlsx
+ ┃ ┃ ┣ Section3.MOV
+ ┃ ┃ ┣ Section3.xlsx
+ ┃ ┃ ┣ Section4.MOV
+ ┃ ┃ ┗ Section4.xlsx
+ ┃ ┣ HB_Baseline
+ ┃ ┃ ┣ Section1.MOV
+ ┃ ┃ ┣ Section1.xlsx
+ ┃ ┃ ┣ Section2.MOV
+ ┃ ┃ ┣ Section2.xlsx
+ ┃ ┃ ┣ Section3.MOV
+ ┃ ┃ ┣ Section3.xlsx
+ ┃ ┃ ┣ Section4.MOV
+ ┃ ┃ ┗ Section4.xlsx
+ ┃ ┣ HB_MM
+ ┃ ┃ ┣ Section1.MOV
+ ┃ ┃ ┣ Section1.xlsx
+ ┃ ┃ ┣ Section2.MOV
+ ┃ ┃ ┣ Section2.xlsx
+ ┃ ┃ ┣ Section3.MOV
+ ┃ ┃ ┣ Section3.xlsx
+ ┃ ┃ ┣ Section4.MOV
+ ┃ ┃ ┗ Section4.xlsx
+ ┃ ┣ HB_RP
+ ┃ ┃ ┣ Section1.MOV
+ ┃ ┃ ┣ Section1.xlsx
+ ┃ ┃ ┣ Section2.MOV
+ ┃ ┃ ┣ Section2.xlsx
+ ┃ ┃ ┣ Section3.MOV
+ ┃ ┃ ┣ Section3.xlsx
+ ┃ ┃ ┣ Section4.MOV
+ ┃ ┃ ┣ Section4.xlsx
+ ┃ ┃ ┣ Section5.MOV
+ ┃ ┃ ┣ Section5.xlsx
+ ┃ ┃ ┣ Section6.MOV
+ ┃ ┃ ┗ Section6.xlsx
+ ┃ ┣ MC_Baseline
+ ┃ ┃ ┣ Section1a.MOV
+ ┃ ┃ ┣ Section1a.xlsx
+ ┃ ┃ ┣ Section1b.MOV
+ ┃ ┃ ┣ Section1b.xlsx
+ ┃ ┃ ┣ Section2.MOV
+ ┃ ┃ ┗ Section2.xlsx
+ ┃ ┣ MC_MM
+ ┃ ┃ ┣ Section2a.MOV
+ ┃ ┃ ┣ Section2a.xlsx
+ ┃ ┃ ┣ Section2b.MOV
+ ┃ ┃ ┣ Section2b.xlsx
+ ┃ ┃ ┣ Section3a.MOV
+ ┃ ┃ ┣ Section3a.xlsx
+ ┃ ┃ ┣ Section3b.MOV
+ ┃ ┃ ┣ Section3b.xlsx
+ ┃ ┃ ┣ Section4a.MOV
+ ┃ ┃ ┣ Section4a.xlsx
+ ┃ ┃ ┣ Section4b.MOV
+ ┃ ┃ ┗ Section4b.xlsx
+ ┃ ┣ MC_RP
+ ┃ ┃ ┣ Section1a.MOV
+ ┃ ┃ ┣ Section1a.xlsx
+ ┃ ┃ ┣ Section1b.MOV
+ ┃ ┃ ┣ Section1b.xlsx
+ ┃ ┃ ┣ Section2a.MOV
+ ┃ ┃ ┣ Section2b.MOV
+ ┃ ┃ ┣ Section2b.xlsx
+ ┃ ┃ ┣ Section3a.MOV
+ ┃ ┃ ┣ Section3a.xlsx
+ ┃ ┃ ┣ Section3b.MOV
+ ┃ ┃ ┗ Section3b.xlsx
+ ┃ ┗ MC_TD
+ ┃ ┃ ┣ Section1a.MOV
+ ┃ ┃ ┣ Section1a.xlsx
+ ┃ ┃ ┣ Section1b.MOV
+ ┃ ┃ ┣ Section1b.xlsx
+ ┃ ┃ ┣ Section2a.MOV
+ ┃ ┃ ┗ Section2a.xlsx

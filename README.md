@@ -37,6 +37,11 @@
    backend/files
    ```
 
+   file structure seen on
+   ```text
+   backend/Files_structure.txt
+   ```
+
 ## Running the Project
 
 ### **Start the service:**
@@ -47,12 +52,6 @@ Run the following command to start the frontend:
 
 ```
 npm start
-
-```
-
-For Windows user:
-```
-npm start:win
 
 ```
 
