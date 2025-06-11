@@ -24,6 +24,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "start": "concurrently \"PORT=3210 react-scripts start\" \"cd backend && node server.js\"",
+    "start:win": "concurrently \"set PORT=3210&& react-scripts start\" \"cd backend && node server.js\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

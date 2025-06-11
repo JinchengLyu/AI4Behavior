@@ -48,9 +48,12 @@ Run the following command to start the frontend:
 ```
 npm start
 
-nohup npm start > server.log 2>&1 &
+```
 
-vist 
+For Windows user:
+```
+npm start:win
+
 ```
 
 1. **Frontend:**
