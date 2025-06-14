@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./HomePage"; // Assume this is your homepage component
 import DBFilter from "./DataExplore/Filter/DBFilterPage"; // This is your filter page component
@@ -13,6 +13,15 @@ import * as Tasks from "./DataExplore/Tasks";
 import FileTable from "./DataExplore/FileTable";
 
 const App = () => {
+  useEffect(() => {
+    document.title = "ASD-HI Dataset";
+
+    const favicon = document.querySelector('link[rel="icon"]');
+    if (favicon) {
+      favicon.href = "/labLogo_square.png"; 
+    }
+  }, []);
+
   return (
     <Router basename="/">
       <div className="root">
@@ -24,15 +33,21 @@ const App = () => {
               <Route path="/people" element={<People />} />
               <Route path="/dataset" element={<DBFilter />} />
               <Route path="/Jincheng" element={<JL />} />
-              <Route path="/overview" element={<Overview/>}/>
-              <Route path="/files" element={<FileTable/>}/>
-              <Route path="/tasks/StrategyDetection" element={<Tasks.StrategyDetection/>}/>
-              <Route path="/tasks/FidelityAssessment" element={<Tasks.FidelityAssessment/>}/>
+              <Route path="/overview" element={<Overview />} />
+              <Route path="/files" element={<FileTable />} />
+              <Route
+                path="/tasks/StrategyDetection"
+                element={<Tasks.StrategyDetection />}
+              />
+              <Route
+                path="/tasks/FidelityAssessment"
+                element={<Tasks.FidelityAssessment />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   );
