@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import "./FileTable.css"
 import Filter from "./Filter/Filter";
 import { BACKEND } from "../consts";
 import { Table } from "antd";
@@ -66,12 +67,14 @@ const FileTable = () => {
         if (data.videos) {
           const row = {};
           data.videos.map((item) => {
+            const sessionNum= item["Session"]
             setTableColunms((oldValue) => {
               const newSet = new Set(oldValue);
               const addContent = {
-                title: `Session ${item["Session"]}`,
-                dataIndex: item["Session"],
-                key: item["Session"],
+                title: (<div className="colunmTitle">Session {sessionNum}</div>),
+                dataIndex: sessionNum,
+                key: sessionNum,
+                render: (sessionNum) => sessionNum ?? 'N/A'
               };
               const exists = Array.from(newSet).some(
                 (item) => item.key === addContent.key
@@ -79,12 +82,12 @@ const FileTable = () => {
               !exists && newSet.add(addContent);
               return newSet;
             });
-            row[item["Session"]] = [
-              <span key={type+item["Session"]}>
+            row[sessionNum] = [
+              <span key={type+sessionNum}>
                 <a
                   key="spreadsheet"
                   href={`${BACKEND}/api/download?path=${encodeURIComponent(
-                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${item["Session"]}.xlsx`
+                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${sessionNum}.xlsx`
                   )}`}
                 >
                   Spreasheet
@@ -93,7 +96,7 @@ const FileTable = () => {
                 <a
                   key="video"
                   href={`${BACKEND}/api/download?path=${encodeURIComponent(
-                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${item["Session"]}.MOV`
+                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${sessionNum}.MOV`
                   )}`}
                 >
                   Video
@@ -110,7 +113,7 @@ const FileTable = () => {
     updateTable();
     setTableColunms((oldvalue) => {
       const newSet = new Set(oldvalue);
-      newSet.add({ title: "Type", key: 0, dataIndex: 0 });
+      newSet.add({ title: (<div className="colunmTitle">Type</div>), key: 0, dataIndex: 0 });
       return newSet;
     });
     console.debug("table colunm:", tableColunms);
@@ -118,7 +121,7 @@ const FileTable = () => {
   }, [currOption]);
 
   return (
-    <>
+    <div>
       <Filter
         label="Family"
         options={filterOptions}
@@ -138,7 +141,7 @@ const FileTable = () => {
         columns={Array.from(tableColunms).sort((a, b) => a.key - b.key)}
         dataSource={videoData}
       />}
-    </>
+    </ div>
   );
 };
 

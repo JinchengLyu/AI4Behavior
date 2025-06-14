@@ -1,0 +1,8 @@
+div.content{
+    width: 70%;
+}
+
+div.colunmTitle{
+    display: flex;
+    justify-content: center;
+}
