@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./tasks.css";
 
 const FidelityAssessment = () => {
   return (
@@ -11,96 +10,69 @@ const FidelityAssessment = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-2">Overview</h2>
         <p>
-          <i>
-            <b>Fidelity Assessment</b>
-          </i>{" "}
-          is one of core tasks within the ASD-HI dataset, focusing on evaluating
-          the quality and accuracy of Naturalistic Communication Teaching (NCT)
-          strategies parents implementing. This task measures how effectively
-          parents execute strategies to ensure therapeutic benefits for children
-          with autism
-        </p>
-        <p>
-          Each strategy instance (Modeling, Mand-Model, Time Delay) is scored on
-          a 4-point scale (1=low, 4=high) based on criteria co-designed by ASD
-          experts:
-          <ul className="list-disc list-inside ml-4 mt-2">
-            <li>Establishing Joint Attention</li>
-            <li>Strategy Presentation</li>
-            <li>Feedback Quality</li>
-          </ul>
+          The Fidelity Assessment task is part of the ASD-HI dataset and focuses
+          on evaluating the quality of parent-implemented Naturalistic
+          Communication Teaching (NCT) strategies during reading sessions with
+          children with autism. This task assesses how effectively parents execute
+          these strategies, which are critical for early interventions.
         </p>
         <p className="mt-2">
-          The data for each task is split into approximately 50% training, 25%
-          validation, and 25% test sets
+          A total of <strong>478 parent strategy instances</strong> were
+          manually evaluated across <strong>48 reading sessions</strong> from{" "}
+          <strong>three families</strong>. Each instance is assigned a fidelity
+          score on a 4-point scale (1=Low to 4=High) based on specific criteria.
+          The goal of this task is to classify the fidelity of strategy implementation
+          in segmented video clips, returning the correct fidelity score for each instance.
         </p>
+      </section>
+
+      {/* Explanation */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-2">Explanation</h2>
+        <ul className="list-disc list-inside ml-4 mt-2">
+          <li>
+            Fidelity Scoring Criteria:
+            <p>
+              Fidelity is assessed on a 4-point scale, with +1 point awarded for each of the following components:
+              <ul className="list-disc list-inside ml-4 mt-1">
+                <li>Establishing joint attention between parent and child</li>
+                <li>Presenting the strategy (verbal or gestural model)</li>
+                <li>Waiting approximately 3-7 seconds for the child’s response OR Child provide response</li>
+                <li>Repeat stratagy OR Providing specific verbal feedback (beyond simple yes/no)</li>
+              </ul>
+              A score of 1 indicates minimal adherence, while a score of 4 represents full adherence to the protocol.
+            </p>
+          </li>
+          <li>
+            Challenges in Assessment:
+            <p>
+              Assessing fidelity is complex due to subtle visual cues like joint attention, which AI models often struggle to detect accurately. Human raters may be more lenient, considering joint attention established if present in most frames, whereas AI may penalize minor inconsistencies.
+            </p>
+          </li>
+        </ul>
       </section>
 
       {/* Evaluation */}
       <section>
-        <div class="evaluation-section">
-          <h2>Evaluation Metrics</h2>
-
-          <div class="metric-list">
-            <dl>
-              <dt class="metric-title">F1 Score</dt>
-              <dd class="metric-description">
-                <p>
-                  Harmonic mean of precision and recall for strategy detection:
-                </p>
-                <ul>
-                  <li>
-                    <strong>Precision:</strong> Proportion of correct
-                    predictions among all detected strategies
-                  </li>
-                  <li>
-                    <strong>Recall:</strong> Proportion of true strategies
-                    correctly identified
-                  </li>
-                </ul>
-                <p class="metric-implication">
-                  Higher F1 indicates better balance between avoiding false
-                  positives and missing true instances.
-                </p>
-              </dd>
-
-              <dt class="metric-title">Accuracy</dt>
-              <dd class="metric-description">
-                <p>Overall correctness of both:</p>
-                <ul>
-                  <li>Temporal boundaries (start/end times)</li>
-                  <li>Strategy type classification</li>
-                </ul>
-                <p class="metric-implication">
-                  Higher accuracy indicates precise alignment with ground truth
-                  annotations.
-                </p>
-              </dd>
-            </dl>
-          </div>
-
-          <div class="evaluation-note">
-            <p>Submissions are evaluated using both metrics to ensure:</p>
-            <ul>
-              <li>Comprehensive detection (F1 Score)</li>
-              <li>Precise localization and classification (Accuracy)</li>
-            </ul>
-          </div>
-        </div>
+        <h2 className="text-2xl font-semibold mb-2">Evaluation</h2>
+        <p>Submissions will be evaluated using the following metrics:</p>
+        <ul className="list-disc list-inside ml-4 mt-2">
+          <li>
+            <strong>Accuracy</strong>: Proportion of correctly classified fidelity scores
+          </li>
+          <li>
+            <strong>F1 Score</strong>: Harmonic mean of precision and recall for the 4-way classification
+          </li>
+        </ul>
+        <p className="mt-2">
+          Higher accuracy ensures correct fidelity classification, while a balanced F1 score accounts for class imbalances across the 4-point scale.
+        </p>
       </section>
 
       {/* Downloads */}
       <section>
         <h2 className="text-2xl font-semibold mb-2">Downloads</h2>
-        {/* <p>
-          Coming soon — datasets and annotation files will be available for
-          download here.
-        </p> */}
         <Link to="/files">download</Link>
-        {/* <ul className="list-disc list-inside ml-4 mt-2">
-          <li><a href="/downloads/strategy_dataset.zip" className="text-blue-600 underline">Strategy Dataset (zip)</a></li>
-          <li><a href="/downloads/strategy_labels.json" className="text-blue-600 underline">Annotation File (JSON)</a></li>
-        </ul> */}
       </section>
 
       {/* Dates */}
@@ -119,21 +91,15 @@ const FidelityAssessment = () => {
         </ul>
       </section>
 
-      {/* Results (Optional Placeholder) */}
-      {/* <section>
-        <h2 className="text-2xl font-semibold mb-2">Results</h2>
-        <p>Leaderboard and model performance metrics will be posted after the evaluation phase.</p>
-      </section> */}
-
       {/* Submission */}
       <section>
         <h2 className="text-2xl font-semibold mb-2">Submission</h2>
         <p>
-          Participants should submit a JSON file for each session, containing:
+          Participants should submit a JSON file for each session clip, containing:
         </p>
         <ul className="list-disc list-inside ml-4 mt-2">
           <li>Session ID</li>
-          <li>Detected strategies with start time, end time, and label</li>
+          <li>Strategy instance ID with corresponding fidelity score (1-4)</li>
         </ul>
         <p className="mt-2">
           Submission instructions and formatting guidelines will be published

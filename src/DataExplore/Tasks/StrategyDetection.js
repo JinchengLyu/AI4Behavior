@@ -10,34 +10,94 @@ const StrategyDetection = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-2">Overview</h2>
         <p>
-          The Strategy Detection task is part of the ASD-HI dataset and focuses on identifying the use of parent-implemented Naturalistic Communication Teaching (NCT) strategies during reading sessions with children. These strategies are essential components of early interventions for children with autism and include:
+          The Strategy Detection task is part of the ASD-HI dataset and focuses
+          on identifying the use of parent-implemented Naturalistic
+          Communication Teaching (NCT) strategies during reading sessions with
+          children. These strategies are essential components of early
+          interventions for children with autism and include:
         </p>
         <ul className="list-disc list-inside ml-4 mt-2">
           <li>Modeling</li>
           <li>Mand-Model</li>
-          <li>Time Delay</li>
+          <li>Time-Delay</li>
         </ul>
         <p className="mt-2">
-          A total of <strong>478 parent strategy instances</strong> were manually labeled across <strong>48 reading sessions</strong> from <strong>three families</strong>. Each annotation includes a start time, end time, and strategy label. The goal of this task is to detect these strategy uses in full-length session videos, returning the correct time segments and corresponding strategy types.
+          A total of <strong>478 parent strategy instances</strong> were
+          manually labeled across <strong>48 reading sessions</strong> from{" "}
+          <strong>three families</strong>. Each annotation includes a start
+          time, end time, and strategy label. The goal of this task is to detect
+          these strategy uses in full-length session videos, returning the
+          correct time segments and corresponding strategy types.
         </p>
+      </section>
+
+      {/* explanation */}
+      <section>
+        <h2>explanation</h2>
+        <ul className="list-disc list-inside ml-4 mt-2">
+          <li>
+            Modeling:
+            <p>
+              Modeling is a teaching strategy in which the parent uses
+              demonstrations to teach the child new words, phrases, signs, or
+              gestures. The first step in modeling is to establish joint
+              attention by focusing attention on the child or the child’s
+              specific interest. Next, the parent presents a model that is
+              related to the child’s interest. If the child responds correctly
+              to the model by imitating, the parent gives the child immediate
+              positive feedback.
+            </p>
+          </li>
+          <li>
+            Mand-Model
+            <p>
+              The mand-model strategy is very similar to the modeling strategy.
+              Mand-model differs from modeling by including a verbal prompt in
+              the form of a question (e.g., “What do you want?”), a choice
+              (e.g., “Is this an apple or a banana?”), or a mand (e.g., “Tell me
+              what you want” or “Say ‘more please’”). The first step in the
+              mand-model strategy is to establish joint attention by focusing
+              attention on the child or the child’s specific interest. Next, the
+              parents say a mand that is related to the child’s interest. If the
+              child responds correctly, the parent gives the child immediate
+              positive feedback.
+            </p>
+          </li>
+          <li>
+            Time Delay
+            <p>
+              Time delay is a strategy that encourages children to initiate
+              communication within a routine or regular activity where the child
+              understands the expectations based on past patterns. This strategy
+              is especially helpful in encouraging children to ask for help, to
+              ask for food or toys, or to ask for permission. The first step in
+              time delay is to establish joint attention. Once the parent has
+              established joint attention, he or she looks expectantly at the
+              child, and waits 3 to 7 seconds to see if the child will request
+              help or the object she/he wants. If the child requests correctly,
+              the parent gives the child immediate positive feedback.{" "}
+            </p>
+          </li>
+        </ul>
       </section>
 
       {/* Evaluation */}
       <section>
         <h2 className="text-2xl font-semibold mb-2">Evaluation</h2>
-        <p>
-          Submissions will be evaluated using the following metrics:
-        </p>
+        <p>Submissions will be evaluated using the following metrics:</p>
         <ul className="list-disc list-inside ml-4 mt-2">
           <li>
-            <strong>Coverage</strong>: Measures the proportion of correctly detected NCT strategy instances compared to the ground truth.
+            <strong>Coverage</strong>: Proportion of correctly detected
+            strategies
           </li>
           <li>
-            <strong>Accuracy</strong>: Assesses the precision of predicted time spans and strategy labels.
+            <strong>Accuracy</strong>: Precision of time spans and labels
           </li>
         </ul>
         <p className="mt-2">
-          Higher coverage ensures that fewer true strategy uses are missed, while high accuracy ensures the returned labels and timestamps are correct.
+          Higher coverage ensures that fewer true strategy uses are missed,
+          while high accuracy ensures the returned labels and timestamps are
+          correct.
         </p>
       </section>
 
@@ -56,9 +116,15 @@ const StrategyDetection = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-2">Dates</h2>
         <ul className="list-disc list-inside ml-4">
-          <li><strong>Dataset Release:</strong> TBD</li>
-          <li><strong>Submission Deadline:</strong> TBD</li>
-          <li><strong>Results Announcement:</strong> TBD</li>
+          <li>
+            <strong>Dataset Release:</strong> TBD
+          </li>
+          <li>
+            <strong>Submission Deadline:</strong> TBD
+          </li>
+          <li>
+            <strong>Results Announcement:</strong> TBD
+          </li>
         </ul>
       </section>
 
@@ -79,7 +145,8 @@ const StrategyDetection = () => {
           <li>Detected strategies with start time, end time, and label</li>
         </ul>
         <p className="mt-2">
-          Submission instructions and formatting guidelines will be published alongside the dataset.
+          Submission instructions and formatting guidelines will be published
+          alongside the dataset.
         </p>
       </section>
     </div>
