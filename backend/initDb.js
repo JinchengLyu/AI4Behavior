@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 // 数据库文件路径
-const dbPath = path.join(__dirname, 'file_sessions.db');
+const dbPath = path.join(__dirname, 'first_round_data_50.sqlite');
 
 // 创建数据库连接
 const db = new sqlite3.Database(dbPath, (err) => {
@@ -93,7 +93,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
         db.run('BEGIN TRANSACTION');
         
         const stmt = db.prepare(`
-          INSERT INTO file_sessions (family, type, session) 
+          INSERT INTO file_sessions (Family, Type, Session) 
           VALUES (?, ?, ?)
         `);
         

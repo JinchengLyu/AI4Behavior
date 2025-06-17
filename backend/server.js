@@ -109,9 +109,9 @@ app.post("/api/filter/deduplicate", (req, res) => {
   });
   console.log("filters", filterKeys, filterValues);
 
-  const query = `SELECT * FROM videos WHERE ${filterKeys
+  const query = `SELECT * FROM file_sessions WHERE ${filterKeys
     .map((key) =>
-      key === "matched_transcript" ? `${key} LIKE ?` : `"${key}" = ?`
+      `"${key}" = ?`
     )
     .join(" AND ")} GROUP BY ${filters["GroupBy"]}`;
 

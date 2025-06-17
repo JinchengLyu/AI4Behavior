@@ -67,7 +67,7 @@ const FileTable = () => {
         if (data.videos) {
           const row = {};
           data.videos.map((item) => {
-            const sessionNum= item["Session"]
+            const sessionNum= item["session"]
             setTableColunms((oldValue) => {
               const newSet = new Set(oldValue);
               const addContent = {
