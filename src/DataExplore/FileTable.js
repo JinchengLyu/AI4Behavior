@@ -87,7 +87,7 @@ const FileTable = () => {
                 <a
                   key="spreadsheet"
                   href={`${BACKEND}/api/download?path=${encodeURIComponent(
-                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${sessionNum}.xlsx`
+                    `human_annotation/${item["family"]}_${item["type"]}/Section${sessionNum}.xlsx`
                   )}`}
                 >
                   Spreasheet
@@ -96,7 +96,7 @@ const FileTable = () => {
                 <a
                   key="video"
                   href={`${BACKEND}/api/download?path=${encodeURIComponent(
-                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${sessionNum}.MOV`
+                    `human_annotation/${item["family"]}_${item["type"]}/Section${sessionNum}.MOV`
                   )}`}
                 >
                   Video

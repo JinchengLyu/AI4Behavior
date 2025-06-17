@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 const archiver = require("archiver");
+const { log } = require("console");
 const fs = require("fs").promises;
 
 const app = express();
@@ -110,9 +111,7 @@ app.post("/api/filter/deduplicate", (req, res) => {
   console.log("filters", filterKeys, filterValues);
 
   const query = `SELECT * FROM file_sessions WHERE ${filterKeys
-    .map((key) =>
-      `"${key}" = ?`
-    )
+    .map((key) => `"${key}" = ?`)
     .join(" AND ")} GROUP BY ${filters["GroupBy"]}`;
 
   console.log(query);
@@ -235,9 +234,24 @@ app.get("/api/download", async (req, res) => {
     const itemPath = path.join(__dirname, "files", req.query.path);
     const stat = await fs.stat(itemPath);
 
+    // 获取文件名（包含扩展名）
+    const fileName = path.basename(itemPath); 
+
+    // 获取父目录名
+    const parentDir = path.basename(path.dirname(itemPath));
+
+    // 构建新字符串
+    const customName = `${parentDir}_${fileName}`;
+
+    console.log(`Downloading: ${itemPath}, Custom Name: ${customName}`);
+
     if (stat.isFile()) {
       // 如果是文件，直接下载
-      res.download(itemPath);
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename="${customName}"`
+      );
+      res.sendFile(itemPath);
     } else if (stat.isDirectory()) {
       // 如果是文件夹，打包成 ZIP 文件
       const archive = archiver("zip", { zlib: { level: 9 } });
