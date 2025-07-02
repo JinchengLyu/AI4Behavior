@@ -33,7 +33,7 @@ const StrategyDetection = () => {
 
       {/* explanation */}
       <section>
-        <h2>explanation</h2>
+        <h2>Explanation</h2>
         <ul className="list-disc list-inside ml-4 mt-2">
           <li>
             Modeling:
