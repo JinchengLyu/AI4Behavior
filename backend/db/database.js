@@ -11,7 +11,7 @@ db.exec(`
     code TEXT NOT NULL,
     userId TEXT NOT NULL,
     expiresAt TEXT NOT NULL,
-    isUsed INTEGER DEFAULT 0
+    numUsed INTEGER DEFAULT 0
   )
 `);
 
@@ -131,28 +131,59 @@ const generatePasscode = async (userId) => {
 };
 
 // Function to validate a passcode
-const validatePasscode = async (code, userId) => {
-  const getPasscode = db.prepare('SELECT * FROM passcodes WHERE userId = ? AND isUsed = 0');
-  const passcode = getPasscode.get(userId);
+const validatePasscode = (code, userId) => {
+  return new Promise((resolve, reject) => {
+    console.log(`Validating passcode for userId: ${userId}, code: ${code}`);
 
-  if (!passcode) {
-    throw new Error('Passcode not found or already used');
-  }
+    if (!userId || !code) {
+      console.error('Missing userId or code');
+      return reject(new Error('userId and code are required'));
+    }
 
-  // Check if passcode is expired
-  if (new Date() > new Date(passcode.expiresAt)) {
-    throw new Error('Passcode expired');
-  }
+    // Use db.all() to get all unused passcodes for the user, ordered by id descending
+    const query = 'SELECT * FROM passcodes WHERE userId = ? AND isUsed = 0 ORDER BY id DESC';
+    db.all(query, [userId], (err, rows) => {
+      if (err) {
+        console.error(`Database query error: ${err.message}`);
+        return reject(new Error('Database error during passcode validation'));
+      }
 
-  // Compare hashed passcode
-  const isValid = await bcrypt.compare(code, passcode.code);
-  if (isValid) {
-    const update = db.prepare('UPDATE passcodes SET isUsed = 1 WHERE id = ?');
-    update.run(passcode.id);
-    return true;
-  } else {
-    throw new Error('Invalid passcode');
-  }
+      if (!rows || rows.length === 0) {
+        console.error(`No unused passcode found for userId: ${userId}`);
+        return reject(new Error('Passcode not found or already used'));
+      }
+
+      // Take the latest passcode (first in the sorted result due to DESC order)
+      const passcode = rows[0];
+      console.log(`Found passcode record: ${JSON.stringify(passcode)}`);
+
+      // Check if passcode is expired
+      const currentTime = new Date();
+      const expirationTime = new Date(passcode.expiresAt);
+      console.log(`Current time: ${currentTime}, Expires at: ${expirationTime}`);
+      if (currentTime > expirationTime) {
+        console.error('Passcode expired');
+        return reject(new Error('Passcode expired'));
+      }
+
+      // Compare hashed passcode
+      bcrypt.compare(code, passcode.code, (err, isValid) => {
+        if (err) {
+          console.error(`Bcrypt error: ${err.message}`);
+          return reject(new Error('Error validating passcode'));
+        }
+        if (isValid) {
+          const update = db.prepare('UPDATE passcodes SET isUsed = 1 WHERE id = ?');
+          update.run(passcode.id);
+          console.log(`Passcode validated and marked as used for id: ${passcode.id}`);
+          resolve(true);
+        } else {
+          console.error('Invalid passcode entered');
+          reject(new Error('Invalid passcode'));
+        }
+      });
+    });
+  });
 };
 
 module.exports = {
