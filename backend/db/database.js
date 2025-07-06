@@ -1,0 +1,167 @@
+const sqlite3 = require('sqlite3').verbose();
+const bcrypt = require('bcryptjs');
+
+// Initialize SQLite database
+const db = new sqlite3.Database('./first_round_data_50.sqlite');
+
+// Create passcode table if not exists
+db.exec(`
+  CREATE TABLE IF NOT EXISTS passcodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT NOT NULL,
+    userId TEXT NOT NULL,
+    expiresAt TEXT NOT NULL,
+    isUsed INTEGER DEFAULT 0
+  )
+`);
+
+// Function to get all videos
+const getAllVideos = (callback) => {
+  db.all('SELECT * FROM videos', [], callback);
+};
+
+// Function to query videos with filters
+const queryVideos = (filters, callback) => {
+  const filterKeys = Object.keys(filters).filter(
+    (key) => filters[key] !== null && filters[key] !== undefined && filters[key] !== ''
+  );
+  const filterValues = filterKeys.map((key) => {
+    if (key === 'matched_transcript') {
+      return `%${filters[key]}%`; // Use wildcards for partial match
+    }
+    return filters[key];
+  });
+
+  const query = `SELECT * FROM videos WHERE ${filterKeys
+    .map((key) => (key === 'matched_transcript' ? `${key} LIKE ?` : `"${key}" = ?`))
+    .join(' AND ')}`;
+
+  console.log('filters', filterKeys, filterValues);
+  db.all(query, filterValues, callback);
+};
+
+// Function to query file sessions with deduplication
+const queryFileSessions = (filters, groupBy, callback) => {
+  const filterKeys = Object.keys(filters).filter(
+    (key) =>
+      filters[key] !== null &&
+      filters[key] !== undefined &&
+      filters[key] !== '' &&
+      key !== 'GroupBy'
+  );
+  const filterValues = filterKeys.map((key) => {
+    if (key === 'matched_transcript') {
+      return `%${filters[key]}%`; // Use wildcards for partial match
+    }
+    return filters[key];
+  });
+
+  const query = `SELECT * FROM file_sessions WHERE ${filterKeys
+    .map((key) => `"${key}" = ?`)
+    .join(' AND ')} GROUP BY ${groupBy}`;
+
+  console.log('filters', filterKeys, filterValues);
+  console.log(query);
+  db.all(query, filterValues, callback);
+};
+
+// Function to get distinct column values
+const getDistinctValues = (column, callback) => {
+  console.log(`Received request to fetch distinct values for column: ${column}`);
+  if (!column) {
+    console.error('No column specified');
+    callback(new Error('No column specified'), null);
+    return;
+  }
+
+  const query = `SELECT DISTINCT "${column}" FROM videos`;
+  console.log(`Executing query: ${query}`);
+  db.all(query, [], callback);
+};
+
+// Function to update transcript
+const updateTranscript = (annotation, id, callback) => {
+  const query = `UPDATE videos SET matched_transcript = ? WHERE Id = ?`;
+  db.run(query, [annotation, id], function (err) {
+    if (err) {
+      callback(err, null);
+      return;
+    }
+    console.log(`updated ${id} transcript to "${annotation}"`);
+    callback(null, { message: 'Transcript updated successfully', changes: this.changes });
+  });
+};
+
+// Function to count records based on fields
+const countRecords = (field1, value1, field2, value2, callback) => {
+  let query = `SELECT COUNT(*) AS count FROM videos`;
+  let params = [];
+  if (value1 !== '') {
+    query += ` WHERE ${field1} = ?`;
+    params.push(value1);
+    if (value2 !== '') {
+      query += ` AND ${field2} = ?`;
+      params.push(value2);
+    }
+  } else if (value2 !== '') {
+    query += ` WHERE ${field2} = ?`;
+    params.push(value2);
+  }
+
+  db.get(query, params, (err, row) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      callback(err, null);
+      return;
+    }
+    callback(null, { count: row.count });
+  });
+};
+
+// Function to generate and save a new passcode
+const generatePasscode = async (userId) => {
+  const code = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit code
+  const hashedCode = await bcrypt.hash(code, 10); // Hash the passcode for security
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(); // Expires in 24 hours
+
+  const insert = db.prepare('INSERT INTO passcodes (code, userId, expiresAt) VALUES (?, ?, ?)');
+  insert.run(hashedCode, userId, expiresAt);
+
+  return code;
+};
+
+// Function to validate a passcode
+const validatePasscode = async (code, userId) => {
+  const getPasscode = db.prepare('SELECT * FROM passcodes WHERE userId = ? AND isUsed = 0');
+  const passcode = getPasscode.get(userId);
+
+  if (!passcode) {
+    throw new Error('Passcode not found or already used');
+  }
+
+  // Check if passcode is expired
+  if (new Date() > new Date(passcode.expiresAt)) {
+    throw new Error('Passcode expired');
+  }
+
+  // Compare hashed passcode
+  const isValid = await bcrypt.compare(code, passcode.code);
+  if (isValid) {
+    const update = db.prepare('UPDATE passcodes SET isUsed = 1 WHERE id = ?');
+    update.run(passcode.id);
+    return true;
+  } else {
+    throw new Error('Invalid passcode');
+  }
+};
+
+module.exports = {
+  getAllVideos,
+  queryVideos,
+  queryFileSessions,
+  getDistinctValues,
+  updateTranscript,
+  countRecords,
+  generatePasscode,
+  validatePasscode
+};

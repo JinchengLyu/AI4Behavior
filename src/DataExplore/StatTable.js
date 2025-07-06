@@ -39,7 +39,7 @@ const StatTable = () => {
         tempStats[value1] = {};
         for (const value2 of field2Values) {
           try {
-            const response = await fetch(`${BACKEND}/count`, {
+            const response = await fetch(`${BACKEND}/api/count`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
