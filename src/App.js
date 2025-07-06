@@ -11,6 +11,8 @@ import "./App.css";
 import Overview from "./DataExplore/Overview";
 import * as Tasks from "./DataExplore/Tasks";
 import FileTable from "./DataExplore/FileTable";
+import ValidatePasscode from "./DataExplore/protecter/validate";
+import RequestPasscode from "./DataExplore/protecter/generate"; 
 
 const App = () => {
   useEffect(() => {
@@ -18,7 +20,7 @@ const App = () => {
 
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {
-      favicon.href = "/labLogo_square.png"; 
+      favicon.href = "/labLogo_square.png";
     }
   }, []);
 
@@ -31,10 +33,12 @@ const App = () => {
             <Routes>
               <Route path="/" exact element={<HomePage />} />
               <Route path="/people" element={<People />} />
-              <Route path="/dataset" element={<DBFilter />} />
+              {/* <Route path="/dataset" element={<DBFilter />} /> */}
               <Route path="/Jincheng" element={<JL />} />
               <Route path="/overview" element={<Overview />} />
               <Route path="/files" element={<FileTable />} />
+              <Route path="/dataset" element={<ValidatePasscode />} />
+              <Route path="/RequestPasscode" element={<RequestPasscode />} />
               <Route
                 path="/tasks/StrategyDetection"
                 element={<Tasks.StrategyDetection />}

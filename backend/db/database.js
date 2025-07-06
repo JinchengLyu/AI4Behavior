@@ -4,17 +4,6 @@ const bcrypt = require('bcryptjs');
 // Initialize SQLite database
 const db = new sqlite3.Database('./first_round_data_50.sqlite');
 
-// Create passcode table if not exists
-db.exec(`
-  CREATE TABLE IF NOT EXISTS passcodes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    code TEXT NOT NULL,
-    userId TEXT NOT NULL,
-    expiresAt TEXT NOT NULL,
-    numUsed INTEGER DEFAULT 0
-  )
-`);
-
 // Function to get all videos
 const getAllVideos = (callback) => {
   db.all('SELECT * FROM videos', [], callback);
@@ -121,11 +110,11 @@ const countRecords = (field1, value1, field2, value2, callback) => {
 // Function to generate and save a new passcode
 const generatePasscode = async (userId) => {
   const code = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit code
-  const hashedCode = await bcrypt.hash(code, 10); // Hash the passcode for security
-  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(); // Expires in 24 hours
+  const hashedCode = await bcrypt.hash(code, 6); // Hash the passcode for security
+  const generateAt = new Date(Date.now()).toISOString(); // Use ISO format for consistency
 
-  const insert = db.prepare('INSERT INTO passcodes (code, userId, expiresAt) VALUES (?, ?, ?)');
-  insert.run(hashedCode, userId, expiresAt);
+  const insert = db.prepare('INSERT INTO passcodes (code, userId, generateAt) VALUES (?, ?, ?)');
+  insert.run(hashedCode, userId, generateAt);
 
   return code;
 };
@@ -141,7 +130,7 @@ const validatePasscode = (code, userId) => {
     }
 
     // Use db.all() to get all unused passcodes for the user, ordered by id descending
-    const query = 'SELECT * FROM passcodes WHERE userId = ? AND isUsed = 0 ORDER BY id DESC';
+    const query = 'SELECT * FROM passcodes WHERE userId = ? ORDER BY id DESC';
     db.all(query, [userId], (err, rows) => {
       if (err) {
         console.error(`Database query error: ${err.message}`);
@@ -157,14 +146,14 @@ const validatePasscode = (code, userId) => {
       const passcode = rows[0];
       console.log(`Found passcode record: ${JSON.stringify(passcode)}`);
 
-      // Check if passcode is expired
-      const currentTime = new Date();
-      const expirationTime = new Date(passcode.expiresAt);
-      console.log(`Current time: ${currentTime}, Expires at: ${expirationTime}`);
-      if (currentTime > expirationTime) {
-        console.error('Passcode expired');
-        return reject(new Error('Passcode expired'));
-      }
+      // // Check if passcode is expired
+      // const currentTime = new Date();
+      // const expirationTime = new Date(passcode.expiresAt);
+      // console.log(`Current time: ${currentTime}, Expires at: ${expirationTime}`);
+      // if (currentTime > expirationTime) {
+      //   console.error('Passcode expired');
+      //   return reject(new Error('Passcode expired'));
+      // }
 
       // Compare hashed passcode
       bcrypt.compare(code, passcode.code, (err, isValid) => {
@@ -173,8 +162,8 @@ const validatePasscode = (code, userId) => {
           return reject(new Error('Error validating passcode'));
         }
         if (isValid) {
-          const update = db.prepare('UPDATE passcodes SET isUsed = 1 WHERE id = ?');
-          update.run(passcode.id);
+          const update = db.prepare('UPDATE passcodes SET numUsed = ? WHERE id = ?');
+          update.run(passcode.numUsed+1, passcode.id);
           console.log(`Passcode validated and marked as used for id: ${passcode.id}`);
           resolve(true);
         } else {
