@@ -60,7 +60,7 @@ const People = () => {
         link: "https://qingxiaozheng.com",
       },
       {
-        photo: "/people/jincheng.jpg",
+        photo: "/people/Jincheng.JPG",
         name: "Jincheng Lyu",
         introduction: (
           <>
