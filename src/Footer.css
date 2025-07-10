@@ -9,6 +9,7 @@
   display: flex;
   gap: 30px;
   align-items: center;
+  justify-content: center;
 }
 
 .footer p {
@@ -31,7 +32,12 @@
 .footer .lab-info{
   display: flex;
   font-size: small;
-  width: 40%;
+  /* width: 40%; */
+  align-items: center;
+}
+
+.footer .xlab{
+  padding: 0 10em;
 }
 
 .footer .lab-info a{

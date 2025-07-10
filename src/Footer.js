@@ -12,34 +12,22 @@ const Footer = () => {
         width="241"
         height="32"
       ></img>
-      <div className="lab-info">
-        <img className="lab-logo" src="/NSF-logo.png" alt="NSF-logo" />
-        <div>
-          <h2>National AI Institute for Exceptional Education</h2>
-          <p>
-            An NSF & IES AI Institute for Transforming Education for Children
-            with Speech and Language Processing Challenge
-          </p>
-          <p>
-            <a href="mailto:info@ai4exceptionaled.org">
-              Contact Us at info@ai4exceptionaled.org
-            </a>
-          </p>
-        </div>
+      <div className="lab-info xlab">
+        <img className="lab-logo" src="/xlab.png" alt="NSF-logo" />
       </div>
+
       <div className="lab-info">
-        <img className="lab-logo" src="/IES-logo.png" alt="IES-logo" />
-        <div>
-          <p>
-            The research reported here was supported by the Institute of
-            Education Sciences, U.S. Department of Education, through Grant
-            22298673(NSF) to University at Buffalo, The State University of New
-            York. The opinions expressed are those of the authors and do not
-            represent views of the Institute or the U.S. Department of
-            Education.
-          </p>
-        </div>
+        <img className="ub-logo" src="/105-UB-Primary-SUNY-RGB-White.png" />
       </div>
+      <div>
+        <p>
+          <strong>Address</strong> 12 Capen Hall, Buffalo, New York 14260-1660
+        </p>
+        <p>
+          <strong>Phone</strong> 716-645-2000
+        </p>
+      </div>
+
       <p className="copyright">
         © 2024 National AI Research Institutes. All rights reserved. 404Nfound
         developed

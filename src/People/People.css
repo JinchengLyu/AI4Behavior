@@ -10,3 +10,29 @@ td {
 th {
   background-color: #f2f2f2;
 }
+
+.lab-info-container .lab-logo,.ub-logo{
+  height: 100px;
+}
+
+.lab-info-container .lab-info{
+  display: flex;
+  font-size: small;
+  width: 40%;
+}
+
+.lab-info-container .lab-info a{
+  color:cadetblue;
+}
+
+.lab-info-container{
+  position: flex;
+  padding: 20px;
+  text-align: center;
+  bottom: 0;
+  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
