@@ -20,6 +20,8 @@
     "react-scripts": "5.0.1",
     "swiper": "^11.1.14",
     "video-react": "^0.16.0",
+    "video.js": "^8.23.3",
+    "videojs-markers": "^1.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
