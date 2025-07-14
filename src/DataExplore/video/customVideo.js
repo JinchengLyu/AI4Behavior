@@ -1,20 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Player, ControlBar, PlaybackRateMenuButton } from 'video-react';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
-import 'video-react/dist/video-react.css';
-import './videoPlayer.css'; // Import custom CSS if you have it
+import React, { useRef, useState, useEffect } from "react";
+import { Player, ControlBar, PlaybackRateMenuButton } from "video-react";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import "video-react/dist/video-react.css";
+import "./videoPlayer.css"; // Import custom CSS if you have it
 
-const VideoPlayerWithChapters = () => {
+const VideoPlayerWithChapters = ({ chapters, videoSrc, showButton }) => {
   const playerRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-
-  const chapters = [
-    { time: 0, label: 'Intro' },
-    { time: 30, label: 'Chapter 1' },
-    { time: 60, label: 'Chapter 2' },
-  ];
 
   const marks = chapters.reduce((acc, chapter) => {
     acc[chapter.time] = chapter.label;
@@ -33,7 +27,7 @@ const VideoPlayerWithChapters = () => {
       });
 
       // Handle video loaded metadata to get initial duration
-      playerRef.current.video.video.addEventListener('loadedmetadata', () => {
+      playerRef.current.video.video.addEventListener("loadedmetadata", () => {
         setDuration(playerRef.current.getState().player.duration);
       });
 
@@ -61,7 +55,7 @@ const VideoPlayerWithChapters = () => {
     <div className="video-player-container">
       <Player
         ref={playerRef}
-        src="http://localhost:4005/api/download?path=human_annotation%2FAL_Baseline%2FSection2.MOV" // Replace with your actual video URL
+        src={videoSrc} // Replace with your actual video URL
         autoPlay={false}
       >
         <ControlBar autoHide={false} disableDefaultControls={true}>
@@ -78,21 +72,21 @@ const VideoPlayerWithChapters = () => {
           onChange={handleSliderChange}
           marks={marks}
           step={0.1}
-          railStyle={{ backgroundColor: '#ddd', height: 6 }}
-          trackStyle={{ backgroundColor: '#1890ff', height: 6 }}
-          handleStyle={{ borderColor: '#1890ff', height: 16, width: 16 }}
           disabled={duration === 0} // Disable slider until duration is loaded
         />
       </div>
 
       {/* Chapter Buttons */}
-      <div className="chapter-buttons">
+      {showButton && <div className="chapter-buttons">
         {chapters.map((chapter) => (
-          <button key={chapter.time} onClick={() => jumpToChapter(chapter.time)}>
+          <button
+            key={chapter.time}
+            onClick={() => jumpToChapter(chapter.time)}
+          >
             {chapter.label}
           </button>
         ))}
-      </div>
+      </div>}
     </div>
   );
 };

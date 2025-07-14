@@ -1,11 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import VideoPlayerWithChapters from "../video/customVideo";
+import { BACKEND, timeToSeconds } from "../../consts";
 
 const StrategyDetection = () => {
+  const chapters = [
+    { time: timeToSeconds("0:9"), label: "MM" },
+    { time: timeToSeconds("0:57"), label: "MM" },
+    { time: timeToSeconds("1:03"), label: "MM" },
+    { time: timeToSeconds("2:21"), label: "MM" },
+    { time: timeToSeconds("2:25"), label: "MM" },
+    { time: timeToSeconds("2:45"), label: "Time Delay" },
+    { time: timeToSeconds("3:43"), label: "MM" },
+    { time: timeToSeconds("3:55"), label: "MM" },
+    { time: timeToSeconds("4:00"), label: "MM" },
+    { time: timeToSeconds("4:28"), label: "Modeling" },
+    { time: timeToSeconds("4:52"), label: "Time Delay" },
+    { time: timeToSeconds("5:24"), label: "MM" },
+    { time: timeToSeconds("5:31"), label: "MM" },
+  ];
   return (
     <div className="p-6 space-y-12">
       <h1 className="text-4xl font-bold mb-4">Strategy Detection</h1>
-
+      <VideoPlayerWithChapters
+        chapters={chapters}
+        videoSrc={
+          BACKEND +
+          "/api/video/AL_MM/Section4.MOV"
+        }
+        showButton={false} // Set to true if you want to show chapter buttons
+      />
       {/* Overview */}
       <section>
         <h2 className="text-2xl font-semibold mb-2">Overview</h2>

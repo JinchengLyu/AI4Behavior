@@ -13,7 +13,6 @@ import * as Tasks from "./DataExplore/Tasks";
 import FileTable from "./DataExplore/FileTable";
 import ValidatePasscode from "./DataExplore/protecter/validate";
 import RequestPasscode from "./DataExplore/protecter/generate"; 
-import VideoPlayerWithChapters from "./DataExplore/video/customVideo"; // Import your custom video player
 
 const App = () => {
   useEffect(() => {
@@ -47,10 +46,6 @@ const App = () => {
               <Route
                 path="/tasks/FidelityAssessment"
                 element={<Tasks.FidelityAssessment />}
-              />
-              <Route
-                path="/tasks/VideoPlayerWithChapters"
-                element={<VideoPlayerWithChapters />}
               />
               <Route path="*" element={<NotFound />} />
             </Routes>
