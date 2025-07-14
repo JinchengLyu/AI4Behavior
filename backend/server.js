@@ -5,6 +5,7 @@ const path = require('path');
 const videoRoutes = require('./routes/video');
 const fileRoutes = require('./routes/file');
 const passcodeRoutes = require('./routes/passcode');
+const applicationsRouter = require('./routes/application');
 
 const app = express();
 const port = 4005;
@@ -19,6 +20,7 @@ app.use('/videos', express.static(path.join(__dirname, 'video_clips')));
 app.use('/api', videoRoutes);
 app.use('/api', fileRoutes);
 app.use('/api', passcodeRoutes);
+app.use('/api', applicationsRouter);
 
 // Start server
 app.listen(port, () => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import './RequestPasscode.css';
 import { BACKEND } from '../../consts';
+import ApplicationForm from './application';
 
 function RequestPasscode() {
   const [userId, setUserId] = useState('');
@@ -38,22 +39,7 @@ function RequestPasscode() {
   };
 
   return (
-    <div className="container">
-      <h2>Request a Passcode</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            placeholder="Enter User ID"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      {result && <div className="result">{result}</div>}
-      {error && <div className="error">{error}</div>}
-    </div>
+    <ApplicationForm/>
   );
 }
 

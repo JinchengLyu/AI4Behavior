@@ -175,6 +175,27 @@ const validatePasscode = (code, userId) => {
   });
 };
 
+// Helper: Run query (INSERT/UPDATE/DELETE)
+const runQuery = (sql, params = []) => {
+  return new Promise((resolve, reject) => {
+    db.run(sql, params, function (err) {
+      if (err) reject(err);
+      else resolve(this);
+    });
+  });
+};
+
+// Helper: Get all rows (SELECT)
+const getAllQuery = (sql, params = []) => {
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) reject(err);
+      else resolve(rows);
+    });
+  });
+};
+
+
 module.exports = {
   getAllVideos,
   queryVideos,
@@ -183,5 +204,7 @@ module.exports = {
   updateTranscript,
   countRecords,
   generatePasscode,
-  validatePasscode
+  validatePasscode,
+  runQuery,
+  getAllQuery
 };
