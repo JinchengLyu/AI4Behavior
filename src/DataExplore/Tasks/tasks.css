@@ -26,3 +26,18 @@
   background: #f9f9f9;
   border-left: 4px solid #3498db;
 }
+
+.demoVideo {
+  width: 50%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.demoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2rem;
+}
