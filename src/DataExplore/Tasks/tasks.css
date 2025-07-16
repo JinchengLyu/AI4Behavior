@@ -1,43 +1,171 @@
-.evaluation-section {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  border: 1px solid #eee;
+/* tasks.css */
+
+/* Page Container (shared for p-6 space-y-12) */
+.p-6.space-y-12 {
+  max-width: 1200px; /* Limit width for large screens */
+  margin: 0 auto; /* Center the content */
+  padding: 2rem; /* Extra padding */
+  background-color: white; /* White background for content */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 8px; /* Rounded corners */
 }
 
-.metric-title {
+/* Headings (shared) */
+.p-6.space-y-12 h1 {
+  color: #1e40af; /* Dark blue for main title */
+  font-size: 2.25rem; /* Matches text-4xl */
+  font-weight: bold;
+  margin-bottom: 1rem; /* Matches mb-4 */
+}
+
+.p-6.space-y-12 h2 {
+  color: #1e40af; /* Consistent blue */
+  font-size: 1.5rem; /* Matches text-2xl */
   font-weight: 600;
-  color: #2c3e50;
-  margin-top: 1rem;
+  margin-bottom: 0.5rem; /* Matches mb-2 */
+  border-bottom: 2px solid #e5e7eb; /* Underline for sections */
+  padding-bottom: 0.5rem;
 }
 
-.metric-description {
-  margin-left: 1.5rem;
-  color: #7f8c8d;
+.p-6.space-y-12 h3 {
+  color: #2563eb; /* Lighter blue for subheadings */
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.metric-implication {
-  font-style: italic;
-  color: #3498db;
+/* Paragraphs (shared) */
+.p-6.space-y-12 p {
+  line-height: 1.6; /* Better readability */
+  margin-bottom: 1rem;
+  color: #333; /* Dark text */
 }
 
-.evaluation-note {
-  margin-top: 1rem;
-  padding: 1rem;
-  background: #f9f9f9;
-  border-left: 4px solid #3498db;
+/* Lists (shared) */
+.p-6.space-y-12 ul {
+  list-style-type: disc; /* Default bullets */
+  padding-left: 1.5rem; /* Indent */
+  margin-bottom: 1rem;
+}
+
+.p-6.space-y-12 ul li {
+  margin-bottom: 0.5rem; /* Space between items */
+}
+
+.p-6.space-y-12 ul li strong {
+  color: #1e40af; /* Bold color for emphasis */
+}
+
+/* Links (shared) */
+.p-6.space-y-12 a {
+  color: #2563eb; /* Blue links */
+  text-decoration: underline;
+  transition: color 0.2s ease; /* Hover effect */
+}
+
+.p-6.space-y-12 a:hover {
+  color: #1e40af; /* Darker on hover */
+}
+
+/* Demo Section (from FidelityAssessment, shared if needed) */
+.demoContainer {
+  display: flex; /* Side-by-side layout */
+  flex-direction: row; /* Horizontal on large screens */
+  align-items: flex-start; /* Align top */
+  gap: 2rem; /* Space between video and list */
+  background-color: #f3f4f6; /* Light gray background */
+  padding: 1.5rem; /* Padding inside container */
+  border-radius: 8px; /* Rounded */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Shadow */
+  margin-bottom: 2rem; /* Space below */
 }
 
 .demoVideo {
-  width: 50%;
-  height: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-top: 1rem;
+  width: 50%; /* Half width */
+  max-width: 600px; /* Limit size */
+  height: auto; /* Maintain aspect ratio */
+  border: 1px solid #d1d5db; /* Border */
+  border-radius: 8px; /* Rounded */
 }
 
-.demoContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 2rem;
+.demoContainer ul {
+  width: 50%; /* Half width */
+  list-style-type: none; /* No bullets for this list */
+  padding: 0;
+}
+
+.demoContainer ul li {
+  background-color: #e5e7eb; /* Light background for each point */
+  padding: 0.75rem; /* Padding */
+  border-radius: 4px; /* Rounded */
+  margin-bottom: 0.75rem; /* Space */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.demoContainer ul li h2 {
+  font-size: 1.25rem; /* Smaller heading */
+  margin-bottom: 0.5rem;
+  border-bottom: none; /* No underline here */
+}
+
+/* Video Player Container (specific to StrategyDetection) */
+.video-player-container {
+  margin-bottom: 2rem; /* Space below video */
+  background-color: #f3f4f6; /* Light background */
+  padding: 1rem; /* Padding */
+  border-radius: 8px; /* Rounded */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 800px; /* Limit width */
+  margin: 0 auto; /* Center */
+}
+
+/* Explanation Section (specific to StrategyDetection) */
+.p-6.space-y-12 section ul li {
+  margin-bottom: 1.5rem; /* Extra space between strategy items */
+  padding: 1rem; /* Padding for each li */
+  background-color: #f9fafb; /* Very light background */
+  border-left: 4px solid #1e40af; /* Blue sidebar for emphasis */
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.p-6.space-y-12 section ul li p {
+  margin-top: 0.5rem; /* Space above paragraph in li */
+  font-size: 0.95rem; /* Slightly smaller text for details */
+}
+
+/* Fidelity Assessment Section (from previous page, shared) */
+#fidelity-assessment ul {
+  list-style-type: none; /* No bullets for fidelity lists */
+  padding-left: 0; /* No indent */
+}
+
+#fidelity-assessment ul li {
+  background-color: #f9fafb; /* Very light background */
+  padding: 1rem; /* Padding for each fidelity item */
+  margin-bottom: 1rem; /* Space */
+  border-left: 4px solid #1e40af; /* Blue sidebar for emphasis */
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Design (shared, no global) */
+@media (max-width: 768px) {
+  .p-6.space-y-12 {
+    padding: 1rem; /* Reduce padding on mobile */
+  }
+
+  .demoContainer {
+    flex-direction: column; /* Stack vertically on small screens */
+  }
+
+  .demoVideo,
+  .demoContainer ul {
+    width: 100%; /* Full width */
+  }
+
+  .video-player-container {
+    padding: 0.5rem; /* Reduce padding on mobile */
+  }
 }

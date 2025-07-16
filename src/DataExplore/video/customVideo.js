@@ -9,6 +9,7 @@ const VideoPlayerWithChapters = ({ chapters, videoSrc, showButton }) => {
   const playerRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
 
   const marks = chapters.reduce((acc, chapter) => {
     acc[chapter.time] = chapter.label;
@@ -51,6 +52,14 @@ const VideoPlayerWithChapters = ({ chapters, videoSrc, showButton }) => {
     }
   };
 
+  const handleVolumeChange = (value) => {
+    if (playerRef.current) {
+      const newVolume = value / 100; // Convert 0-100 to 0-1
+      playerRef.current.volume = newVolume; // Set video volume
+      setVolume(newVolume);
+    }
+  };
+
   return (
     <div className="video-player-container">
       <Player
@@ -58,7 +67,7 @@ const VideoPlayerWithChapters = ({ chapters, videoSrc, showButton }) => {
         src={videoSrc} // Replace with your actual video URL
         autoPlay={false}
       >
-        <ControlBar autoHide={false} disableDefaultControls={true}>
+        <ControlBar autoHide={false} disableCompletely={true}>
           <PlaybackRateMenuButton rates={[0.5, 1, 1.5, 2]} />
         </ControlBar>
       </Player>
@@ -76,17 +85,33 @@ const VideoPlayerWithChapters = ({ chapters, videoSrc, showButton }) => {
         />
       </div>
 
+      <div
+        className="volume-slider"
+        style={{ marginTop: "20px", width: "200px" }}
+      >
+        <label>Volume</label>
+        <Slider
+          min={0}
+          max={100}
+          value={volume * 100} // Convert 0-1 to 0-100 for slider
+          onChange={handleVolumeChange}
+          step={1}
+        />
+      </div>
+
       {/* Chapter Buttons */}
-      {showButton && <div className="chapter-buttons">
-        {chapters.map((chapter) => (
-          <button
-            key={chapter.time}
-            onClick={() => jumpToChapter(chapter.time)}
-          >
-            {chapter.label}
-          </button>
-        ))}
-      </div>}
+      {showButton && (
+        <div className="chapter-buttons">
+          {chapters.map((chapter) => (
+            <button
+              key={chapter.time}
+              onClick={() => jumpToChapter(chapter.time)}
+            >
+              {chapter.label}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

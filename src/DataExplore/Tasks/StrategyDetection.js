@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import VideoPlayerWithChapters from "../video/customVideo";
 import { BACKEND, timeToSeconds } from "../../consts";
+import "./tasks.css";
 
 const StrategyDetection = () => {
   const chapters = [
