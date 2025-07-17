@@ -174,7 +174,7 @@ const FidelityAssessment = () => {
         </p>
       </section>
 
-      {/* Dates */}
+      {/* Dates
       <section>
         <h2 className="text-2xl font-semibold mb-2">Dates</h2>
         <ul className="list-disc list-inside ml-4">
@@ -190,7 +190,7 @@ const FidelityAssessment = () => {
         </ul>
       </section>
 
-      {/* Submission */}
+      // {/* Submission 
       <section>
         <h2 className="text-2xl font-semibold mb-2">Submission</h2>
         <p>
@@ -205,7 +205,7 @@ const FidelityAssessment = () => {
           Submission instructions and formatting guidelines will be published
           alongside the dataset.
         </p>
-      </section>
+      </section> */}
     </div>
   );
 };

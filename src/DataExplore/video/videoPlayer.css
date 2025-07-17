@@ -89,3 +89,7 @@
   background-color: #f0f0f000; /* Light background */
   border-radius: 4px;
 }
+
+.volume-slider label {
+  font-size: 12px;
+}

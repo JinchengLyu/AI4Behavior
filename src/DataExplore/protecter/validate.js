@@ -44,7 +44,7 @@ function ValidatePasscode() {
 
   return (
     <div className="container">
-      {!isValidated && (
+      {isValidated && (
         <>
           <h2>Validate Passcode</h2>
           <form onSubmit={handleSubmit}>
@@ -72,7 +72,7 @@ function ValidatePasscode() {
         </>
       )}
 
-      {isValidated && <DBFilter />}
+      {!isValidated && <DBFilter />}
     </div>
   );
 }
