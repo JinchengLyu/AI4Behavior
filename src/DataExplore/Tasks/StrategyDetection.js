@@ -6,31 +6,24 @@ import "./tasks.css";
 
 const StrategyDetection = () => {
   const chapters = [
-    { time: timeToSeconds("0:9"), label: "MM" },
-    { time: timeToSeconds("0:57"), label: "MM" },
-    { time: timeToSeconds("1:03"), label: "MM" },
-    { time: timeToSeconds("2:21"), label: "MM" },
-    { time: timeToSeconds("2:25"), label: "MM" },
-    { time: timeToSeconds("2:45"), label: "Time Delay" },
-    { time: timeToSeconds("3:43"), label: "MM" },
-    { time: timeToSeconds("3:55"), label: "MM" },
-    { time: timeToSeconds("4:00"), label: "MM" },
-    { time: timeToSeconds("4:28"), label: "Modeling" },
-    { time: timeToSeconds("4:52"), label: "Time Delay" },
-    { time: timeToSeconds("5:24"), label: "MM" },
-    { time: timeToSeconds("5:31"), label: "MM" },
+    { time: timeToSeconds("0:9"), label: "B" },
+    { time: timeToSeconds("0:57"), label: "B" },
+    { time: timeToSeconds("1:03"), label: "B" },
+    { time: timeToSeconds("2:21"), label: "B" },
+    { time: timeToSeconds("2:25"), label: "B" },
+    { time: timeToSeconds("2:45"), label: "C" },
+    { time: timeToSeconds("3:43"), label: "B" },
+    { time: timeToSeconds("3:55"), label: "B" },
+    { time: timeToSeconds("4:00"), label: "B" },
+    { time: timeToSeconds("4:28"), label: "A" },
+    { time: timeToSeconds("4:52"), label: "C" },
+    { time: timeToSeconds("5:24"), label: "B" },
+    { time: timeToSeconds("5:31"), label: "B" },
   ];
   return (
     <div className="p-6 space-y-12">
       <h1 className="text-4xl font-bold mb-4">Strategy Detection</h1>
-      <VideoPlayerWithChapters
-        chapters={chapters}
-        videoSrc={
-          BACKEND +
-          "/api/video/AL_MM/Section4.MOV"
-        }
-        showButton={false} // Set to true if you want to show chapter buttons
-      />
+      
       {/* Overview */}
       <section>
         <h2 className="text-2xl font-semibold mb-2">Overview</h2>
@@ -42,9 +35,9 @@ const StrategyDetection = () => {
           interventions for children with autism and include:
         </p>
         <ul className="list-disc list-inside ml-4 mt-2">
-          <li>Modeling</li>
-          <li>Mand-Model</li>
-          <li>Time-Delay</li>
+          <li>Modeling (A)</li>
+          <li>Mand-Model (B)</li>
+          <li>Time-Delay (C)</li>
         </ul>
         <p className="mt-2">
           A total of <strong>478 parent strategy instances</strong> were
@@ -56,12 +49,23 @@ const StrategyDetection = () => {
         </p>
       </section>
 
+      <section className="demoContainer">
+        <VideoPlayerWithChapters
+        chapters={chapters}
+        videoSrc={
+          BACKEND +
+          "/api/video/AL_MM/Section4.MOV"
+        }
+        showButton={false} // Set to true if you want to show chapter buttons
+      />
+      </section>
+
       {/* explanation */}
       <section>
         <h2>Explanation</h2>
         <ul className="list-disc list-inside ml-4 mt-2">
           <li>
-            Modeling:
+            Modeling (A)
             <p>
               Modeling is a teaching strategy in which the parent uses
               demonstrations to teach the child new words, phrases, signs, or
@@ -74,7 +78,7 @@ const StrategyDetection = () => {
             </p>
           </li>
           <li>
-            Mand-Model
+            Mand-Model (B)
             <p>
               The mand-model strategy is very similar to the modeling strategy.
               Mand-model differs from modeling by including a verbal prompt in
@@ -89,7 +93,7 @@ const StrategyDetection = () => {
             </p>
           </li>
           <li>
-            Time Delay
+            Time Delay (C)
             <p>
               Time delay is a strategy that encourages children to initiate
               communication within a routine or regular activity where the child

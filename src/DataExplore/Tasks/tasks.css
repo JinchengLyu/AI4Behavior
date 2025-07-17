@@ -73,6 +73,7 @@
   display: flex; /* Side-by-side layout */
   flex-direction: row; /* Horizontal on large screens */
   align-items: flex-start; /* Align top */
+  justify-content: center;
   gap: 2rem; /* Space between video and list */
   background-color: #f3f4f6; /* Light gray background */
   padding: 1.5rem; /* Padding inside container */
@@ -148,6 +149,10 @@
   border-left: 4px solid #1e40af; /* Blue sidebar for emphasis */
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.reasoningCollapse ul{
+  width: 100%; /* Full width for reasoning */
 }
 
 /* Responsive Design (shared, no global) */

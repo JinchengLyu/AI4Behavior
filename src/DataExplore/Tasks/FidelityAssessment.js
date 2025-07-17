@@ -1,31 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BACKEND } from "../../consts";
 import "./tasks.css";
 
 const FidelityAssessment = () => {
+  const [expandReasoning, setExpandReasoning] = useState(false);
+
+  const toggleReasoning = () => {
+    setExpandReasoning(!expandReasoning);
+  };
+
+  const ReasoningCollapse = () => {
+    return (
+      <ul>
+        <li>+1 point - parent provide model ("One, two, three")</li>
+        <li>+1 point - Joint attention obtained (child look at book)</li>
+        <li>+1 point - Child provide response ("One, two, three, four") </li>
+        <li>+1 point - parent provide feedback ("No, Just three.") </li>
+      </ul>
+    );
+  };
+
   return (
     <div className="p-6 space-y-12">
       <h1 className="text-4xl font-bold mb-4">Fidelity Assessment</h1>
 
-      {/* demo */}
-      <div className="demoContainer">
-        <video className="demoVideo" controls>
-          <source
-            src={`${BACKEND}/videos/clip_1_a_l_10_14_20_baseline_1_mov.mp4`}
-            type="video/mp4"
-          />
-        </video>
-        <ul>
-          <li>
-            <h2>Reasoning:</h2>
-          </li>
-          <li>+1 point - parent provide model ("One, two, three")</li>
-          <li>+1 point - Joint attention obtained (child look at book)</li>
-          <li>+1 point - Child provide response ("One, two, three, four") </li>
-          <li>+1 point - parent provide feedback ("No, Just three.") </li>
-        </ul>
-      </div>
       {/* Overview */}
       <section>
         <h2 className="text-2xl font-semibold mb-2">Overview</h2>
@@ -47,10 +46,26 @@ const FidelityAssessment = () => {
         </p>
       </section>
 
+      {/* demo */}
+      <section className="demoContainer">
+        <video className="demoVideo" controls>
+          <source
+            src={`${BACKEND}/videos/clip_1_a_l_10_14_20_baseline_1_mov.mp4`}
+            type="video/mp4"
+          />
+        </video>
+        <div>
+          <button onClick={toggleReasoning} className="dataset">
+            Fidelity 4 Reasoning:{"\u2B9F"}
+          </button>
+          <div className="reasoningCollapse">
+            {expandReasoning && ReasoningCollapse()}
+          </div>
+        </div>
+      </section>
+
       {/* Explanation */}
-      <section
-        id="fidelity-assessment"
-      >
+      <section id="fidelity-assessment">
         <h2>Fidelity Assessment for Parent Strategies</h2>
         <p>
           This section explains how the fidelity of three parent
