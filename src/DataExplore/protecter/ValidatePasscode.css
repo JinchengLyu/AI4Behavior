@@ -1,0 +1,102 @@
+/* 全局页面容器 */
+.page-container {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa; /* 浅灰背景 */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 表单容器 */
+.validate-form-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+  text-align: center;
+}
+
+.validate-form-container h2 {
+  color: #0033A0; /* 蓝色标题 */
+  margin-bottom: 20px;
+}
+
+/* 表单组 */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* 输入框 */
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #0033A0;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 51, 160, 0.3);
+}
+
+/* 提交按钮 */
+.submit-button {
+  background-color: #0033A0;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #002080; /* 深蓝 hover 效果 */
+}
+
+/* 请求链接 */
+.request-link {
+  margin-top: 16px;
+}
+
+.request-link a {
+  color: #0033A0;
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color 0.3s ease;
+}
+
+.request-link a:hover {
+  color: #002080;
+  text-decoration: underline;
+}
+
+/* 消息样式 */
+.success-message {
+  color: green;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .validate-form-container {
+    padding: 15px;
+    margin: 20px;
+  }
+}

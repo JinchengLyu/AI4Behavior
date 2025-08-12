@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-// import './ValidatePasscode.css';
+import "./ValidatePasscode.css"; // 取消注释，导入 CSS
 import { BACKEND } from "../../consts";
+import { Link } from "react-router-dom"; // 可选：如果使用 React Router；否则用 <a>
 import DBFilter from "../Filter/DBFilterPage";
 
 function ValidatePasscode() {
@@ -43,37 +44,47 @@ function ValidatePasscode() {
   };
 
   return (
-    <div className="container">
-      {isValidated && (
-        <>
-          <h2>Validate Passcode</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <input
-                type="text"
-                placeholder="Enter User ID"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Enter Passcode"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-              />
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-          <div style={{ marginTop: "16px" }}>
-            <a href="/requestPasscode">request passcode</a>
+    <>
+      {!isValidated && (
+        <div className="page-container">
+          <div className="validate-form-container">
+            <>
+              <h2>Validate Passcode</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    placeholder="Enter User ID"
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    placeholder="Enter Passcode"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    className="form-input"
+                  />
+                </div>
+                <button type="submit" className="submit-button">
+                  Submit
+                </button>
+              </form>
+              <div className="request-link">
+                <Link to="/requestPasscode">request passcode</Link>{" "}
+                {/* 使用 Link 如果有 Router；否则用 <a href="/requestPasscode">request passcode</a> */}
+              </div>
+              {result && <p className="success-message">{result}</p>}
+              {error && <p className="error-message">{error}</p>}
+            </>
           </div>
-        </>
+        </div>
       )}
-
-      {!isValidated && <DBFilter />}
-    </div>
+      {isValidated && <DBFilter />}
+    </>
   );
 }
 

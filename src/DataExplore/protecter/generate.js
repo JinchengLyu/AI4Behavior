@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-// import './RequestPasscode.css';
+import './RequestPasscode.css'; // 取消注释，导入 CSS
 import { BACKEND } from '../../consts';
-import ApplicationForm from './application';
+import ApplicationForm from './application'; // 假设这是渲染表单的组件
 
 function RequestPasscode() {
   const [userId, setUserId] = useState('');
@@ -19,7 +19,7 @@ function RequestPasscode() {
     }
 
     try {
-      const response = await fetch(BACKEND+'/api/generate-passcode', {
+      const response = await fetch(BACKEND + '/api/generate-passcode', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +39,16 @@ function RequestPasscode() {
   };
 
   return (
-    <ApplicationForm/>
+    <div className="page-container">
+      <main className="form-container">
+        {/* 渲染 ApplicationForm 组件，如果它包含表单逻辑 */}
+        <ApplicationForm onSubmit={handleSubmit} /> {/* 如果 ApplicationForm 需要 handleSubmit，可以传递 props */}
+        
+        {/* 显示结果或错误（基于您的 state） */}
+        {result && <p className="result">{result}</p>}
+        {error && <p className="error">{error}</p>}
+      </main>
+    </div>
   );
 }
 
