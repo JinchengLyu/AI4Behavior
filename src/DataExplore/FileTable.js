@@ -64,10 +64,11 @@ const FileTable = () => {
           }),
         });
         const data = await response.json();
+        console.debug("fetch data:", data);
         if (data.videos) {
           const row = {};
           data.videos.map((item) => {
-            const sessionNum= item["session"]
+            const sessionNum= item["Session"]
             setTableColunms((oldValue) => {
               const newSet = new Set(oldValue);
               const addContent = {
@@ -87,7 +88,7 @@ const FileTable = () => {
                 <a
                   key="spreadsheet"
                   href={`${BACKEND}/api/download?path=${encodeURIComponent(
-                    `human_annotation/${item["family"]}_${item["type"]}/Section${sessionNum}.xlsx`
+                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${sessionNum}.xlsx`
                   )}`}
                 >
                   Spreasheet
@@ -96,7 +97,7 @@ const FileTable = () => {
                 <a
                   key="video"
                   href={`${BACKEND}/api/download?path=${encodeURIComponent(
-                    `human_annotation/${item["family"]}_${item["type"]}/Section${sessionNum}.MOV`
+                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${sessionNum}.MOV`
                   )}`}
                 >
                   Video

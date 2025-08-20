@@ -53,24 +53,30 @@ const queryVideos = async (filters, callback) => {
 };
 
 // Function to query file sessions with deduplication (Node-side distinct by groupBy)
-const queryFileSessions = async (filters, groupBy, callback) => {
-  let q = supabase.from("file_sessions").select("*");
-  q = applyFilters(q, filters);
-  const { data, error } = await q;
-  if (error) {
-    if (callback) return callback(error, null);
-    return { data: null, error };
+// queryFileSessionsRpc.js
+const queryFileSessions = async (filters, groupBy, callback, options = {}) => {
+  try {
+    console.debug("queryFileSessions called with filters:", filters, "groupBy:", groupBy);
+    const params = {
+      p_group_by: groupBy,
+      p_order_by: options.orderBy || 'id',
+      p_desc: options.orderAsc === undefined ? true : !options.orderAsc,
+      p_filters: filters || {}
+    };
+
+    const { data, error } = await supabase.rpc('file_sessions_distinct', params);
+    if (error) {
+      if (callback) return callback(error, null);
+      return { data: null, error };
+    }
+    if (callback) return callback(null, data);
+    return { data, error: null };
+  } catch (e) {
+    if (callback) return callback(e, null);
+    return { data: null, error: e };
   }
-  // Deduplicate by groupBy (keep first occurrence)
-  const seen = new Map();
-  for (const row of data || []) {
-    const key = row?.[groupBy];
-    if (!seen.has(key)) seen.set(key, row);
-  }
-  const deduped = Array.from(seen.values());
-  if (callback) return callback(null, deduped);
-  return { data: deduped, error: null };
 };
+
 
 // Function to get distinct column values
 const getDistinctValues = async (column, callback) => {
