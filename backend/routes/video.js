@@ -76,11 +76,10 @@ router.post("/filter/deduplicate", (req, res) => {
 // Endpoint to get distinct values for a column
 router.get("/distinct/:column", (req, res) => {
   const column = req.params.column;
-  getDistinctValues(column, (err, rows) => {
+  getDistinctValues(column, (err, distinctValues) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
-    const distinctValues = rows.map((row) => row[column]);
     console.log(`Fetched distinct values: ${distinctValues}`);
     res.json({ distinctValues });
   });
