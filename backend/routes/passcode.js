@@ -12,6 +12,7 @@ router.post('/generate-passcode', async (req, res) => {
     const code = await generatePasscode(userId);
     res.json({ passcode: code });
   } catch (error) {
+    console.error('Error generating passcode:', error);
     res.status(500).json({ error: 'Failed to generate passcode' });
   }
 });

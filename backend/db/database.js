@@ -157,7 +157,7 @@ const validatePasscode = (code, userId) => {
         .from("passcodes")
         .select("*")
         .eq("userId", userId)
-        .order("id", { ascending: false })
+        .order("generateAt", { ascending: false })
         .limit(1);
 
       if (error)
@@ -177,7 +177,7 @@ const validatePasscode = (code, userId) => {
       const { error: updErr } = await supabase
         .from("passcodes")
         .update({ numUsed: nextNumUsed })
-        .eq("id", passcode.id);
+        .eq("code", passcode.code);
 
       if (updErr)
         return reject(

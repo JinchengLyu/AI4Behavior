@@ -12,7 +12,8 @@ import Overview from "./DataExplore/Overview";
 import * as Tasks from "./DataExplore/Tasks";
 import FileTable from "./DataExplore/FileTable";
 import ValidatePasscode from "./DataExplore/protecter/validate";
-import RequestPasscode from "./DataExplore/protecter/generate"; 
+import ApplicationsAdmin from "./ApplicationsAdmin";
+import RequestPasscode from "./DataExplore/protecter/generate";
 
 const App = () => {
   useEffect(() => {
@@ -39,6 +40,10 @@ const App = () => {
               <Route path="/files" element={<FileTable />} />
               <Route path="/dataset" element={<ValidatePasscode />} />
               <Route path="/RequestPasscode" element={<RequestPasscode />} />
+              <Route
+                path="/applicationsAdmin"
+                element={<ApplicationsAdmin />}
+              />
               <Route
                 path="/tasks/StrategyDetection"
                 element={<Tasks.StrategyDetection />}
