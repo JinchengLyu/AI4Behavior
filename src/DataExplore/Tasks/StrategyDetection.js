@@ -146,14 +146,14 @@ const StrategyDetection = () => {
         <h2 className="text-2xl font-semibold mb-2">Dates</h2>
         <ul className="list-disc list-inside ml-4">
           <li>
-            <strong>Dataset Release:</strong> TBD
+            <strong>Dataset Release:</strong> 09/09/2025
           </li>
-          <li>
-            <strong>Submission Deadline:</strong> TBD
-          </li>
-          <li>
-            <strong>Results Announcement:</strong> TBD
-          </li>
+          {/*<li>*/}
+          {/*  <strong>Submission Deadline:</strong> TBD*/}
+          {/*</li>*/}
+          {/*<li>*/}
+          {/*  <strong>Results Announcement:</strong> TBD*/}
+          {/*</li>*/}
         </ul>
       </section>
 
@@ -164,20 +164,20 @@ const StrategyDetection = () => {
       </section> */}
 
       {/* Submission */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-2">Submission</h2>
-        <p>
-          Participants should submit a JSON file for each session, containing:
-        </p>
-        <ul className="list-disc list-inside ml-4 mt-2">
-          <li>Session ID</li>
-          <li>Detected strategies with start time, end time, and label</li>
-        </ul>
-        <p className="mt-2">
-          Submission instructions and formatting guidelines will be published
-          alongside the dataset.
-        </p>
-      </section>
+      {/*<section>*/}
+      {/*  <h2 className="text-2xl font-semibold mb-2">Submission</h2>*/}
+      {/*  <p>*/}
+      {/*    Participants should submit a JSON file for each session, containing:*/}
+      {/*  </p>*/}
+      {/*  <ul className="list-disc list-inside ml-4 mt-2">*/}
+      {/*    <li>Session ID</li>*/}
+      {/*    <li>Detected strategies with start time, end time, and label</li>*/}
+      {/*  </ul>*/}
+      {/*  <p className="mt-2">*/}
+      {/*    Submission instructions and formatting guidelines will be published*/}
+      {/*    alongside the dataset.*/}
+      {/*  </p>*/}
+      {/*</section>*/}
     </div>
   );
 };
