@@ -129,33 +129,21 @@ const FileTable = () => {
 
   //download all button
   const handleDownloadAll = async () => {
+    // download all button
     setDownloadLoading(true);
-    try {
-      const response = await fetch(`${BACKEND}/api/download-all`, {
-        method: "get" // Send Family to backend
-      });
 
-      if (!response.ok) {
-        throw new Error("Failed to download");
-      }
+    // 创建隐藏 a 标签模拟下载（无需 Fetch，避免内存加载大文件）
+    const url = `${BACKEND}/api/download-all`; // 您的路由（假设 GET）
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "Train_test_split.zip"; // 可选：浏览器会使用后端 Content-Disposition，如果设置
+    document.body.appendChild(a);
+    a.click();
+    a.remove(); // 清理
 
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `Train_test_split.zip`; // ZIP file name
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-
-      message.success("Download started!");
-    } catch (error) {
-      console.error("Error downloading all files:", error);
-      message.error("Error downloading files");
-    } finally {
-      setDownloadLoading(false);
-    }
+    message.success("Download started!");
+    setDownloadLoading(false); // 无需等待，因为浏览器立即处理
   };
 
   return (
@@ -167,7 +155,7 @@ const FileTable = () => {
         loading={downloadLoading}
         style={{ marginBottom: 16 }} // Style for button
       >
-        Download  train test splited data
+        Download train test splited data
       </Button>
       <Filter
         label="Family"

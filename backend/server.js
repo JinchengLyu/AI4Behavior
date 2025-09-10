@@ -10,6 +10,8 @@ const applicationsRouter = require('./routes/application');
 const app = express();
 const port = 4005;
 
+app.use(require('compression')()); // 自动 gzip
+
 app.use(cors());
 app.use(bodyParser.json());
 
