@@ -21,7 +21,9 @@ const DBFilter = () => {
         for (const label of filterLabels) {
           const response = await fetch(`${BACKEND}/api/distinct/${label}`);
           const data = await response.json();
-          options[label] = data.distinctValues;
+          options[label] = Number.isInteger(data.distinctValues[0])
+            ? data.distinctValues.sort((a, b) => a - b)
+            : data.distinctValues.sort();
         }
         setFilterOptions(options);
       } catch (error) {
