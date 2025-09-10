@@ -28,7 +28,7 @@ function applyFilters(query, filters) {
   for (const k of keys) {
     const v = filters[k];
     if (k === "matched_transcript") {
-      query = query.ilike("matched_transcript", `%${v}%`);
+      query = query.ilike("comments", `%${v}%`);
     } else {
       query = query.eq(k, v);
     }

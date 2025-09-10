@@ -62,7 +62,7 @@ const DBFilter = () => {
           data.videos.map((item) => ({
             id: item["Id"],
             src: `${BACKEND}/videos/${item["Clip_Name"]}`,
-            description: item["matched_transcript"],
+            description: item["Comments"],
             fidelity: item["Fidelity"],
             stratagy: item["Parent_Strategy"],
           }))
