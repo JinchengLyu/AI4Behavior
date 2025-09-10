@@ -6,3 +6,8 @@ div.colunmTitle{
     display: flex;
     justify-content: center;
 }
+
+button.downloadButton{
+    position: absolute;
+
+}

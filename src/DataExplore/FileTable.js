@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
-import "./FileTable.css"
+import "./FileTable.css";
 import Filter from "./Filter/Filter";
 import { BACKEND } from "../consts";
-import { Table } from "antd";
+import { Table, message, Button } from "antd";
 import { Content } from "antd/es/layout/layout";
 
 const FileTable = () => {
@@ -10,7 +10,9 @@ const FileTable = () => {
   const [types, setTypes] = useState([]);
   const [currOption, setCurrOption] = useState("");
   const [videoData, setVideoData] = useState([]);
-  const [tableColunms, setTableColunms] = useState(new Set());
+  const [tableColumns, setTableColumns] = useState(new Set());
+  const [loading, setLoading] = useState(false);
+  const [downloadLoading, setDownloadLoading] = useState(false); // New state for download button loading
 
   useEffect(() => {
     const fetchFilterOptions = async () => {
@@ -50,7 +52,7 @@ const FileTable = () => {
   useEffect(() => {
     const updateTable = async () => {
       setVideoData([]);
-      setTableColunms(new Set());
+      setTableColumns(new Set());
       types.map(async (type) => {
         const response = await fetch(`${BACKEND}/api/filter/deduplicate`, {
           method: "POST",
@@ -68,14 +70,14 @@ const FileTable = () => {
         if (data.videos) {
           const row = {};
           data.videos.map((item) => {
-            const sessionNum= item["Session"]
-            setTableColunms((oldValue) => {
+            const sessionNum = item["Session"];
+            setTableColumns((oldValue) => {
               const newSet = new Set(oldValue);
               const addContent = {
-                title: (<div className="colunmTitle">Session {sessionNum}</div>),
+                title: <div className="colunmTitle">Session {sessionNum}</div>,
                 dataIndex: sessionNum,
                 key: sessionNum,
-                render: (sessionNum) => sessionNum ?? 'N/A'
+                render: (sessionNum) => sessionNum ?? "N/A",
               };
               const exists = Array.from(newSet).some(
                 (item) => item.key === addContent.key
@@ -84,11 +86,11 @@ const FileTable = () => {
               return newSet;
             });
             row[sessionNum] = [
-              <span key={type+sessionNum}>
+              <span key={type + sessionNum}>
                 <a
                   key="spreadsheet"
                   href={`${BACKEND}/api/download?path=${encodeURIComponent(
-                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${sessionNum}.xlsx`
+                    `human_annotation/${item["Family"]}_${item["Type"]}/Session${sessionNum}.xlsx`
                   )}`}
                 >
                   Spreasheet
@@ -97,7 +99,7 @@ const FileTable = () => {
                 <a
                   key="video"
                   href={`${BACKEND}/api/download?path=${encodeURIComponent(
-                    `human_annotation/${item["Family"]}_${item["Type"]}/Section${sessionNum}.MOV`
+                    `human_annotation/${item["Family"]}_${item["Type"]}/Session${sessionNum}.MOV`
                   )}`}
                 >
                   Video
@@ -112,37 +114,82 @@ const FileTable = () => {
     };
 
     updateTable();
-    setTableColunms((oldvalue) => {
+    setTableColumns((oldvalue) => {
       const newSet = new Set(oldvalue);
-      newSet.add({ title: (<div className="colunmTitle">Type</div>), key: 0, dataIndex: 0 });
+      newSet.add({
+        title: <div className="colunmTitle">Type</div>,
+        key: 0,
+        dataIndex: 0,
+      });
       return newSet;
     });
-    console.debug("table colunm:", tableColunms);
+    console.debug("table colunm:", tableColumns);
     console.debug("video data:", videoData);
   }, [currOption]);
 
+  //download all button
+  const handleDownloadAll = async () => {
+    setDownloadLoading(true);
+    try {
+      const response = await fetch(`${BACKEND}/api/download-all`, {
+        method: "get" // Send Family to backend
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to download");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Train_test_split.zip`; // ZIP file name
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+
+      message.success("Download started!");
+    } catch (error) {
+      console.error("Error downloading all files:", error);
+      message.error("Error downloading files");
+    } finally {
+      setDownloadLoading(false);
+    }
+  };
+
   return (
     <div>
+      <Button
+        className="downloadButton"
+        type="primary"
+        onClick={handleDownloadAll}
+        loading={downloadLoading}
+        style={{ marginBottom: 16 }} // Style for button
+      >
+        Download  train test splited data
+      </Button>
       <Filter
         label="Family"
         options={filterOptions}
         onChange={handleFilterChange}
         currOption={currOption}
       />
-      {!currOption && ( //message before any selection
+      {!currOption ? (
+        <p style={{ textAlign: "center" }}>
+          Select from drop down menu to see result
+        </p>
+      ) : loading ? (
+        <p style={{ textAlign: "center" }}>Loading data...</p>
+      ) : (
         <>
-          <p style={{ textAlign: "center" }}>
-            Select from drop down menu to see
-            result
-          </p>
+          <Table
+            columns={Array.from(tableColumns).sort((a, b) => a.key - b.key)}
+            dataSource={videoData}
+          />
         </>
       )}
-      {//if have select and option
-      currOption && <Table
-        columns={Array.from(tableColunms).sort((a, b) => a.key - b.key)}
-        dataSource={videoData}
-      />}
-    </ div>
+    </div>
   );
 };
 
