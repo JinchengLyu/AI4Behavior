@@ -7,6 +7,8 @@ import People from "./People/People";
 import JL from "./People/Jincheng";
 import NotFound from "./404";
 import Footer from "./Footer";
+import Login from "./accountManage/login";
+import Register from "./accountManage/register";
 import "./App.css";
 import Overview from "./DataExplore/Overview";
 import * as Tasks from "./DataExplore/Tasks";
@@ -33,6 +35,8 @@ const App = () => {
           <div className="content">
             <Routes>
               <Route path="/" exact element={<HomePage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/people" element={<People />} />
               {/* <Route path="/dataset" element={<DBFilter />} /> */}
               <Route path="/Jincheng" element={<JL />} />

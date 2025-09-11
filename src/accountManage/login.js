@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from './supabaseClient'; // 导入Supabase客户端
+import { supabase } from '../supabaseClient'; // 导入Supabase客户端
 
 function Login() {
   const [email, setEmail] = useState(''); // 使用邮箱代替用户名
