@@ -155,7 +155,7 @@ const FileTable = () => {
         loading={downloadLoading}
         style={{ marginBottom: 16 }} // Style for button
       >
-        Download train test splited data
+        Download train test dataset
       </Button>
       <Filter
         label="Family"
