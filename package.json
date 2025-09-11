@@ -4,6 +4,7 @@
   "private": true,
   "start": "next start -H 0.0.0.0 -p 3210",
   "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "antd": "^5.25.3",
