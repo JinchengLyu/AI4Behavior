@@ -147,7 +147,7 @@ const FileTable = () => {
   };
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <Button
         className="downloadButton"
         type="primary"

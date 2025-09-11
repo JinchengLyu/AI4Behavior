@@ -9,5 +9,6 @@ div.colunmTitle{
 
 button.downloadButton{
     position: absolute;
+    right: 0;
 
 }
