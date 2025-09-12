@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { supabase } from '../supabaseClient'; // 导入Supabase客户端
-import { useNavigate } from 'react-router-dom'; // 如果使用路由，用于重定向（可选）
+import React, { useState } from "react";
+import { supabase } from "../supabaseClient"; // 导入Supabase客户端
+import { useNavigate } from "react-router-dom"; // 如果使用路由，用于重定向（可选）
 
 function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // 确认密码
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // 确认密码
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate(); // 用于重定向（如果已安装React Router）
@@ -17,7 +17,7 @@ function Register() {
 
     // 简单验证：密码匹配
     if (password !== confirmPassword) {
-      setError('密码不匹配！');
+      setError("密码不匹配！");
       return;
     }
 
@@ -29,20 +29,24 @@ function Register() {
 
     if (error) {
       setError(error.message);
-      alert('注册失败：' + error.message);
+      alert("注册失败：" + error.message);
     } else {
+      await supabase.from("user_levels").insert({
+        user_id: data.user.id,
+        level: 0,
+      });
       setSuccess(true);
-      alert('注册成功！请检查您的邮箱以确认账户。');
+      alert("注册成功！请检查您的邮箱以确认账户。");
       // 可选：重定向到登录页面
-      navigate('/login');
+      navigate("/login");
     }
   };
 
   return (
-    <div style={{ maxWidth: '300px', margin: 'auto', padding: '20px' }}>
+    <div style={{ maxWidth: "300px", margin: "auto", padding: "20px" }}>
       <h2>注册页面 (Register Page)</h2>
-      {error && <p style={{ color: 'red' }}>错误：{error}</p>}
-      {success && <p style={{ color: 'green' }}>注册成功！请验证您的邮箱。</p>}
+      {error && <p style={{ color: "red" }}>错误：{error}</p>}
+      {success && <p style={{ color: "green" }}>注册成功！请验证您的邮箱。</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>邮箱 (Email):</label>
@@ -74,7 +78,9 @@ function Register() {
         </div>
         <button type="submit">注册 (Register)</button>
       </form>
-      <p>已有账户？<a href="/login">去登录 (Go to Login)</a></p>
+      <p>
+        已有账户？<a href="/login">去登录 (Go to Login)</a>
+      </p>
     </div>
   );
 }
