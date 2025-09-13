@@ -5,6 +5,7 @@ import Filter from "./Filter";
 import SearchBox from "./searchBox";
 import { BACKEND, filterLabels } from "../../consts.js";
 import DisplayContent from "./DisplayContent";
+import ProtectedRoute from "../protecter/validate";
 
 const DBFilter = () => {
   // console.debug("data", data); // Debug print
@@ -121,7 +122,7 @@ const DBFilter = () => {
   };
 
   return (
-    <>
+    <ProtectedRoute>
       {DisplayFilters()}
       {videoData.length === 0 && ( //message when dismatch
         <div style={{ textAlign: "center" }}>
@@ -154,7 +155,7 @@ const DBFilter = () => {
           />
         )
       }
-    </>
+    </ProtectedRoute>
   );
 };
 
