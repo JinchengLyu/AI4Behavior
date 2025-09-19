@@ -97,6 +97,9 @@ const NavBar = () => {
           </button>
           {expandDB && databaseCollapse()}
         </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
       </ul>
     </nav>
   );

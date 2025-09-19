@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 import { supabase } from "../supabaseClient";
 
@@ -80,6 +80,8 @@ function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
+
+      <Link to="/register">Don't have an account? Register here.</Link>
     </div>
   );
 }
