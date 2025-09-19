@@ -16,7 +16,7 @@ function Login() {
     console.debug("User is logged in:", session);
     return (
       <div>
-        <h2>已登录！用户邮箱: {session.user.email}</h2>
+        <h2>Logged in as: {session.user.email}</h2>
         <button
           onClick={() => {
             supabase.auth.signOut();
@@ -24,13 +24,13 @@ function Login() {
             setUserLevel(0);
             setEmail("");
             setPassword("");
-            alert("已注销 (Logged out)");
+            alert("Logged out successfully!");
             setTimeout(() => {
               navigate(0);
             }, 5000);
           }}
         >
-          注销 (Logout)
+          Logout
         </button>
       </div>
     );
@@ -47,20 +47,20 @@ function Login() {
 
     if (error) {
       setError(error.message);
-      alert("登录失败：" + error.message);
+      alert("Login failed: " + error.message);
     } else {
-      alert("登录成功！"); // Context会自动更新session
+      alert("Login successful!"); // Context会自动更新session
       window.location.reload(); // 刷新页面以更新状态
     }
   };
 
   return (
     <div style={{ maxWidth: "300px", margin: "auto", padding: "20px" }}>
-      <h2>登录页面 (Login Page)</h2>
-      {error && <p style={{ color: "red" }}>错误：{error}</p>}
+      <h2>Login Page</h2>
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label>邮箱 (Email):</label>
+          <label>Email:</label>
           <input
             type="email"
             value={email}
@@ -69,7 +69,7 @@ function Login() {
           />
         </div>
         <div>
-          <label>密码 (Password):</label>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
@@ -78,7 +78,7 @@ function Login() {
             minLength={6} // 最小长度（Supabase默认要求）
           />
         </div>
-        <button type="submit"> login</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );

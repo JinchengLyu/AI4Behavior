@@ -4,6 +4,7 @@ import Filter from "./Filter/Filter";
 import { BACKEND } from "../consts";
 import { Table, message, Button } from "antd";
 import { Content } from "antd/es/layout/layout";
+import ProtectedRoute from "./protecter/validate";
 
 const FileTable = () => {
   const [filterOptions, setFilterOptions] = useState([]);
@@ -147,37 +148,39 @@ const FileTable = () => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <Button
-        className="downloadButton"
-        type="primary"
-        onClick={handleDownloadAll}
-        loading={downloadLoading}
-        style={{ marginBottom: 16 }} // Style for button
-      >
-        Download train test dataset
-      </Button>
-      <Filter
-        label="Family"
-        options={filterOptions}
-        onChange={handleFilterChange}
-        currOption={currOption}
-      />
-      {!currOption ? (
-        <p style={{ textAlign: "center" }}>
-          Select from drop down menu to see result
-        </p>
-      ) : loading ? (
-        <p style={{ textAlign: "center" }}>Loading data...</p>
-      ) : (
-        <>
-          <Table
-            columns={Array.from(tableColumns).sort((a, b) => a.key - b.key)}
-            dataSource={videoData}
-          />
-        </>
-      )}
-    </div>
+    <ProtectedRoute>
+      <div style={{ position: "relative" }}>
+        <Button
+          className="downloadButton"
+          type="primary"
+          onClick={handleDownloadAll}
+          loading={downloadLoading}
+          style={{ marginBottom: 16 }} // Style for button
+        >
+          Download train test dataset
+        </Button>
+        <Filter
+          label="Family"
+          options={filterOptions}
+          onChange={handleFilterChange}
+          currOption={currOption}
+        />
+        {!currOption ? (
+          <p style={{ textAlign: "center" }}>
+            Select from drop down menu to see result
+          </p>
+        ) : loading ? (
+          <p style={{ textAlign: "center" }}>Loading data...</p>
+        ) : (
+          <>
+            <Table
+              columns={Array.from(tableColumns).sort((a, b) => a.key - b.key)}
+              dataSource={videoData}
+            />
+          </>
+        )}
+      </div>
+    </ProtectedRoute>
   );
 };
 

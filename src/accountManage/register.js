@@ -1,27 +1,27 @@
 import React, { useState } from "react";
-import { supabase } from "../supabaseClient"; // 导入Supabase客户端
-import { useNavigate } from "react-router-dom"; // 如果使用路由，用于重定向（可选）
+import { supabase } from "../supabaseClient"; // Import Supabase client
+import { useNavigate } from "react-router-dom"; // If using routing, used for redirects (optional)
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // 确认密码
+  const [confirmPassword, setConfirmPassword] = useState(""); // Confirm password
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate(); // 用于重定向（如果已安装React Router）
+  const navigate = useNavigate(); // Used for redirects (if React Router is installed)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);
     setSuccess(false);
 
-    // 简单验证：密码匹配
+    // Basic validation: passwords match
     if (password !== confirmPassword) {
-      setError("密码不匹配！");
+      setError("Passwords do not match!");
       return;
     }
 
-    // 使用Supabase的signUp方法注册
+    // Use Supabase signUp method to register
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -29,27 +29,27 @@ function Register() {
 
     if (error) {
       setError(error.message);
-      alert("注册失败：" + error.message);
+      alert("Registration failed: " + error.message);
     } else {
       await supabase.from("user_levels").insert({
         user_id: data.user.id,
         level: 0,
       });
       setSuccess(true);
-      alert("注册成功！请检查您的邮箱以确认账户。");
-      // 可选：重定向到登录页面
+      alert("Registration successful! Please check your email to confirm your account.");
+      // Optional: redirect to login page
       navigate("/login");
     }
   };
 
   return (
     <div style={{ maxWidth: "300px", margin: "auto", padding: "20px" }}>
-      <h2>注册页面 (Register Page)</h2>
-      {error && <p style={{ color: "red" }}>错误：{error}</p>}
-      {success && <p style={{ color: "green" }}>注册成功！请验证您的邮箱。</p>}
+      <h2>Register</h2>
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+      {success && <p style={{ color: "green" }}>Registration successful! Please verify your email.</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label>邮箱 (Email):</label>
+          <label>Email:</label>
           <input
             type="email"
             value={email}
@@ -58,17 +58,17 @@ function Register() {
           />
         </div>
         <div>
-          <label>密码 (Password):</label>
+          <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            minLength={6} // 最小长度（Supabase默认要求）
+            minLength={6} // Minimum length (Supabase typically requires)
           />
         </div>
         <div>
-          <label>确认密码 (Confirm Password):</label>
+          <label>Confirm Password:</label>
           <input
             type="password"
             value={confirmPassword}
@@ -76,10 +76,10 @@ function Register() {
             required
           />
         </div>
-        <button type="submit">注册 (Register)</button>
+        <button type="submit">Register</button>
       </form>
       <p>
-        已有账户？<a href="/login">去登录 (Go to Login)</a>
+        Already have an account? <a href="/login">Go to Login</a>
       </p>
     </div>
   );
