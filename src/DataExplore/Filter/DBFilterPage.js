@@ -5,7 +5,7 @@ import Filter from "./Filter";
 import SearchBox from "./searchBox";
 import { BACKEND, filterLabels } from "../../consts.js";
 import DisplayContent from "./DisplayContent";
-import ProtectedRoute from "../protecter/validate";
+import ProtectedRoute from "../../protecter/validate.js";
 
 const DBFilter = () => {
   // console.debug("data", data); // Debug print

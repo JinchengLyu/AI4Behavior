@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './RequestPasscode.css'; // 取消注释，导入 CSS
-import { BACKEND } from '../../consts';
+import { BACKEND } from '../consts';
 import ApplicationForm from './application'; // 假设这是渲染表单的组件
 
 function RequestPasscode() {

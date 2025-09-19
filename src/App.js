@@ -14,9 +14,9 @@ import "./App.css";
 import Overview from "./DataExplore/Overview";
 import * as Tasks from "./DataExplore/Tasks";
 import FileTable from "./DataExplore/FileTable";
-import ValidatePasscode from "./DataExplore/protecter/validate";
+import ValidatePasscode from "./protecter/validate";
 import ApplicationsAdmin from "./ApplicationsAdmin";
-import RequestPasscode from "./DataExplore/protecter/generate";
+import RequestPasscode from "./protecter/generate";
 
 const App = () => {
   useEffect(() => {

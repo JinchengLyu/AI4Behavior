@@ -4,7 +4,7 @@ import Filter from "./Filter/Filter";
 import { BACKEND } from "../consts";
 import { Table, message, Button } from "antd";
 import { Content } from "antd/es/layout/layout";
-import ProtectedRoute from "./protecter/validate";
+import ProtectedRoute from "../protecter/validate";
 
 const FileTable = () => {
   const [filterOptions, setFilterOptions] = useState([]);

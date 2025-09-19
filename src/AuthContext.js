@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
   const [userLevel, setUserLevel] = useState(0); // 默认0
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const hasRun = useRef(false);
 
   useEffect(() => {
