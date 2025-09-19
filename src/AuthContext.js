@@ -30,7 +30,10 @@ export const AuthProvider = ({ children }) => {
             .select("level")
             .eq("user_id", session.user.id)
             .single();
-          if (data) setUserLevel(data.level);
+          console.debug("user level data:", data.level);
+          if (data) {
+            setUserLevel(data.level);
+          }
         }
         setLoading(false);
         console.debug(
@@ -57,6 +60,7 @@ export const AuthProvider = ({ children }) => {
             .select("level")
             .eq("user_id", session.user.id)
             .single();
+          console.debug("user level data:", data);
           setUserLevel(data ? data.level : 0);
         } else {
           setUserLevel(0);
@@ -70,7 +74,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ session, userLevel, loading }}>
+    <AuthContext.Provider value={{ session, setSession, userLevel, setUserLevel, loading }}>
       {children}
     </AuthContext.Provider>
   );

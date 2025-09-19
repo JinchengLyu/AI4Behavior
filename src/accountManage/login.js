@@ -4,7 +4,7 @@ import { AuthContext } from "../AuthContext";
 import { supabase } from "../supabaseClient";
 
 function Login() {
-  const { session } = useContext(AuthContext); // 从Context获取session
+  const { session, setSession, setUserLevel } = useContext(AuthContext); // 从Context获取session
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -20,9 +20,14 @@ function Login() {
         <button
           onClick={() => {
             supabase.auth.signOut();
+            setSession(null);
+            setUserLevel(0);
             setEmail("");
             setPassword("");
-            navigate(0);
+            alert("已注销 (Logged out)");
+            setTimeout(() => {
+              navigate(0);
+            }, 5000);
           }}
         >
           注销 (Logout)
@@ -45,7 +50,7 @@ function Login() {
       alert("登录失败：" + error.message);
     } else {
       alert("登录成功！"); // Context会自动更新session
-      navigate("/"); // 重定向到主页
+      window.location.reload(); // 刷新页面以更新状态
     }
   };
 
