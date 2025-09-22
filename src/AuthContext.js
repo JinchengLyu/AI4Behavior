@@ -25,15 +25,18 @@ export const AuthProvider = ({ children }) => {
         setSession(session);
         if (session) {
           // 获取用户级别
-          const { data, error } = await supabase
-            .from("user_levels")
-            .select("level")
-            .eq("user_id", session.user.id)
-            .single();
-          console.debug("user level data:", data.level);
-          if (data) {
-            setUserLevel(data.level);
+          const { data, error } = await supabase.rpc("manage_user_level", {
+            target_user_id: session.user.id,
+            action: "select",
+          });
+          if (error) {
+            console.error("Error fetching user level:", error.message);
+            setUserLevel(0);
+          } else {
+            setUserLevel(data?.level || 0); // 从返回的 JSON 中提取 level
           }
+
+          console.debug("user level data:", data.level);
         }
         setLoading(false);
         console.debug(
@@ -55,13 +58,17 @@ export const AuthProvider = ({ children }) => {
       async (_event, session) => {
         setSession(session);
         if (session) {
-          const { data } = await supabase
-            .from("user_levels")
-            .select("level")
-            .eq("user_id", session.user.id)
-            .single();
+          const { data, error } = await supabase.rpc("manage_user_level", {
+            target_user_id: session.user.id,
+            action: "select",
+          });
+          if (error) {
+            console.error("Error fetching user level:", error.message);
+            setUserLevel(0);
+          } else {
+            setUserLevel(data?.level || 0); // 从返回的 JSON 中提取 level
+          }
           console.debug("user level data:", data);
-          setUserLevel(data ? data.level : 0);
         } else {
           setUserLevel(0);
         }
@@ -74,7 +81,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ session, setSession, userLevel, setUserLevel, loading }}>
+    <AuthContext.Provider
+      value={{ session, setSession, userLevel, setUserLevel, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
