@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BACKEND } from "./consts";
+import ProtectedRoute from "./protecter/validate";
 
 // API 基础地址（Base URL）
 const API_BASE = BACKEND;
@@ -123,6 +124,7 @@ export default function ApplicationsAdmin() {
   };
 
   return (
+    <ProtectedRoute requiredLevel={5}>
     <div
       style={{
         padding: 16,
@@ -214,5 +216,6 @@ export default function ApplicationsAdmin() {
         </div>
       )}
     </div>
+    </ProtectedRoute>
   );
 }

@@ -14,7 +14,7 @@ function ProtectedRoute({ children, requiredLevel = 1 }) {
   }
   if (userLevel < requiredLevel){
     alert("Access denied. Your permission level is insufficient.");
-    return <Navigate to="/" />; // or redirect to an access request page
+    return <Navigate to="/RequestPasscode" />; // or redirect to an access request page
   }
 
   return children;

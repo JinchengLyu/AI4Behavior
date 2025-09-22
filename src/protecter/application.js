@@ -1,16 +1,16 @@
 // src/components/ApplicationForm.js
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom"; // 用于重定向（如果未登录）
-import { AuthContext } from "../AuthContext"; // 您的 AuthContext 文件路径
-import { BACKEND } from "../consts"; // 保持原有常量
-import { supabase } from "../supabaseClient"; // 导入 supabase 以集成认证（如果需要）
+import { useNavigate } from "react-router-dom"; // used for redirects (if not logged in)
+import { AuthContext } from "../AuthContext"; // Your AuthContext file path
+import { supabase } from "../supabaseClient"; // import supabase client
 
 const ApplicationForm = () => {
-  const { session, userLevel, loading } = useContext(AuthContext); // 从 Context 获取 session、userLevel 和 loading
+  const { session, userLevel, loading } = useContext(AuthContext); // Get session, userLevel and loading from Context
   const navigate = useNavigate();
 
-  const [message, setMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
+  // Pre-fill email from session (if available)
+  const initialEmail = session.user?.email || "";
+
   const [formData, setFormData] = useState({
     name: "",
     email: initialEmail,
@@ -18,37 +18,37 @@ const ApplicationForm = () => {
     disclaimerAgreed: false,
   });
 
-  // 处理加载状态
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  // Handle loading state
   if (loading) {
     return (
       <div className="application-form-container">
-        <h2>加载中... (Loading...)</h2>
-        <p>正在获取用户认证信息，请稍候。</p>
+        <h2>Loading...</h2>
+        <p>Retrieving authentication information, please wait.</p>
       </div>
     );
   }
 
-  // 如果未登录，重定向到登录页
+  // If not logged in, redirect to login page
   if (!session) {
-    navigate("/login"); // 假设登录路由为 /login
-    return null; // 防止渲染表单
+    navigate("/login"); // assume login route is /login
+    return null; // prevent form rendering
   }
 
-  // 预填充 email 从 session（如果可用）
-  const initialEmail = session.user?.email || "";
-
-  // 根据 userLevel 显示不同内容（例如，如果 userLevel >= 5，已有访问权限，无需申请）
-  // 注意：阈值 5 是假设值，根据您的实际实现调整（例如，如果 passcode 需要 level >=5）
+  // Show different content based on userLevel (e.g., if userLevel >= 5, access already granted)
+  // Note: threshold 5 is assumed; adjust according to your implementation
   if (userLevel >= 5) {
     return (
       <div className="application-form-container">
         <h2>Application Form</h2>
         <p>
-          您的用户级别 (User Level) 已达到 {userLevel}，无需申请
-          passcode。您已有访问权限。
+          Your user level is {userLevel}. You do not need to apply for a
+          passcode. You already have access.
         </p>
         <button onClick={() => navigate("/")} className="back-button">
-          返回主页 (Back to Home)
+          Back to Home
         </button>
       </div>
     );
@@ -77,27 +77,26 @@ const ApplicationForm = () => {
     }
 
     try {
-      // 添加认证头，使用 Supabase session 的 access_token（与您的 AuthContext 兼容）
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.access_token}`, // 集成 Supabase 认证，确保后端验证
-      };
+      // Format reason field: combine name, email, purpose into a string
+      const formattedReason = `Name: ${formData.name}\nEmail: ${formData.email}\nPurpose: ${formData.purpose}`;
 
-      // 在提交数据中包含 user_id 和当前 userLevel（供后端处理申请和更新 user_levels 表）
-      const submitData = {
-        ...formData,
-        user_id: session.user.id, // 从 session 获取 user_id，与您的 AuthContext 兼容
-        current_user_level: userLevel, // 包含当前级别，便于后端审核
-      };
+      // Insert data directly into the 'applications' table
+      // Insert matching fields only: user_id, reason (status uses default 'pending')
+      // created_at/updated_at: auto-generated
+      const { data, error } = await supabase
+        .from("user_level_application") // your table name
+        .insert([
+          {
+            user_id: session.user.id, // from session
+            reason: formattedReason, // combined form data
+            // status: 'pending' // not necessary if default is set
+          },
+        ]);
 
-      const response = await fetch(BACKEND + "/api/applications", {
-        method: "POST",
-        headers,
-        body: JSON.stringify(submitData),
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+      if (error) {
+        throw error; // Supabase error handling
       }
+
       setMessage(
         "Application submitted successfully! We will review and update your user level if approved."
       );
@@ -108,12 +107,10 @@ const ApplicationForm = () => {
         purpose: "",
         disclaimerAgreed: false,
       });
-
-      // 可选：提交后手动刷新 userLevel（如果后端立即更新；否则依赖 onAuthStateChange）
-      // const { data } = await supabase.from("user_levels").select("level").eq("user_id", session.user.id).single();
-      // if (data) setUserLevel(data.level); // 但通常后端异步批准，不需立即刷新
     } catch (error) {
-      setMessage("Error submitting application: " + error.message);
+      setMessage(
+        "Error submitting application: " + (error.message || "Unknown error")
+      );
       setIsSuccess(false);
     }
   };
@@ -122,8 +119,7 @@ const ApplicationForm = () => {
     <div className="application-form-container">
       <h2>Application Form for Passcode</h2>
       <p>
-        当前用户级别 (Current User Level): {userLevel}. 申请 passcode
-        以提升访问权限。
+        Current User Level: {userLevel}. You may apply to request elevated access.
       </p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -171,8 +167,14 @@ const ApplicationForm = () => {
             className="form-checkbox"
           />
           <label htmlFor="disclaimer">
-            I agree to the disclaimer: Data will be used responsibly, and I take
-            full responsibility for its usage.
+            I agree to the Data Usage Disclaimer: The dataset is for
+            non-commercial research use only. I will not use it for any
+            commercial purposes and take full responsibility for its ethical
+            usage. [{" "}
+            <a href="/disclaimer" target="_blank">
+              View full disclaimer
+            </a>{" "}
+            ]
           </label>
         </div>
         <button type="submit" className="submit-button">
