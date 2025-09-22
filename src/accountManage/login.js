@@ -4,7 +4,7 @@ import { AuthContext } from "../AuthContext";
 import { supabase } from "../supabaseClient";
 
 function Login() {
-  const { session, setSession, setUserLevel } = useContext(AuthContext); // 从Context获取session
+  const { session, setSession, setUserLevel, userLevel } = useContext(AuthContext); // 从Context获取session
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -32,6 +32,7 @@ function Login() {
         >
           Logout
         </button>
+        {userLevel >= 5 && <Link to="/applicationsAdmin">Review Application</Link>}
       </div>
     );
   }

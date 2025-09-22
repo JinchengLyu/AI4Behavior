@@ -62,7 +62,7 @@ export default function ApplicationsAdmin() {
   // Approve application: set level=1 and update status='approved'
   const onApprove = async (userId) => {
     try {
-      // 调用函数更新 level=1
+      // Call stored procedure to update level=1
       const { data: levelData, error: levelError } = await supabase.rpc(
         "manage_user_level",
         { target_user_id: userId, action: "update", new_level: 1 }
@@ -72,7 +72,7 @@ export default function ApplicationsAdmin() {
       if (!levelData || levelData.status !== "updated")
         throw new Error("Level update failed");
 
-      // 然后更新 applications 表（直接操作，如果 RLS 允许）
+      // Then update the user_level_application table (direct update, if RLS allows)
       const { error: updateError } = await supabase
         .from("user_level_application")
         .update({ status: "approved", updated_at: new Date().toISOString() })
