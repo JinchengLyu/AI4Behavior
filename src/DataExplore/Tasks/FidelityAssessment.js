@@ -46,7 +46,7 @@ const FidelityAssessment = () => {
         </p>
       </section>
 
-      {/* demo */}
+      {/* Demo */}
       <section className="demoContainer">
         <video className="demoVideo" controls>
           <source
@@ -59,23 +59,25 @@ const FidelityAssessment = () => {
             Fidelity 4 Reasoning:{"\u2B9F"}
           </button>
           <div className="reasoningCollapse">
-            {expandReasoning && ReasoningCollapse()}
+            {expandReasoning && <ReasoningCollapse />}
           </div>
         </div>
       </section>
 
       {/* Explanation */}
       <section id="fidelity-assessment">
-        <h2>Fidelity Assessment for Parent Strategies</h2>
+        <h2 className="text-2xl font-semibold mb-2">
+          Fidelity Assessment for Parent Strategies
+        </h2>
         <p>
-          This section explains how the fidelity of three parent
-          strategies—Modeling, Mand-Model, and Time Delay—is assessed. Each
-          strategy has four levels (Fidelity 1 to 4), based on criteria like
-          joint attention, prompting, waiting time, and response to the child.
+          This section explains how the fidelity of three parent strategies—Modeling,
+          Mand-Model, and Time Delay—is assessed. Each strategy has four levels
+          (Fidelity 1 to 4), based on criteria like joint attention, prompting,
+          waiting time, and response to the child.
         </p>
 
-        <h3>a. When Parent Uses Modeling</h3>
-        <ul>
+        <h3 className="mt-6 font-semibold">a. When Parent Uses Modeling</h3>
+        <ul className="list-disc list-inside ml-4">
           <li>
             <strong>Fidelity 1</strong> – The parent presents a verbal or a
             gestural model that is related to the child’s interest and/or
@@ -91,20 +93,21 @@ const FidelityAssessment = () => {
             <strong>Fidelity 3</strong> – The parent establishes joint attention
             by focusing attention on the child’s specific interest and/or
             story/picture in the book AND presents a verbal or a gestural model
-            that is related to book AND waits 3 s for the child to respond.
+            that is related to book AND waits 3–5 s for the child to respond.
           </li>
           <li>
             <strong>Fidelity 4</strong> – The parent establishes joint attention
             by focusing attention on the child’s specific interest and/or
             story/picture in the book AND presents a verbal or a gestural model
-            that is related to book AND waits 3 s for the child to respond AND
-            responds to the child’s behavior by providing verbal feedback,
-            repeating the model, or using the mand-model strategy.
+            that is related to book AND waits 3–5 s for the child to respond AND
+            responds to the child’s behavior by providing verbal feedback or, if
+            the child does not respond, the parent repeats the SAME sequence of
+            steps one last time.
           </li>
         </ul>
 
-        <h3>b. When Parent Uses Mand-Model</h3>
-        <ul>
+        <h3 className="mt-6 font-semibold">b. When Parent Uses Mand-Model</h3>
+        <ul className="list-disc list-inside ml-4">
           <li>
             <strong>Fidelity 1</strong> – The parent presents a verbal prompt in
             the form of a question, a choice, or a mand. (No joint attention).
@@ -119,21 +122,22 @@ const FidelityAssessment = () => {
             <strong>Fidelity 3</strong> – The parent establishes joint attention
             by focusing attention on the child’s specific interest and/or
             story/picture in the book AND presents a verbal prompt in the form
-            of a question, a choice, or a mand AND waits 3 s for the child to
+            of a question, a choice, or a mand AND waits 3–5 s for the child to
             respond.
           </li>
           <li>
             <strong>Fidelity 4</strong> – The parent establishes joint attention
             by focusing attention on the child’s specific interest and/or
             story/picture in the book AND presents a verbal prompt in the form
-            of a question, a choice, or a mand AND waits 3 s for the child to
+            of a question, a choice, or a mand AND waits 3–5 s for the child to
             respond AND responds to the child’s behavior by providing verbal
-            feedback, repeating the mand-model or using the modeling strategy.
+            feedback or, if the child does not respond, the parent repeats the
+            SAME sequence of steps one last time and models the response.
           </li>
         </ul>
 
-        <h3>c. When Parent Uses Time Delay</h3>
-        <ul>
+        <h3 className="mt-6 font-semibold">c. When Parent Uses Time Delay</h3>
+        <ul className="list-disc list-inside ml-4">
           <li>
             <strong>Fidelity 1</strong> – Parent looks expectantly at the child,
             but no joint attention.
@@ -141,21 +145,25 @@ const FidelityAssessment = () => {
           <li>
             <strong>Fidelity 2</strong> – The parent establishes joint attention
             by focusing attention on the child’s specific interest and/or
-            story/picture in the book AND looks expectantly at the child for
-            less than 5 seconds.
+            story/picture in the book AND leaves a familiar phrase/sentence/rhyme
+            incomplete and looks expectantly at the child to fill in the blank.
           </li>
           <li>
             <strong>Fidelity 3</strong> – The parent establishes joint attention
             by focusing attention on the child’s specific interest and/or
-            story/picture in the book AND looks expectantly at the child for 5-7
-            seconds.
+            story/picture in the book AND leaves a familiar phrase/sentence/rhyme
+            incomplete and looks expectantly at the child 5–7 seconds to fill in
+            the blank.
           </li>
           <li>
             <strong>Fidelity 4</strong> – The parent establishes joint attention
             by focusing attention on the child’s specific interest and/or
-            story/picture in the book AND looks expectantly at the child for 5-7
-            seconds AND responds to the child’s behavior by providing verbal
-            feedback, or using the mand-model or modeling strategy.
+            story/picture in the book AND leaves a familiar phrase/sentence/rhyme
+            incomplete and looks expectantly at the child 5–7 seconds to fill in
+            the blank AND responds to the child’s behavior by providing verbal
+            feedback or, if the child does not fill in the blank, the parent
+            repeats the same sequence of steps one last time and models the
+            response.
           </li>
         </ul>
       </section>
@@ -189,23 +197,73 @@ const FidelityAssessment = () => {
         </p>
       </section>
 
-      {/* Dates
+      {/* Attribution Statement & References */}
       <section>
-        <h2 className="text-2xl font-semibold mb-2">Dates</h2>
+        <h2 className="text-2xl font-semibold mb-2">Attribution Statement</h2>
+        <p>
+          The original descriptions of the naturalistic communication teaching
+          strategies (modeling, mand-model, and time delay) and the associated
+          fidelity levels (Fidelity 1 through Fidelity 4) were first developed
+          as part of the Parent-Implemented Communication Strategies (PiCS)
+          intervention by Meadan and colleagues (Meadan et&nbsp;al., 2013, 2014,
+          2016). Dr. Akemoglu has adapted the strategies for use within shared
+          reading and telepractice-delivered interventions. These adaptations
+          are supported by multiple datasets collected across several studies
+          (e.g., Akemoglu &amp; Meadan, 2019; Akemoglu &amp; Tomeny, 2021;
+          Akemoglu et&nbsp;al., 2022a; Akemoglu et&nbsp;al., 2022b). Yet only
+          the following three main datasets were used with the AI Multi-Model
+          Study:
+        </p>
+        <ul className="list-disc list-inside ml-4 mt-2">
+          <li>
+            Akemoglu, Y., Laroue, D., Kudesey, C., &amp; Stahlman, M. (2022). A
+            module-based telepractice intervention for parents of children with
+            developmental disabilities. <em>Journal of Autism and Developmental
+            Disorders</em>, 52, 5177–5190.
+          </li>
+          <li>
+            Akemoglu, Y., Hinton, V., Laroue, D., &amp; Jefferson, V. (2022).
+            Parent-implemented shared reading intervention via telepractice.{" "}
+            <em>Journal of Early Intervention</em>, 44(2), 190–210.
+          </li>
+          <li>
+            Akemoglu, Y., &amp; Tomeny, K. (2021). A parent-implemented shared
+            reading intervention to promote communication skills of preschoolers
+            with autism spectrum disorder. <em>Journal of Autism and
+            Developmental Disorders</em>, 51(8), 2974–2987.
+          </li>
+        </ul>
+        <p className="mt-2">
+          Thus, the current materials represent adaptations from Meadan
+          et&nbsp;al. (2013; 2014; 2016) that have been revised and extended for
+          shared reading routines and validated through these datasets.
+        </p>
+
+        <h3 className="mt-4 font-semibold">References to Original PiCS Work</h3>
         <ul className="list-disc list-inside ml-4">
           <li>
-            <strong>Dataset Release:</strong> TBD
+            Meadan, H., Meyer, L. E., Snodgrass, M. R., &amp; Halle, J. W.
+            (2013). Coaching parents of young children with autism in rural
+            areas using internet-based technologies: A pilot program.{" "}
+            <em>Rural Special Education Quarterly</em>, 23(3), 3–10.
           </li>
           <li>
-            <strong>Submission Deadline:</strong> TBD
+            Meadan, H., Angell, M. E., Stoner, J. B., &amp; Daczewitz, M.
+            (2014). Parent-implemented social-pragmatic communication
+            intervention: A pilot study.{" "}
+            <em>Focus on Autism and Other Developmental Disabilities</em>,
+            29(2), 95–110.
           </li>
           <li>
-            <strong>Results Announcement:</strong> TBD
+            Meadan, H., Snodgrass, M. R., Meyer, L. E., Fisher, K. W., Chung,
+            M. Y., &amp; Halle, J. W. (2016). Internet-based parent-implemented
+            intervention for young children with autism: A pilot study.{" "}
+            <em>Journal of Early Intervention</em>, 38(1), 3–23.
           </li>
         </ul>
       </section>
 
-      // {/* Submission 
+      {/* Submission (kept commented as in your original)
       <section>
         <h2 className="text-2xl font-semibold mb-2">Submission</h2>
         <p>

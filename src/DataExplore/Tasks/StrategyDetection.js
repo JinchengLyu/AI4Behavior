@@ -1,32 +1,51 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import VideoPlayerWithChapters from "../video/customVideo";
 import { BACKEND, timeToSeconds } from "../../consts";
 import "./tasks.css";
 
+/** Optional legend mapping used in several places */
+const STRATEGY_MAP = {
+  A: "Modeling",
+  B: "Mand-Model",
+  C: "Time-Delay",
+};
+
 const StrategyDetection = () => {
-  const chapters = [
-    { time: timeToSeconds("0:9"), label: "B" },
-    { time: timeToSeconds("0:57"), label: "B" },
-    { time: timeToSeconds("1:03"), label: "B" },
-    { time: timeToSeconds("2:21"), label: "B" },
-    { time: timeToSeconds("2:25"), label: "B" },
-    { time: timeToSeconds("2:45"), label: "C" },
-    { time: timeToSeconds("3:43"), label: "B" },
-    { time: timeToSeconds("3:55"), label: "B" },
-    { time: timeToSeconds("4:00"), label: "B" },
-    { time: timeToSeconds("4:28"), label: "A" },
-    { time: timeToSeconds("4:52"), label: "C" },
-    { time: timeToSeconds("5:24"), label: "B" },
-    { time: timeToSeconds("5:31"), label: "B" },
-  ];
+  // Normalize timestamps (always mm:ss) and memoize to avoid recreating on re-renders
+  const chapters = useMemo(
+    () => [
+      { time: timeToSeconds("0:09"), label: "B" },
+      { time: timeToSeconds("0:57"), label: "B" },
+      { time: timeToSeconds("1:03"), label: "B" },
+      { time: timeToSeconds("2:21"), label: "B" },
+      { time: timeToSeconds("2:25"), label: "B" },
+      { time: timeToSeconds("2:45"), label: "C" },
+      { time: timeToSeconds("3:43"), label: "B" },
+      { time: timeToSeconds("3:55"), label: "B" },
+      { time: timeToSeconds("4:00"), label: "B" },
+      { time: timeToSeconds("4:28"), label: "A" },
+      { time: timeToSeconds("4:52"), label: "C" },
+      { time: timeToSeconds("5:24"), label: "B" },
+      { time: timeToSeconds("5:31"), label: "B" },
+    ],
+    []
+  );
+
   return (
-    <div className="p-6 space-y-12">
-      <h1 className="text-4xl font-bold mb-4">Strategy Detection</h1>
-      
+    <div className="p-6 space-y-12 max-w-5xl mx-auto">
+      <header>
+        <h1 className="text-4xl font-bold mb-4">Strategy Detection</h1>
+        <p className="text-sm text-gray-600">
+          ASD-HI • Naturalistic Communication Teaching (NCT)
+        </p>
+      </header>
+
       {/* Overview */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-2">Overview</h2>
+      <section aria-labelledby="overview">
+        <h2 id="overview" className="text-2xl font-semibold mb-2">
+          Overview
+        </h2>
         <p>
           The Strategy Detection task is part of the ASD-HI dataset and focuses
           on identifying the use of parent-implemented Naturalistic
@@ -43,141 +62,195 @@ const StrategyDetection = () => {
           A total of <strong>478 parent strategy instances</strong> were
           manually labeled across <strong>48 reading sessions</strong> from{" "}
           <strong>three families</strong>. Each annotation includes a start
-          time, end time, and strategy label. The goal of this task is to detect
-          these strategy uses in full-length session videos, returning the
-          correct time segments and corresponding strategy types.
+          time, end time, and strategy label. The goal is to detect these
+          strategy uses in full-length session videos, returning the correct
+          time segments and corresponding strategy types.
         </p>
       </section>
 
-      <section className="demoContainer">
-        <VideoPlayerWithChapters
-        chapters={chapters}
-        videoSrc={
-          BACKEND +
-          "/api/video/AL_MM/Section4.MOV"
-        }
-        showButton={false} // Set to true if you want to show chapter buttons
-      />
-      </section>
+      {/* Demo video */}
+      {/*<section aria-labelledby="demo" className="demoContainer">*/}
+      {/*  <h2 id="demo" className="sr-only">*/}
+      {/*    Demonstration Video*/}
+      {/*  </h2>*/}
 
-      {/* explanation */}
-      <section>
-        <h2>Explanation</h2>
-        <ul className="list-disc list-inside ml-4 mt-2">
+      {/*  /!* Small legend for quick reference *!/*/}
+      {/*  <div*/}
+      {/*    aria-label="Strategy legend"*/}
+      {/*    className="flex flex-wrap items-center gap-3 mb-3 text-sm"*/}
+      {/*  >*/}
+      {/*    {Object.entries(STRATEGY_MAP).map(([key, name]) => (*/}
+      {/*      <span*/}
+      {/*        key={key}*/}
+      {/*        className="inline-flex items-center gap-2 rounded-full border px-3 py-1"*/}
+      {/*        title={`${name} (${key})`}*/}
+      {/*      >*/}
+      {/*        <span className="font-mono text-xs">{key}</span>*/}
+      {/*        <span className="text-gray-700">{name}</span>*/}
+      {/*      </span>*/}
+      {/*    ))}*/}
+      {/*  </div>*/}
+
+      {/*  <VideoPlayerWithChapters*/}
+      {/*    chapters={chapters}*/}
+      {/*    videoSrc={`${BACKEND}/api/video/AL_MM/Section4.MOV`}*/}
+      {/*    showButton={false} // Set to true if you want to show chapter buttons*/}
+      {/*  />*/}
+      {/*</section>*/}
+      {/* Demo video */}
+{/* Demo video */}
+<section
+  aria-labelledby="demo"
+  className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6 items-start"
+>
+  {/* Left sidebar: section title + brief hint */}
+  <div className="md:pl-2">
+    <h2 id="demo" className="text-2xl font-semibold mb-2">
+      Demonstration Video
+    </h2>
+    <p className="text-sm text-gray-600">
+      Click the markers to jump to strategy instances.
+    </p>
+  </div>
+
+  {/* Right: video card */}
+  <div className="rounded-2xl bg-white shadow p-4">
+    <figure className="w-full">
+      {/* Video */}
+      <div className="aspect-video w-full overflow-hidden rounded-lg">
+        <VideoPlayerWithChapters
+          chapters={chapters}
+          videoSrc={`${BACKEND}/api/video/AL_MM/Section4.MOV`}
+          showButton={false}
+        />
+      </div>
+
+      {/* Legend BELOW video */}
+      <figcaption className="mt-3">
+        <div
+          aria-label="Strategy legend"
+          className="flex flex-wrap items-center gap-2"
+        >
+          {Object.entries(STRATEGY_MAP).map(([key, name]) => (
+            <span
+              key={key}
+              className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm"
+              title={`${name} (${key})`}
+            >
+              {/*<span className="font-mono text-xs">{key}</span>*/}
+              {/*<span className="text-gray-700 whitespace-nowrap">{name}</span>*/}
+            </span>
+          ))}
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+
+
+      {/* Explanation */}
+      <section aria-labelledby="explanation">
+        <h2 id="explanation" className="text-2xl font-semibold mb-2">
+          Explanation
+        </h2>
+        <ul className="list-disc list-inside ml-4 mt-2 space-y-4">
           <li>
-            Modeling (A)
-            <p>
-              Modeling is a teaching strategy in which the parent uses
-              demonstrations to teach the child new words, phrases, signs, or
-              gestures. The first step in modeling is to establish joint
-              attention by focusing attention on the child or the child’s
-              specific interest. Next, the parent presents a model that is
-              related to the child’s interest. If the child responds correctly
-              to the model by imitating, the parent gives the child immediate
-              positive feedback.
+            <span className="font-semibold">Modeling (A)</span> — Shared Reading
+            Context
+            <p className="mt-1">
+              Modeling is a teaching strategy in which the parent demonstrates a
+              new word, phrase, or gesture directly related to the book. The
+              first step in modeling during shared reading is to establish joint
+              attention by orienting the child to the book, page, or
+              illustration of interest. The parent then models a target response
+              by labeling or commenting on the picture (e.g., pointing to a
+              picture of a dog while saying, “Dog”). If the child does not
+              respond or responds incorrectly, the parent models the same target
+              one last time and follows the same sequence of steps. If the child
+              imitates or approximates the modeled item, the parent provides
+              immediate positive feedback (e.g., “Yes, dog! You said it too!”).
+              Modeling helps expand vocabulary and supports responsiveness,
+              imitation, and participation.
             </p>
           </li>
           <li>
-            Mand-Model (B)
-            <p>
-              The mand-model strategy is very similar to the modeling strategy.
-              Mand-model differs from modeling by including a verbal prompt in
-              the form of a question (e.g., “What do you want?”), a choice
-              (e.g., “Is this an apple or a banana?”), or a mand (e.g., “Tell me
-              what you want” or “Say ‘more please’”). The first step in the
-              mand-model strategy is to establish joint attention by focusing
-              attention on the child or the child’s specific interest. Next, the
-              parents say a mand that is related to the child’s interest. If the
-              child responds correctly, the parent gives the child immediate
-              positive feedback.
+            <span className="font-semibold">Mand-Model (B)</span> — Shared
+            Reading Context
+            <p className="mt-1">
+              Mand-model is similar to modeling but includes a verbal prompt to
+              encourage the child’s response. Within shared reading, the parent
+              first establishes joint attention, then uses a mand (a request or
+              prompt) connected to the page being read—such as a question
+              (“What is this?”), a choice (“Is this a cat or a dog?”), or a mand
+              for imitation (“Say ‘banana’”). The parent waits 3–5 seconds. If
+              correct, the response is reinforced immediately. If not, the
+              parent repeats the same mand-model once more. This strategy
+              increases opportunities for practice in labeling and commenting.
             </p>
           </li>
           <li>
-            Time Delay (C)
-            <p>
-              Time delay is a strategy that encourages children to initiate
-              communication within a routine or regular activity where the child
-              understands the expectations based on past patterns. This strategy
-              is especially helpful in encouraging children to ask for help, to
-              ask for food or toys, or to ask for permission. The first step in
-              time delay is to establish joint attention. Once the parent has
-              established joint attention, he or she looks expectantly at the
-              child, and waits 3 to 7 seconds to see if the child will request
-              help or the object she/he wants. If the child requests correctly,
-              the parent gives the child immediate positive feedback.{" "}
+            <span className="font-semibold">Time-Delay (C)</span> — Shared
+            Reading Context
+            <p className="mt-1">
+              Time delay encourages the child to initiate communication. After
+              joint attention is established, the parent intentionally pauses by
+              leaving a familiar phrase incomplete and expects the child to fill
+              in the blank (e.g., “Brown Bear, Brown Bear, what do you…”).
+              About 3–7 seconds are given for the child to respond. Appropriate
+              initiations are reinforced immediately. Time delay is especially
+              effective during repeated readings where children anticipate
+              patterns.
             </p>
           </li>
         </ul>
       </section>
 
       {/* Evaluation */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-2">Evaluation</h2>
+      <section aria-labelledby="evaluation">
+        <h2 id="evaluation" className="text-2xl font-semibold mb-2">
+          Evaluation
+        </h2>
         <p>Submissions will be evaluated using the following metrics:</p>
         <ul className="list-disc list-inside ml-4 mt-2">
           <li>
             <strong>Coverage</strong>: Proportion of correctly detected
-            strategies
+            strategies.
           </li>
           <li>
-            <strong>Accuracy</strong>: Precision of time spans and labels
+            <strong>Accuracy</strong>: Precision of time spans and labels.
           </li>
         </ul>
         <p className="mt-2">
-          Higher coverage ensures that fewer true strategy uses are missed,
-          while high accuracy ensures the returned labels and timestamps are
-          correct.
+          Higher coverage reduces missed true instances, while high accuracy
+          ensures labels and timestamps are correct.
         </p>
       </section>
 
       {/* Downloads */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-2">Downloads</h2>
-        {/* <p>Coming soon — datasets and annotation files will be available for download here.</p> */}
-        <p>Explore annotated data here <Link to="/files">download</Link></p>
-        {/* <ul className="list-disc list-inside ml-4 mt-2">
-          <li><a href="/downloads/strategy_dataset.zip" className="text-blue-600 underline">Strategy Dataset (zip)</a></li>
-          <li><a href="/downloads/strategy_labels.json" className="text-blue-600 underline">Annotation File (JSON)</a></li>
-        </ul> */}
+      <section aria-labelledby="downloads">
+        <h2 id="downloads" className="text-2xl font-semibold mb-2">
+          Downloads
+        </h2>
+        <p>
+          Explore annotated data here{" "}
+          <Link className="text-blue-600 underline" to="/files">
+            download
+          </Link>
+        </p>
       </section>
 
       {/* Dates */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-2">Dates</h2>
+      <section aria-labelledby="dates">
+        <h2 id="dates" className="text-2xl font-semibold mb-2">
+          Dates
+        </h2>
         <ul className="list-disc list-inside ml-4">
           <li>
             <strong>Dataset Release:</strong> 09/09/2025
           </li>
-          {/*<li>*/}
-          {/*  <strong>Submission Deadline:</strong> TBD*/}
-          {/*</li>*/}
-          {/*<li>*/}
-          {/*  <strong>Results Announcement:</strong> TBD*/}
-          {/*</li>*/}
         </ul>
       </section>
-
-      {/* Results (Optional Placeholder) */}
-      {/* <section>
-        <h2 className="text-2xl font-semibold mb-2">Results</h2>
-        <p>Leaderboard and model performance metrics will be posted after the evaluation phase.</p>
-      </section> */}
-
-      {/* Submission */}
-      {/*<section>*/}
-      {/*  <h2 className="text-2xl font-semibold mb-2">Submission</h2>*/}
-      {/*  <p>*/}
-      {/*    Participants should submit a JSON file for each session, containing:*/}
-      {/*  </p>*/}
-      {/*  <ul className="list-disc list-inside ml-4 mt-2">*/}
-      {/*    <li>Session ID</li>*/}
-      {/*    <li>Detected strategies with start time, end time, and label</li>*/}
-      {/*  </ul>*/}
-      {/*  <p className="mt-2">*/}
-      {/*    Submission instructions and formatting guidelines will be published*/}
-      {/*    alongside the dataset.*/}
-      {/*  </p>*/}
-      {/*</section>*/}
     </div>
   );
 };
