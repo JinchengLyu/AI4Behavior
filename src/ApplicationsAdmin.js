@@ -5,25 +5,6 @@ import { supabase } from "./supabaseClient"; // Import supabase client
 import ProtectedRoute from "./protecter/validate"; // Keep existing ProtectedRoute
 
 /**
- * Parse reason field into an object
- * Assumes format: "Name: John Doe\nEmail: john@example.com\nPurpose: Research"
- */
-function parseReason(reason) {
-  if (!reason) return { name: "-", email: "-", purpose: "-" };
-  const lines = reason.split("\n");
-  const parsed = {};
-  lines.forEach((line) => {
-    const [key, value] = line.split(": ").map((str) => str.trim());
-    if (key && value) parsed[key.toLowerCase()] = value;
-  });
-  return {
-    name: parsed.name || "-",
-    email: parsed.email || "-",
-    purpose: parsed.purpose || "-",
-  };
-}
-
-/**
  * Admin page: Applications Review
  */
 export default function ApplicationsAdmin() {
@@ -43,7 +24,7 @@ export default function ApplicationsAdmin() {
       try {
         setLoadingApps(true);
         const { data, error } = await supabase
-          .from("user_level_application")
+          .from("account_applications")
           .select("*") // select all fields
           .eq("status", "pending") // only show pending
           .order("created_at", { ascending: false }); // newest first
@@ -59,33 +40,59 @@ export default function ApplicationsAdmin() {
     })();
   }, [session, userLevel]);
 
-  // Approve application: set level=1 and update status='approved'
-  const onApprove = async (userId) => {
+  // Generate a random password (for development; in production, use secure method)
+  const generateRandomPassword = () => {
+    // Use Web Crypto API for browser compatibility
+    const array = new Uint8Array(16);
+    window.crypto.getRandomValues(array);
+    return Array.from(array, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  };
+
+  // Approve application: create new user, set level=1 in user_level, update status='approved'
+  const onApprove = async (applicationId, email) => {
     try {
-      // Call stored procedure to update level=1
-      const { data: levelData, error: levelError } = await supabase.rpc(
-        "manage_user_level",
-        { target_user_id: userId, action: "update", new_level: 1 }
-      );
+      // Generate a random password (WARNING: For demo only; send via email in production)
+      const password = generateRandomPassword();
+
+      // Create new user via Supabase Auth
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+      });
+
+      if (signUpError) throw signUpError;
+      if (!signUpData.user) throw new Error("User creation failed");
+
+      const newUserId = signUpData.user.id;
+
+      // Insert into user_level table with level=1
+      const { error: levelError } = await supabase
+        .from("user_level")
+        .insert([
+          {
+            id: crypto.randomUUID(), // Generate UUID (adjust if your table uses different method)
+            user_id: newUserId,
+            level: 1,
+            created_at: new Date().toISOString(),
+          },
+        ]);
 
       if (levelError) throw levelError;
-      if (!levelData || levelData.status !== "updated")
-        throw new Error("Level update failed");
 
-      // Then update the user_level_application table (direct update, if RLS allows)
+      // Update the account_applications table
       const { error: updateError } = await supabase
-        .from("user_level_application")
+        .from("account_applications")
         .update({ status: "approved", updated_at: new Date().toISOString() })
-        .eq("user_id", userId);
+        .eq("id", applicationId);
 
       if (updateError) throw updateError;
 
-      setMessage(`User ${userId} approved, level set to 1`);
+      setMessage(`User created for ${email} with Level 1. Temporary password: ${password} (Send this securely to the user)`);
       setIsSuccess(true);
 
       // Refresh list (remove approved)
       const { data } = await supabase
-        .from("user_level_application")
+        .from("account_applications")
         .select("*")
         .eq("status", "pending");
       setApps(data || []);
@@ -128,39 +135,36 @@ export default function ApplicationsAdmin() {
             {apps.length === 0 ? (
               <div style={{ padding: 12, color: "#666" }}>No Data</div>
             ) : (
-              apps.map((app, idx) => {
-                const { name, email, purpose } = parseReason(app.reason);
-                return (
-                  <div
-                    key={idx}
-                    style={{
-                      padding: 10,
-                      borderBottom: "1px solid #f0f0f0",
-                      display: "grid",
-                      gridTemplateColumns: "1fr auto",
-                      alignItems: "center",
-                    }}
-                  >
+              apps.map((app, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: 10,
+                    borderBottom: "1px solid #f0f0f0",
+                    display: "grid",
+                    gridTemplateColumns: "1fr auto",
+                    alignItems: "center",
+                  }}
+                >
+                  <div>
                     <div>
-                      <div>
-                        <b>{name}</b> - {email}
-                      </div>
-                      <div style={{ fontSize: 12, color: "#666" }}>
-                        purpose: {purpose} | agreed: true {/* fixed as true */}
-                      </div>
-                      <div style={{ fontSize: 12, color: "#666" }}>
-                        createdAt:{" "}
-                        {app.created_at
-                          ? new Date(app.created_at).toLocaleString()
-                          : "-"}
-                      </div>
+                      <b>{app.name || "-"}</b> - {app.email || "-"}
                     </div>
-                    <button onClick={() => onApprove(app.user_id)}>
-                      Approve
-                    </button>
+                    <div style={{ fontSize: 12, color: "#666" }}>
+                      purpose: {app.purpose || "-"}
+                    </div>
+                    <div style={{ fontSize: 12, color: "#666" }}>
+                      createdAt:{" "}
+                      {app.created_at
+                        ? new Date(app.created_at).toLocaleString()
+                        : "-"}
+                    </div>
                   </div>
-                );
-              })
+                  <button onClick={() => onApprove(app.id, app.email)}>
+                    Approve
+                  </button>
+                </div>
+              ))
             )}
           </div>
         )}

@@ -38,7 +38,7 @@ const App = () => {
               <Routes>
                 <Route path="/" exact element={<HomePage />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                {/* <Route path="/register" element={<Register />} /> */}
                 <Route path="/people" element={<People />} />
                 {/* <Route path="/dataset" element={<DBFilter />} /> */}
                 <Route path="/Jincheng" element={<JL />} />

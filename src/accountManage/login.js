@@ -82,7 +82,7 @@ function Login() {
         <button type="submit">Login</button>
       </form>
 
-      <Link to="/register">Don't have an account? Register here.</Link>
+      <Link to="/RequestPasscode">Don't have an account? Request account here.</Link>
     </div>
   );
 }

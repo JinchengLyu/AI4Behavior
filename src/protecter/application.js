@@ -1,58 +1,20 @@
 // src/components/ApplicationForm.js
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom"; // used for redirects (if not logged in)
-import { AuthContext } from "../AuthContext"; // Your AuthContext file path
-import { supabase } from "../supabaseClient"; // import supabase client
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Used for optional redirects (e.g., back to home)
+import { supabase } from "../supabaseClient"; // Import supabase client
 
 const ApplicationForm = () => {
-  const { session, userLevel, loading } = useContext(AuthContext); // Get session, userLevel and loading from Context
   const navigate = useNavigate();
-
-  // Pre-fill email from session (if available)
-  const initialEmail = session.user?.email || "";
 
   const [formData, setFormData] = useState({
     name: "",
-    email: initialEmail,
+    email: "",
     purpose: "",
     disclaimerAgreed: false,
   });
 
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-
-  // Handle loading state
-  if (loading) {
-    return (
-      <div className="application-form-container">
-        <h2>Loading...</h2>
-        <p>Retrieving authentication information, please wait.</p>
-      </div>
-    );
-  }
-
-  // If not logged in, redirect to login page
-  if (!session) {
-    navigate("/login"); // assume login route is /login
-    return null; // prevent form rendering
-  }
-
-  // Show different content based on userLevel (e.g., if userLevel >= 5, access already granted)
-  // Note: threshold 5 is assumed; adjust according to your implementation
-  if (userLevel >= 5) {
-    return (
-      <div className="application-form-container">
-        <h2>Application Form</h2>
-        <p>
-          Your user level is {userLevel}. You do not need to apply for a
-          passcode. You already have access.
-        </p>
-        <button onClick={() => navigate("/")} className="back-button">
-          Back to Home
-        </button>
-      </div>
-    );
-  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -75,21 +37,26 @@ const ApplicationForm = () => {
       setMessage("Please fill in all required fields.");
       return;
     }
+    // Basic email validation (optional)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setMessage("Please enter a valid email address.");
+      return;
+    }
 
     try {
-      // Format reason field: combine name, email, purpose into a string
-      const formattedReason = `Name: ${formData.name}\nEmail: ${formData.email}\nPurpose: ${formData.purpose}`;
-
-      // Insert data directly into the 'applications' table
-      // Insert matching fields only: user_id, reason (status uses default 'pending')
-      // created_at/updated_at: auto-generated
+      // Insert data into the 'account_applications' table
+      // Only insert matching fields: name, email, purpose
+      // status, created_at, updated_at use defaults
       const { data, error } = await supabase
-        .from("user_level_application") // your table name
+        .from("account_applications") // Your table name
         .insert([
           {
-            user_id: session.user.id, // from session
-            reason: formattedReason, // combined form data
-            // status: 'pending' // not necessary if default is set
+            name: formData.name,
+            email: formData.email,
+            purpose: formData.purpose,
+            // No 'reason' field, as per your table schema
+            // status: 'pending' // Not necessary, uses default
           },
         ]);
 
@@ -98,12 +65,12 @@ const ApplicationForm = () => {
       }
 
       setMessage(
-        "Application submitted successfully! We will review and update your user level if approved."
+        "Application submitted successfully! An administrator will review your request and create your account with Level 1 access if approved."
       );
       setIsSuccess(true);
       setFormData({
         name: "",
-        email: initialEmail,
+        email: "",
         purpose: "",
         disclaimerAgreed: false,
       });
@@ -117,9 +84,9 @@ const ApplicationForm = () => {
 
   return (
     <div className="application-form-container">
-      <h2>Application Form for Passcode</h2>
+      <h2>Account Application Form</h2>
       <p>
-        Current User Level: {userLevel}. You may apply to request elevated access.
+        Apply for a new account. If approved, your account will be created with Level 1 access.
       </p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -178,7 +145,7 @@ const ApplicationForm = () => {
           </label>
         </div>
         <button type="submit" className="submit-button">
-          Submit
+          Submit Application
         </button>
       </form>
       {message && (
@@ -186,6 +153,9 @@ const ApplicationForm = () => {
           {message}
         </p>
       )}
+      <button onClick={() => navigate("/")} className="back-button">
+        Back to Home
+      </button>
     </div>
   );
 };
